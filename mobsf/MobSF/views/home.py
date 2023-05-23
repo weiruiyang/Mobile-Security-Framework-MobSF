@@ -132,7 +132,9 @@ class Upload(object):
         file_name = self.file.name
         logger.info('MIME Type: %s FILE: %s', content_type, file_name)
         if self.file_type.is_apk():
-            return scanning.scan_apk()
+            scan_apk = scanning.scan_apk()
+            print('weiry:scanning:upload scan_apk: %s', scan_apk)
+            return scan_apk
         elif self.file_type.is_xapk():
             return scanning.scan_xapk()
         elif self.file_type.is_apks():
