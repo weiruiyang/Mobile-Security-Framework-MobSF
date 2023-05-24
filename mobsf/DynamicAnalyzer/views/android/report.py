@@ -43,6 +43,7 @@ register.filter('key', key)
 
 def view_report(request, checksum, api=False):
     """Dynamic Analysis Report Generation."""
+    logger.error('weiry:view_report:')
     logger.info('Dynamic Analysis Report Generation')
     try:
         droidmon = {}
@@ -113,6 +114,7 @@ def view_report(request, checksum, api=False):
 def view_file(request, api=False):
     """View File."""
     logger.info('Viewing File')
+    logger.error('weiry:view_file:')
     try:
         typ = ''
         rtyp = ''

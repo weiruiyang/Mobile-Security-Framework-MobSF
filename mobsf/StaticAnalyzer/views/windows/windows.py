@@ -56,6 +56,7 @@ config = None
 
 def staticanalyzer_windows(request, api=False):
     """Analyse a windows app."""
+    logger.error('weiry:staticanalyzer_windows:')
     try:
         # Input validation
         logger.info('Windows Static Analysis Started')

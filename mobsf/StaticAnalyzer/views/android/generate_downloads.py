@@ -16,6 +16,7 @@ logger = logging.getLogger(__name__)
 
 def run(request):
     """Generate downloads for apk, jar, aar, java zip and smali zip."""
+    logger.error('weiry:generate_downloads.run:')
     try:
         allowed = ('apk', 'smali', 'java', 'jar', 'aar')
         logger.info('Generating Downloads')

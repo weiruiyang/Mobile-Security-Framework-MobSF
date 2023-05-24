@@ -50,6 +50,7 @@ class Frida:
         if not self.defaults:
             return header
         def_scripts = os.path.join(self.frida_dir, 'default')
+        logger.warning('weiry:get_default_scripts:def_scripts: %s', def_scripts)
         files = glob.glob(def_scripts + '**/*.js', recursive=True)
         for item in files:
             script = Path(item)
@@ -88,8 +89,12 @@ class Frida:
             self.code = ''
         # Load custom code first
         scripts = [self.code]
-        scripts.extend(self.get_default_scripts())
-        scripts.extend(self.get_auxiliary())
+        default_scripts = self.get_default_scripts()
+        logger.warning('weiry:get_script:default_scripts: %s', default_scripts)
+        scripts.extend(default_scripts)
+        get_auxiliary = self.get_auxiliary()
+        logger.warning('weiry:get_script:get_auxiliary: %s', get_auxiliary)
+        scripts.extend(get_auxiliary)
         final = 'setTimeout(function() {{ {} }}, 0)'.format(
             '\n'.join(scripts))
         return final
@@ -144,8 +149,13 @@ class Frida:
             logger.exception('Error Connecting to Frida')
         try:
             if session:
-                script = session.create_script(self.get_script())
-                script.on('message', self.frida_response)
+                get_script = self.get_script()
+                logger.warning('weiry:connect:get_script: %s', get_script)
+                script = session.create_script(get_script)
+                logger.warning('weiry:connect:script: %s', script)
+                response = self.frida_response
+                logger.warning('weiry:connect:response: %s', response)
+                script.on('message', response)
                 script.load()
                 device.resume(pid)
                 sys.stdin.read()

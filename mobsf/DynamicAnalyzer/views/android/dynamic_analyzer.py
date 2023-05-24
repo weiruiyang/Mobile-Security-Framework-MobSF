@@ -41,6 +41,7 @@ logger = logging.getLogger(__name__)
 
 def dynamic_analysis(request, api=False):
     """Android Dynamic Analysis Entry point."""
+    logger.error('weiry:dynamic_analysis:')
     try:
         scan_apps = []
         device_packages = {}
@@ -48,10 +49,12 @@ def dynamic_analysis(request, api=False):
         and_sdk = None
         apks = StaticAnalyzerAndroid.objects.filter(
             APP_TYPE='apk')
+        logger.warning('weiry:dynamic_analysis:apks: %s', apks)
 
         for apk in reversed(apks):
-
+            logger.warning('weiry:dynamic_analysis:apk: %s', apk)
             logcat = Path(settings.UPLD_DIR) / apk.MD5 / 'logcat.txt'
+            logger.warning('weiry:dynamic_analysis:logcat: %s', logcat)
             temp_dict = {
                 'ICON_FOUND': apk.ICON_FOUND,
                 'MD5': apk.MD5,
@@ -64,6 +67,7 @@ def dynamic_analysis(request, api=False):
             scan_apps.append(temp_dict)
         try:
             identifier = get_device()
+            logger.warning('weiry:dynamic_analysis:identifier: %s', identifier)
         except Exception:
             msg = ('Is Android VM running? MobSF cannot'
                    ' find android instance identifier.'
@@ -75,12 +79,17 @@ def dynamic_analysis(request, api=False):
         try:
             if identifier:
                 env = Environment(identifier)
+                logger.warning('weiry:dynamic_analysis:env: %s', env)
                 device_packages = env.get_device_packages()
+                logger.warning('weiry:dynamic_analysis:device_packages: %s', device_packages)
                 pkg_file = Path(settings.DWD_DIR) / 'packages.json'
+                logger.warning('weiry:dynamic_analysis:pkg_file: %s', pkg_file)
                 with pkg_file.open('w', encoding='utf-8') as target:
                     dump(device_packages, target)
                 and_ver = env.get_android_version()
                 and_sdk = env.get_android_sdk()
+                logger.warning('weiry:dynamic_analysis:and_ver: %s', and_ver)
+                logger.warning('weiry:dynamic_analysis:and_sdk: %s', and_sdk)
         except Exception:
             pass
         context = {'apps': scan_apps,
@@ -96,6 +105,7 @@ def dynamic_analysis(request, api=False):
         if api:
             return context
         template = 'dynamic_analysis/dynamic_analysis.html'
+        logger.warning('weiry:dynamic_analysis:context: %s', context)
         return render(request, template, context)
     except Exception as exp:
         logger.exception('Dynamic Analysis')
@@ -104,6 +114,7 @@ def dynamic_analysis(request, api=False):
 
 def dynamic_analyzer(request, checksum, api=False):
     """Android Dynamic Analyzer Environment."""
+    logger.error('weiry:dynamic_analyzer:')
     try:
         identifier = None
         activities = None
@@ -114,6 +125,9 @@ def dynamic_analyzer(request, checksum, api=False):
         else:
             reinstall = request.GET.get('re_install', '1')
             install = request.GET.get('install', '1')
+        logger.warning('weiry:dynamic_analyzer:reinstall: %s', reinstall)
+        logger.warning('weiry:dynamic_analyzer:install: %s', install)
+        logger.warning('weiry:dynamic_analyzer:checksum: %s', checksum)
         if not is_md5(checksum):
             # We need this check since checksum is not validated
             # in REST API
@@ -122,6 +136,7 @@ def dynamic_analyzer(request, checksum, api=False):
                 'Invalid Parameters',
                 api)
         package = get_package_name(checksum)
+        logger.warning('weiry:dynamic_analyzer:package: %s', package)
         if not package:
             return print_n_send_error_response(
                 request,
@@ -130,6 +145,7 @@ def dynamic_analyzer(request, checksum, api=False):
         logger.info('Creating Dynamic Analysis Environment for %s', package)
         try:
             identifier = get_device()
+            logger.warning('weiry:dynamic_analyzer:identifier: %s', identifier)
         except Exception:
             pass
         if not identifier:
@@ -149,6 +165,9 @@ def dynamic_analyzer(request, checksum, api=False):
                 static_android_db.EXPORTED_ACTIVITIES)
             activities = python_list(
                 static_android_db.ACTIVITIES)
+            logger.warning('weiry:dynamic_analyzer:static_android_db: %s', static_android_db)
+            logger.warning('weiry:dynamic_analyzer:exported_activities: %s', exported_activities)
+            logger.warning('weiry:dynamic_analyzer:activities: %s', activities)
         except ObjectDoesNotExist:
             logger.warning(
                 'Failed to get Activities. '
@@ -159,6 +178,7 @@ def dynamic_analyzer(request, checksum, api=False):
             return print_n_send_error_response(request, msg, api)
         version = env.get_android_version()
         logger.info('Android Version identified as %s', version)
+        logger.warning('weiry:dynamic_analyzer:version: %s', version)
         xposed_first_run = False
         if not env.is_mobsfyied(version):
             msg = ('This Android instance is not MobSFyed/Outdated.\n'
@@ -198,6 +218,8 @@ def dynamic_analyzer(request, checksum, api=False):
                 apk_path.as_posix(),
                 package,
                 reinstall)
+            logger.warning('weiry:dynamic_analyzer:status: %s', status)
+            logger.warning('weiry:dynamic_analyzer:output: %s', output)
             if not status:
                 # Unset Proxy
                 env.unset_global_proxy()
@@ -218,6 +240,7 @@ def dynamic_analyzer(request, checksum, api=False):
                    'exported_activities': exported_activities,
                    'title': 'Dynamic Analyzer'}
         template = 'dynamic_analysis/android/dynamic_analyzer.html'
+        logger.warning('weiry:dynamic_analyzer:context: %s', context)
         if api:
             return context
         return render(request, template, context)
@@ -231,6 +254,7 @@ def dynamic_analyzer(request, checksum, api=False):
 
 def httptools_start(request):
     """Start httprools UI."""
+    logger.error('weiry:httptools_start:')
     logger.info('Starting httptools Web UI')
     try:
         httptools_url = get_http_tools_url(request)
@@ -252,6 +276,7 @@ def httptools_start(request):
 
 
 def logcat(request, api=False):
+    logger.error('weiry:logcat:')
     logger.info('Starting Logcat streaming')
     try:
         pkg = request.GET.get('package')
@@ -296,6 +321,7 @@ def logcat(request, api=False):
 
 def trigger_static_analysis(request, checksum):
     """On device APK Static Analysis."""
+    logger.error('weiry:trigger_static_analysis:')
     try:
         identifier = None
         if not is_md5(checksum):

@@ -35,6 +35,7 @@ logger = logging.getLogger(__name__)
 @require_http_methods(['GET'])
 def list_frida_scripts(request, api=False):
     """Get frida scripts from others."""
+    logger.error('weiry:list_frida_scripts:')
     scripts = []
     others = os.path.join(settings.TOOLS_DIR,
                           'frida_scripts',
@@ -51,6 +52,7 @@ def list_frida_scripts(request, api=False):
 @require_http_methods(['POST'])
 def get_runtime_dependencies(request, api=False):
     """Get App runtime dependencies."""
+    logger.error('weiry:get_runtime_dependencies:')
     data = {
         'status': 'failed',
         'message': 'Failed to get runtime dependencies'}
@@ -74,6 +76,7 @@ def get_runtime_dependencies(request, api=False):
 @require_http_methods(['POST'])
 def get_script(request, api=False):
     """Get frida scripts from others."""
+    logger.error('weiry:get_script:')
     data = {'status': 'ok', 'content': ''}
     try:
         scripts = request.POST.getlist('scripts[]')
@@ -100,6 +103,7 @@ def get_script(request, api=False):
 @require_http_methods(['POST'])
 def instrument(request, api=False):
     """Instrument app with frida."""
+    logger.error('weiry:instrument:')
     data = {}
     try:
         logger.info('Starting Instrumentation')
@@ -110,6 +114,13 @@ def instrument(request, api=False):
         # Fill extras
         extras = {}
         class_name = request.POST.get('class_name')
+
+        logger.warning('weiry:instrument:md5_hash: %s', md5_hash)
+        logger.warning('weiry:instrument:default_hooks: %s', default_hooks)
+        logger.warning('weiry:instrument:auxiliary_hooks: %s', auxiliary_hooks)
+        logger.warning('weiry:instrument:code: %s', code)
+        logger.warning('weiry:instrument:class_name: %s', class_name)
+
         if class_name:
             extras['class_name'] = class_name.strip()
         class_search = request.POST.get('class_search')
@@ -121,7 +132,10 @@ def instrument(request, api=False):
         if (is_attack_pattern(default_hooks)
                 or not is_md5(md5_hash)):
             return invalid_params(api)
+
+        logger.warning('weiry:instrument:extras: %s', extras)
         package = get_package_name(md5_hash)
+        logger.warning('weiry:instrument:package: %s', package)
         if not package:
             return invalid_params(api)
         frida_obj = Frida(md5_hash,
@@ -142,6 +156,7 @@ def instrument(request, api=False):
 
 def live_api(request, api=False):
     try:
+        logger.error('weiry:live_api:')
         if api:
             apphash = request.POST['hash']
             stream = True
@@ -182,6 +197,7 @@ def live_api(request, api=False):
 
 def frida_logs(request, api=False):
     try:
+        logger.error('weiry:frida_logs:')
         if api:
             apphash = request.POST['hash']
             stream = True

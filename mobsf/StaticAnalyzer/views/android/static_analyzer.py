@@ -86,6 +86,7 @@ register.filter('android_component', android_component)
 
 def static_analyzer(request, api=False):
     """Do static analysis on an request and save to db."""
+    logger.error('weiry:static_analyzer:')
     try:
         rescan = False
         if api:

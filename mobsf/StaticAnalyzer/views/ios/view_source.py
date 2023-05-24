@@ -46,6 +46,7 @@ def set_ext_api(file_path):
 
 def run(request, api=False):
     """View iOS Files."""
+    logger.error('weiry:io_view_source.run:')
     try:
         logger.info('View iOS Source File')
         exp = 'Error Description'

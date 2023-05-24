@@ -27,6 +27,7 @@ logger = logging.getLogger(__name__)
 
 def run(request, api=False):
     """View the source of a file."""
+    logger.error('weiry:view_source.run:')
     try:
         logger.info('View Java Source File')
         exp = 'Error Description'

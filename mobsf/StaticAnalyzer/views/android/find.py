@@ -20,6 +20,7 @@ logger = logging.getLogger(__name__)
 
 def run(request):
     """Find filename/content in source files (ajax response)."""
+    logger.error('weiry:find.run:')
     try:
         match = re.match('^[0-9a-f]{32}$', request.POST['md5'])
         if not match:

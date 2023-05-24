@@ -19,6 +19,7 @@ logger = logging.getLogger(__name__)
 
 def run(request):
     """View the manifest."""
+    logger.error('weiry:manifest_view.run:')
     try:
         directory = settings.BASE_DIR  # BASE DIR
         md5 = request.GET['md5']  # MD5

@@ -330,6 +330,7 @@ def get_device():
     else:
         dev_id = ''
         out = subprocess.check_output([get_adb(), 'devices']).splitlines()
+        logger.warning('weiry:get_device:out: %s', out)
         if len(out) > 2:
             dev_id = out[1].decode('utf-8').split('\t')[0]
             return dev_id

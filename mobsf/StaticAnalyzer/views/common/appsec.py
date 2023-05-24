@@ -328,6 +328,7 @@ def get_ios_dashboard(context, from_ctx=False):
 
 def appsec_dashboard(request, checksum, api=False):
     """Provide data for appsec dashboard."""
+    logger.error('weiry:appsec_dashboard:')
     try:
         android_static_db = StaticAnalyzerAndroid.objects.filter(
             MD5=checksum)
