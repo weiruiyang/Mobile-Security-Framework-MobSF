@@ -103,10 +103,17 @@ def static_analyzer(request, api=False):
         # Input validation
         app_dic = {}
         match = re.match('^[0-9a-f]{32}$', checksum)
+        logger.warning('weiry:static_analyzer:typ: %s', typ)
+        logger.warning('weiry:static_analyzer:checksum: %s', checksum)
+        logger.warning('weiry:static_analyzer:filename: %s', filename)
+        logger.warning('weiry:static_analyzer:re_scan: %s', re_scan)
+        logger.warning('weiry:static_analyzer:match: %s', match)
+        logger.warning('weiry:static_analyzer:rescan: %s', rescan)
         if (match
                 and filename.lower().endswith(
                     ('.apk', '.xapk', '.zip', '.apks', '.jar', '.aar'))
                 and typ in ['zip', 'apk', 'xapk', 'apks', 'jar', 'aar']):
+            logger.warning('weiry:static_analyzer:is ok')
             app_dic['dir'] = Path(settings.BASE_DIR)  # BASE DIR
             app_dic['app_name'] = filename  # APP ORIGINAL NAME
             app_dic['md5'] = checksum  # MD5
@@ -116,6 +123,7 @@ def static_analyzer(request, api=False):
             app_dic['tools_dir'] = app_dic['dir'] / 'StaticAnalyzer' / 'tools'
             app_dic['tools_dir'] = app_dic['tools_dir'].as_posix()
             logger.info('Starting Analysis on: %s', app_dic['app_name'])
+            logger.warning('weiry:static_analyzer:app_dic1: %s', app_dic)
             if typ == 'xapk':
                 # Handle XAPK
                 # Base APK will have the MD5 of XAPK
@@ -132,10 +140,12 @@ def static_analyzer(request, api=False):
                 app_dic['app_path'] = (
                     app_dic['app_dir'] / app_dic['app_file']).as_posix()
                 app_dic['app_dir'] = app_dic['app_dir'].as_posix() + '/'
+                logger.warning('weiry:static_analyzer:app_dic2: %s', app_dic)
                 # Check if in DB
                 # pylint: disable=E1101
                 db_entry = StaticAnalyzerAndroid.objects.filter(
                     MD5=app_dic['md5'])
+                logger.warning('weiry:static_analyzer:db_entry: %s', db_entry)
                 if db_entry.exists() and not rescan:
                     context = get_context_from_db_entry(db_entry)
                 else:
@@ -147,6 +157,7 @@ def static_analyzer(request, api=False):
                     app_dic['files'] = unzip(
                         app_dic['app_path'], app_dic['app_dir'])
                     logger.info('APK Extracted')
+                    logger.warning('weiry:static_analyzer:app_dic3: %s', app_dic)
                     if not app_dic['files']:
                         # Can't Analyze APK, bail out.
                         return print_n_send_error_response(
@@ -180,6 +191,7 @@ def static_analyzer(request, api=False):
                     app_dic['mani'] = (
                         f'../manifest_view/?md5={app_dic["md5"]}&type=apk')
                     man_data_dic = manifest_data(app_dic['parsed_xml'])
+                    logger.warning('weiry:static_analyzer:man_data_dic: %s', man_data_dic)
                     app_dic['playstore'] = get_app_details(
                         man_data_dic['packagename'])
                     man_an_dic = manifest_analysis(
@@ -189,15 +201,21 @@ def static_analyzer(request, api=False):
                         app_dic['app_dir'],
                     )
                     elf_dict = elf_analysis(app_dic['app_dir'])
+                    logger.warning('weiry:static_analyzer:elf_dict: %s', elf_dict)
                     cert_dic = cert_info(
                         app_dic['app_dir'],
                         app_dic['app_file'],
                         man_data_dic)
+                    logger.warning('weiry:static_analyzer:cert_dic: %s', cert_dic)
+
                     apkid_results = apkid_analysis(app_dic[
                         'app_dir'], app_dic['app_path'], app_dic['app_name'])
+                    logger.warning('weiry:static_analyzer:apkid_results: %s', apkid_results)
+
                     tracker = Trackers.Trackers(
                         app_dic['app_dir'], app_dic['tools_dir'])
                     tracker_res = tracker.get_trackers()
+                    logger.warning('weiry:static_analyzer:tracker_res: %s', tracker_res)
 
                     apk_2_java(app_dic['app_path'], app_dic['app_dir'],
                                app_dic['tools_dir'])
@@ -208,16 +226,19 @@ def static_analyzer(request, api=False):
                         app_dic['app_dir'],
                         'apk',
                         app_dic['manifest_file'])
+                    logger.warning('weiry:static_analyzer:code_an_dic: %s', code_an_dic)
 
                     quark_results = quark_analysis(
                         app_dic['app_dir'],
                         app_dic['app_path'])
+                    logger.warning('weiry:static_analyzer:quark_results: %s', quark_results)
 
                     # Get the strings from android resource and shared objects
                     string_res = strings_from_apk(
                         app_dic['app_file'],
                         app_dic['app_dir'],
                         elf_dict['elf_strings'])
+                    logger.warning('weiry:static_analyzer:string_res: %s', string_res)
                     if string_res:
                         app_dic['strings'] = string_res['strings']
                         app_dic['secrets'] = string_res['secrets']
@@ -231,12 +252,23 @@ def static_analyzer(request, api=False):
                     # Firebase DB Check
                     code_an_dic['firebase'] = firebase_analysis(
                         list(set(code_an_dic['urls_list'])))
+                    logger.warning('weiry:static_analyzer:firebase_analysis: %s', code_an_dic['firebase'])
                     # Domain Extraction and Malware Check
                     logger.info(
                         'Performing Malware Check on extracted Domains')
                     code_an_dic['domains'] = MalwareDomainCheck().scan(
                         list(set(code_an_dic['urls_list'])))
+                    logger.warning('weiry:static_analyzer:domains: %s', code_an_dic['domains'])
                     app_dic['zipped'] = 'apk'
+                    logger.warning('weiry:static_analyzer:app_dic4: %s', app_dic)
+                    logger.warning('weiry:static_analyzer:man_data_dic: %s', man_data_dic)
+                    logger.warning('weiry:static_analyzer:man_an_dic: %s', man_an_dic)
+                    logger.warning('weiry:static_analyzer:code_an_dic: %s', code_an_dic)
+                    logger.warning('weiry:static_analyzer:cert_dic: %s', cert_dic)
+                    logger.warning('weiry:static_analyzer:elf_dict: %s', elf_dict)
+                    logger.warning('weiry:static_analyzer:apkid_results: %s', apkid_results)
+                    logger.warning('weiry:static_analyzer:quark_results: %s', quark_results)
+                    logger.warning('weiry:static_analyzer:tracker_res: %s', tracker_res)
 
                     logger.info('Connecting to Database')
                     try:
@@ -296,6 +328,7 @@ def static_analyzer(request, api=False):
                         app_dic['app_path'],
                         app_dic['md5'])
                 template = 'static_analysis/android_binary_analysis.html'
+                logger.warning('weiry:static_analyzer:context: %s', context)
                 if api:
                     return context
                 else:
@@ -587,6 +620,7 @@ def move_to_parent(inside, app_dir):
 def get_app_name(app_path, app_dir, is_apk):
     """Get app name."""
     if is_apk:
+        logger.warning('weiry:get_app_name:apk: %s', apk)
         a = apk.APK(app_path)
         real_name = a.get_app_name()
         return real_name

@@ -19,8 +19,11 @@ def scan(rule, extensions, paths, ignore_paths=None):
             'show_progress': False}
         scanner = Scanner(options, paths)
         res = scanner.scan()
+        logger.warning('weiry:libsast scan:res: %s', res)
         if res:
-            return format_findings(res['pattern_matcher'], paths[0])
+            findings = format_findings(res['pattern_matcher'], paths[0])
+            logger.warning('weiry:libsast scan:findings: %s', findings)
+            return findings
     except Exception:
         logger.exception('libsast scan')
     return {}
@@ -42,6 +45,7 @@ def niap_scan(rule, extensions, paths, apath, ignore_paths=None):
             'show_progress': False}
         scanner = Scanner(options, paths)
         res = scanner.scan()
+        logger.warning('weiry:libsast niap_scan:res: %s', res)
         if res:
             return res['choice_matcher']
     except Exception:

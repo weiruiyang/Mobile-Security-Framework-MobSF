@@ -912,6 +912,8 @@ def get_manifest_apk(app_path, app_dir, tools_dir):
             # APKTool already created readable XML
             return manifest
         logger.info('Converting AXML to XML')
+        logger.warning('weiry:get_manifest_apk:apktool_path: %s', apktool_path)
+        logger.warning('weiry:get_manifest_apk:output_dir: %s', output_dir)
         subprocess.check_output(args)  # lgtm [py/command-line-injection] md5 hash
         return manifest
     except Exception:

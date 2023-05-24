@@ -45,23 +45,27 @@ def code_analysis(app_dir, typ, manifest_file):
         logger.info('Code Analysis Started on - %s',
                     filename_from_path(src))
         # Code and API Analysis
+        logger.warning('weiry:code_analysis:code_findings =========')
         code_findings = scan(
             code_rules.as_posix(),
             {'.java', '.kt'},
             [src],
             skp)
+        logger.warning('weiry:code_analysis:api_findings =========')
         api_findings = scan(
             api_rules.as_posix(),
             {'.java', '.kt'},
             [src],
             skp)
         # NIAP Scan
+        logger.warning('weiry:code_analysis:niap_findings =========')
         niap_findings = niap_scan(
             niap_rules.as_posix(),
             {'.java', '.xml'},
             [src],
             manifest_file,
             None)
+        logger.warning('weiry:code_analysis:niap_findings : %s', niap_findings)
         # Extract URLs and Emails
         for pfile in Path(src).rglob('*'):
             if (
@@ -90,6 +94,7 @@ def code_analysis(app_dir, typ, manifest_file):
             'urls': url_n_file,
             'emails': email_n_file,
         }
+        logger.warning('weiry:code_analysis:code_an_dic : %s', code_an_dic)
         return code_an_dic
     except Exception:
         logger.exception('Performing Code Analysis')

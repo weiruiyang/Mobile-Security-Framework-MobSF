@@ -45,6 +45,7 @@ def dex_2_smali(app_dir, tools_dir):
                 else:
                     bs_path = os.path.join(tools_dir, 'baksmali-2.5.2.jar')
                 output = os.path.join(app_dir, 'smali_source/')
+                logger.warning('weiry:dex_2_smali:output: %s', output)
                 smali = [
                     find_java_binary(),
                     '-jar',
@@ -71,6 +72,7 @@ def apk_2_java(app_path, app_dir, tools_dir):
         args = []
         output = os.path.join(app_dir, 'java_source/')
         logger.info('Decompiling to Java with jadx')
+        logger.warning('weiry:apk_2_java:output: %s', output)
 
         if os.path.exists(output):
             # ignore WinError3 in Windows
