@@ -72,7 +72,6 @@ def apk_2_java(app_path, app_dir, tools_dir):
         args = []
         output = os.path.join(app_dir, 'java_source/')
         logger.info('Decompiling to Java with jadx')
-        logger.warning('weiry:apk_2_java:output: %s', output)
 
         if os.path.exists(output):
             # ignore WinError3 in Windows
@@ -88,6 +87,10 @@ def apk_2_java(app_path, app_dir, tools_dir):
         # Set execute permission, if JADX is not executable
         if not os.access(jadx, os.X_OK):
             os.chmod(jadx, stat.S_IEXEC)
+
+        logger.warning('weiry:apk_2_java:jadx: %s', jadx)
+        logger.warning('weiry:apk_2_java:output: %s', output)
+        logger.warning('weiry:apk_2_java:app_path: %s', app_path)
         args = [
             jadx,
             '-ds',
