@@ -445,3 +445,13 @@
   pattern: \.SSLSocketFactory
   input_case: exact
   severity: info
+- id: weiry_api_get_device
+  message: 'weiry Get Device ID, IMEI,MEID/ESN etc'
+  type: RegexAndOr
+  pattern:
+    - telephony\.TelephonyManager
+    - - getDeviceId
+      - getImei\(
+      - getMeid\(
+  input_case: exact
+  severity: info
