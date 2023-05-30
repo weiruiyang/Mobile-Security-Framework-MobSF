@@ -1,0 +1,15 @@
+{
+	"crime": "weiry getExternalFilesDir getExternalStorageState",
+	"permission": [],
+	"api": [{
+		"class": "Landroid/content/Context;",
+		"method": "getExternalFilesDir",
+		"descriptor": "()Ljava/lang/String;"
+	}, {
+		"class": "Landroid/os/Environment;",
+		"method": "getExternalStorageState",
+		"descriptor": "(Ljava/lang/String;)Ljava/io/File;"
+	}],
+	"score": 4,
+	"label": [ "Storage"]
+}
