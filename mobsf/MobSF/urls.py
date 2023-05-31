@@ -171,7 +171,7 @@ if settings.API_ONLY == '0':
         re_path(r'^dynamic_view_file/$', report.view_file),
         # Test
         re_path(r'^tests/$', tests.start_test),
-        re_path(r'^test/post/$', test.posttest),
+        re_path(r'^test/post/$', tests.posttest),
     ])
 
 utils.print_version()

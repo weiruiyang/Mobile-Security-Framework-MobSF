@@ -4,6 +4,7 @@ import logging
 import os
 import platform
 
+from django.shortcuts import render
 from django.conf import settings
 from django.http import HttpResponse
 from django.test import Client, TestCase
@@ -547,6 +548,12 @@ def start_test(request):
                         content_type='application/json; charset=utf-8',
                         status=resp_code)
 
+def posttest(request):
+    logger.warning('weiry:posttest:posttest')
+    ctx ={}
+    if request.POST:
+        ctx['rlt'] = request.POST['q']
+    return render(request, "test/post.html", ctx)
 
 class StaticAnalyzerAndAPI(TestCase):
     """Unit Tests."""
