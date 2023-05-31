@@ -6,9 +6,9 @@
 		"method": "openFileOutput",
 		"descriptor": "(Ljava/lang/String;I)Ljava/io/FileOutputStream;"
 	}, {
-		"class": "Ljava/lang/String;",
-		"method": "equals",
-		"descriptor": "(Ljava/lang/Object;)Z"
+		"class": "Ljava/io/FileOutputStream;",
+		"method": "close",
+		"descriptor": "()V"
 	}],
 	"score": 1,
 	"label": ["storage"]

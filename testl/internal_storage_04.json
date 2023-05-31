@@ -19,11 +19,11 @@
         }
       ]
     },
-    {
-      "class": "Ljava/lang/String;",
-      "method": "equals",
-      "descriptor": "(Ljava/lang/Object;)Z"
-    }
+     {
+		"class": "Ljava/io/FileOutputStream;",
+		"method": "close",
+		"descriptor": "()V"
+	}
   ],
   "score": 1,
   "label": [
