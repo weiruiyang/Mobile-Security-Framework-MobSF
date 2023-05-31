@@ -455,13 +455,19 @@
       - getMeid\(
   input_case: exact
   severity: info
-- id: weiry_api_local_file_io
-  message: weiry Internal Storage
+- id: weiry_api_internal_storage_1
+  message: weiry Internal Storage info
+  type: RegexOr
+  pattern:
+    - Environment\.getExternalStorageState\(\)
+  input_case: exact
+  severity: info
+- id: weiry_api_internal_storage_2
+  message: weiry Internal Storage high
   type: RegexOr
   pattern:
     - openFileOutput\(.+\s*,\s*[1,2]\s*\)
     - getSharedPreferences\(.+\s*,\s*[1,2]\s*\)
     - openOrCreateDatabase\(.+\s*,\s*[1,2]\s*\)
-    - Environment\.getExternalStorageState\(\)
   input_case: exact
-  severity: info
+  severity: high
