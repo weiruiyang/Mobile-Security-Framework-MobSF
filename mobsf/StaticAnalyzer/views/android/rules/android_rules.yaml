@@ -747,10 +747,11 @@
   input_case: exact
 - id: weiry_android_read_write_external_high
   message: >-
-    weiry App can read/write to External Storage. Any App can read data written to
-    External Storage.
+    weiry The file is World Readable and Writable. Any App can read/write to the file.
   type: RegexOr
   pattern:
+    - Context\.MODE_WORLD_WRITEABLE
+    - Context\.MODE_WORLD_READABLE
     - openFileOutput\(.+\s*,\s*[1,2]\s*\)
     - getSharedPreferences\(.+\s*,\s*[1,2]\s*\)
     - openOrCreateDatabase\(.+\s*,\s*[1,2]\s*\)
