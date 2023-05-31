@@ -455,3 +455,13 @@
       - getMeid\(
   input_case: exact
   severity: info
+- id: weiry_api_local_file_io
+  message: Internal Storage
+  type: RegexOr
+  pattern:
+    - openFileOutput\(*+,2\)
+    - getSharedPreferences\(*+,2\)
+    - openOrCreateDatabase\(*+,2\)
+    - getExternalStorageState\(\)
+  input_case: exact
+  severity: info
