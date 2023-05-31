@@ -1,0 +1,15 @@
+{
+	"crime": "weiry03 Internal Storage 有调用 openFileOutput",
+	"permission": [],
+	"api": [{
+		"class": "Landroid/content/Context;",
+		"method": "openFileOutput",
+		"descriptor": "(Ljava/lang/String;I)Ljava/io/FileOutputStream;"
+	}, {
+		"class": "Ljava/lang/String;",
+		"method": "equals",
+		"descriptor": "(Ljava/lang/Object;)Z"
+	}],
+	"score": 1,
+	"label": ["storage"]
+}

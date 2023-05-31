@@ -1,0 +1,15 @@
+{
+	"crime": "weiry02 Internal Storage 有调用 getExternalFilesDir",
+	"permission": [],
+	"api": [{
+		"class": "Landroid/content/Context;",
+		"method": "getExternalFilesDir",
+		"descriptor": "(Ljava/lang/String;)Ljava/io/File;"
+	}, {
+		"class": "Ljava/lang/String;",
+		"method": "equals",
+		"descriptor": "(Ljava/lang/Object;)Z"
+	}],
+	"score": 1,
+	"label": ["storage"]
+}

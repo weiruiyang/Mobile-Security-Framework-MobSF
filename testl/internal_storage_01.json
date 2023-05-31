@@ -1,0 +1,15 @@
+{
+	"crime": "weiry01 Internal Storage 有调用 getExternalStorageState",
+	"permission": [],
+	"api": [{
+		"class": "Landroid/os/Environment;",
+		"method": "getExternalStorageState",
+		"descriptor": "()Ljava/lang/String;"
+	}, {
+		"class": "Ljava/lang/String;",
+		"method": "equals",
+		"descriptor": "(Ljava/lang/Object;)Z"
+	}],
+	"score": 4,
+	"label": ["storage"]
+}
