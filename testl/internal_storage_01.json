@@ -1,5 +1,5 @@
 {
-	"crime": "weiry01 Internal Storage 有调用 getExternalStorageState",
+	"crime": "weiry01 Internal Storage have getExternalStorageState",
 	"permission": [],
 	"api": [{
 		"class": "Landroid/os/Environment;",
