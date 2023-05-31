@@ -459,9 +459,9 @@
   message: weiry Internal Storage
   type: RegexOr
   pattern:
-    - openFileOutput\(.*,2\)
-    - getSharedPreferences\(.*,2\)
-    - openOrCreateDatabase\(.*,2\)
+    - openFileOutput\(.+\s*,\s*2\s*\)
+    - getSharedPreferences\(.+\s*,\s*2\s*\)
+    - openOrCreateDatabase\(.+\s*,\s*2\s*\)
     - Environment\.getExternalStorageState\(\)
   input_case: exact
   severity: info
