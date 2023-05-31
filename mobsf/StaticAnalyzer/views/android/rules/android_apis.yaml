@@ -456,12 +456,12 @@
   input_case: exact
   severity: info
 - id: weiry_api_local_file_io
-  message: Internal Storage
+  message: weiry Internal Storage
   type: RegexOr
   pattern:
-    - openFileOutput\(*+,2\)
-    - getSharedPreferences\(*+,2\)
-    - openOrCreateDatabase\(*+,2\)
-    - getExternalStorageState\(\)
+    - openFileOutput\(.*,2\)
+    - getSharedPreferences\(.*,2\)
+    - openOrCreateDatabase\(.*,2\)
+    - Environment\.getExternalStorageState\(\)
   input_case: exact
   severity: info
