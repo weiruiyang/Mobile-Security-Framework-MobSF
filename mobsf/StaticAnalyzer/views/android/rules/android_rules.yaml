@@ -735,3 +735,24 @@
     masvs: storage-14
     owasp-mobile: m9
     ref: https://github.com/MobSF/owasp-mstg/blob/master/Document/0x05d-Testing-Data-Storage.md#checking-memory-for-sensitive-data-mstg-storage-10
+- id: weiry_android_read_write_external_warning
+  message: >-
+    weiry App can read/write to External Storage. Any App can read data written to
+    External Storage.
+  type: RegexOr
+  pattern:
+    - Environment\.getExternalStorageState\(\)
+    - \.getExternalFilesDir\(
+  severity: warning
+  input_case: exact
+- id: weiry_android_read_write_external_high
+  message: >-
+    weiry App can read/write to External Storage. Any App can read data written to
+    External Storage.
+  type: RegexOr
+  pattern:
+    - openFileOutput\(.+\s*,\s*[1,2]\s*\)
+    - getSharedPreferences\(.+\s*,\s*[1,2]\s*\)
+    - openOrCreateDatabase\(.+\s*,\s*[1,2]\s*\)
+  severity: high
+  input_case: exact
