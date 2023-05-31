@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>人工通道</title>
+</head>
+<body>
+    <form action="/test/post" method="post">
+        {% csrf_token %}
+        <input type="text" name="q">
+        <input type="submit" value="发送">
+    </form>
+
+    <p>{{ rlt }}</p>
+</body>
+</html>

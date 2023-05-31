@@ -9,6 +9,7 @@ from mobsf.DynamicAnalyzer.views.android import (
 )
 from mobsf.MobSF import utils
 from mobsf.MobSF.views import home
+from mobsf.MobSF.views.test import test
 from mobsf.MobSF.views.api import api_static_analysis as api_sz
 from mobsf.MobSF.views.api import api_dynamic_analysis as api_dz
 from mobsf.StaticAnalyzer import tests
@@ -170,6 +171,7 @@ if settings.API_ONLY == '0':
         re_path(r'^dynamic_view_file/$', report.view_file),
         # Test
         re_path(r'^tests/$', tests.start_test),
+        re_path(r'^test/post/$', test.posttest),
     ])
 
 utils.print_version()
