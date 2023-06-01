@@ -267,6 +267,13 @@ def manifest_analysis(mfxml, man_data_dic, src_type, app_dir):
         granturipermissions = mfxml.getElementsByTagName(
             'grant-uri-permission')
         permissions = mfxml.getElementsByTagName('permission')
+        logger.warning('weiry:manifest_analysis:exp_count: %s', exp_count)
+        logger.warning('weiry:manifest_analysis:applications: %s', applications)
+        logger.warning('weiry:manifest_analysis:data_tag: %s', data_tag)
+        logger.warning('weiry:manifest_analysis:intents: %s', intents)
+        logger.warning('weiry:manifest_analysis:actions: %s', actions)
+        logger.warning('weiry:manifest_analysis:granturipermissions: %s', granturipermissions)
+        logger.warning('weiry:manifest_analysis:permissions: %s', permissions)
         ret_value = []
         ret_list = []
         exported = []
