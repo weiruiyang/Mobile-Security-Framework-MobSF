@@ -722,11 +722,15 @@
     ref: https://github.com/MobSF/owasp-mstg/blob/master/Document/0x05j-Testing-Resiliency-Against-Reverse-Engineering.md#testing-root-detection-mstg-resilience-1
 - id: android_hardcoded
   message: >-
-    Files may contain hardcoded sensitive information like usernames,
-    passwords, keys etc.
+    weiry Files may contain hardcoded sensitive information like usernames,
+    passwords, phone number, email etc.
   input_case: lower
   pattern: >-
-    (password\s*=\s*[\'|\"].+[\'|\"]\s{0,5})|(pass\s*=\s*[\'|\"].+[\'|\"]\s{0,5})|(username\s*=\s*[\'|\"].+[\'|\"]\s{0,5})|(secret\s*=\s*[\'|\"].+[\'|\"]\s{0,5})|(key\s*=\s*[\'|\"].+[\'|\"]\s{0,5})
+    (\s+password\s*=\s*\"[^\"]+\"\s{0,5})|(\s+password\s*=\s*\'[^\']+\'\s{0,5})|
+    (\s+username\s*=\s*\"[^\"]+\"\s{0,5})|(\s+username\s*=\s*\'[^\']+\'\s{0,5})|
+    (\s+secret\s*=\s*\"[^\"]+\"\s{0,5})|(\s+secret\s*=\s*\'[^\']+\'\s{0,5})|
+    ([\w.-]{1,20}@[\w-]{1,20}\.[\w]{2,10})|
+    (\"\s*\+?(86)?1[3-9]\d{9}\s*\")
   severity: warning
   type: Regex
   metadata:
@@ -755,5 +759,27 @@
     - openFileOutput\(.+\s*,\s*[1,2]\s*\)
     - getSharedPreferences\(.+\s*,\s*[1,2]\s*\)
     - openOrCreateDatabase\(.+\s*,\s*[1,2]\s*\)
+  severity: high
+  input_case: exact
+- id: weiry_rsa
+  message: >-
+    weiry This App uses RSA Crypto without OAEP padding. The purpose of the padding
+    scheme is to prevent a number of attacks on RSA that only work when the
+    encryption is performed without padding.
+  type: RegexOr
+  pattern:
+    - Cipher\.getInstance\(\s*"RSA"\s*\)
+    - Cipher\.getInstance\(\s*"RSA\/.+\/PKCS1Padding"\s*\)
+    - Cipher\.getInstance\(\s*"RSA\/.+\/NoPadding"\s*\)
+    - Cipher\.getInstance\(\s*"RSA\/.+\/SSL3Padding"\s*\)
+  severity: high
+  input_case: exact
+- id: weiry_rsa_sise
+  message: >-
+    weiry This App uses RSA initialize sise < 2048.
+  type: RegexAnd
+  pattern:
+    - KeyPairGenerator.getInstance\("RSA"
+    - \.initialize\([0-2047],
   severity: high
   input_case: exact
