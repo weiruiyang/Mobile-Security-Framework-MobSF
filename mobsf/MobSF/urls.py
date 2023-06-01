@@ -9,7 +9,6 @@ from mobsf.DynamicAnalyzer.views.android import (
 )
 from mobsf.MobSF import utils
 from mobsf.MobSF.views import home
-from mobsf.MobSF.views.test import test
 from mobsf.MobSF.views.api import api_static_analysis as api_sz
 from mobsf.MobSF.views.api import api_dynamic_analysis as api_dz
 from mobsf.StaticAnalyzer import tests
