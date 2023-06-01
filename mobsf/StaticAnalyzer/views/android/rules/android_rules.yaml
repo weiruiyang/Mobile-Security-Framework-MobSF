@@ -725,7 +725,7 @@
     weiry Files may contain hardcoded sensitive information like usernames,
     passwords, phone number, email etc.
   input_case: lower
-  pattern: >-
+  pattern:
     - (\s+password\s*=\s*\"[^\"]+\"\s{0,5})|(\s+password\s*=\s*\'[^\']+\'\s{0,5})
     - (\s+username\s*=\s*\"[^\"]+\"\s{0,5})|(\s+username\s*=\s*\'[^\']+\'\s{0,5})
     - (\s+secret\s*=\s*\"[^\"]+\"\s{0,5})|(\s+secret\s*=\s*\'[^\']+\'\s{0,5})
