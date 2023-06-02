@@ -798,7 +798,7 @@
   type: RegexAnd
   pattern:
     - KeyPairGenerator\.getInstance\(\s*"RSA"
-    - \.initialize\(\s*(0|[1-9]\d{0,2}|1\d{3}|20[0-3]\d|204[0-7])\s*,
+    - \.initialize\(\s*(0|[1-9]\d{0,2}|1\d{3}|20[0-3]\d|204[0-7])\s*(,|\))
   severity: high
   input_case: exact
   metadata:
