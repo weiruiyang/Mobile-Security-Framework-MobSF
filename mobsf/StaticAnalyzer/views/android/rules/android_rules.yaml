@@ -797,8 +797,8 @@
     weiry This App uses RSA initialize sise < 2048.
   type: RegexAnd
   pattern:
-    - KeyPairGenerator.getInstance\("RSA"
-    - \.initialize\([0-2047],
+    - KeyPairGenerator.getInstance\(\s*"RSA"
+    - \.initialize\(\s*[0-2047]\s*,
   severity: high
   input_case: exact
   metadata:
