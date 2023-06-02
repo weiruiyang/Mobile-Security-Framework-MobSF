@@ -749,6 +749,12 @@
     - \.getExternalFilesDir\(
   severity: warning
   input_case: exact
+  metadata:
+    cvss: 7.4
+    cwe: cwe-312
+    masvs: storage-14
+    owasp-mobile: m9
+    ref: https://github.com/MobSF/owasp-mstg/blob/master/Document/0x05d-Testing-Data-Storage.md#checking-memory-for-sensitive-data-mstg-storage-10
 - id: weiry_android_read_write_external_high
   message: >-
     weiry The file is World Readable and Writable. Any App can read/write to the file.
@@ -761,6 +767,12 @@
     - openOrCreateDatabase\(.+\s*,\s*[1,2]\s*\)
   severity: high
   input_case: exact
+  metadata:
+    cvss: 7.4
+    cwe: cwe-312
+    masvs: storage-14
+    owasp-mobile: m9
+    ref: https://github.com/MobSF/owasp-mstg/blob/master/Document/0x05d-Testing-Data-Storage.md#checking-memory-for-sensitive-data-mstg-storage-10
 - id: weiry_rsa
   message: >-
     weiry This App uses RSA Crypto without OAEP padding. The purpose of the padding
@@ -774,6 +786,12 @@
     - Cipher\.getInstance\(\s*"RSA\/.+\/SSL3Padding"\s*\)
   severity: high
   input_case: exact
+  metadata:
+    cvss: 7.4
+    cwe: cwe-312
+    masvs: storage-14
+    owasp-mobile: m9
+    ref: https://github.com/MobSF/owasp-mstg/blob/master/Document/0x05d-Testing-Data-Storage.md#checking-memory-for-sensitive-data-mstg-storage-10
 - id: weiry_rsa_sise
   message: >-
     weiry This App uses RSA initialize sise < 2048.
@@ -783,3 +801,9 @@
     - \.initialize\([0-2047],
   severity: high
   input_case: exact
+  metadata:
+    cvss: 7.4
+    cwe: cwe-312
+    masvs: storage-14
+    owasp-mobile: m9
+    ref: https://github.com/MobSF/owasp-mstg/blob/master/Document/0x05d-Testing-Data-Storage.md#checking-memory-for-sensitive-data-mstg-storage-10
