@@ -884,7 +884,7 @@
     weiry Android-gif-Drawable < 1.1.17.
   type: RegexAnd
   pattern:
-   - VERSION_NAME\s*=\s*\"(?:0|[1-9]\d*)(?:\.(?:0|[1-9]\d*)){0,2}<1\.1\.17\"
+   - VERSION_NAME\s*=\s*\"1\.[0-1]\.([0-9]|1[0-6])\"
    - package\s+pl\.droidsonroids\.gif\s*;\s*
    - public\s+final\s+class\s+BuildConfig\s*{
    - APPLICATION_ID\s*=\s*\"pl\.droidsonroids\.gif\";
