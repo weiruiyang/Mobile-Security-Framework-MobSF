@@ -51,6 +51,7 @@ def code_analysis(app_dir, typ, manifest_file):
             {'.java', '.kt'},
             [src],
             skp)
+        logger.warning('weiry:code_analysis:code_findings: %s', code_findings)
         logger.warning('weiry:code_analysis:api_findings =========')
         api_findings = scan(
             api_rules.as_posix(),
