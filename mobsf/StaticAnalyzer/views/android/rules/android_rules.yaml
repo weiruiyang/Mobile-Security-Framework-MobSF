@@ -868,9 +868,9 @@
   type: RegexAnd
   pattern:
     - android\.webkit\.WebView
-    - ^(removeJavascriptInterface\(\s*\"accessibilityTraversal\"\s*\))
-    - ^(removeJavascriptInterface\(\s*\"accessibility\"\s*\))
-    - ^(removeJavascriptInterface\(\s*\"searchBoxJavaBridge_\"\s*\))
+    - (?!removeJavascriptInterface\(\s*\"accessibilityTraversal\"\s*\))
+    - (?!removeJavascriptInterface\(\s*\"accessibility\"\s*\))
+    - (?!removeJavascriptInterface\(\s*\"searchBoxJavaBridge_\"\s*\))
   severity: warning
   input_case: exact
   metadata:
