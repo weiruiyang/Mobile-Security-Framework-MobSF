@@ -23,6 +23,7 @@ def code_analysis(app_dir, typ, manifest_file):
     try:
         root = Path(settings.BASE_DIR) / 'StaticAnalyzer' / 'views'
         code_rules = root / 'android' / 'rules' / 'android_rules.yaml'
+        code_rules_webview_remove_javascript_interface = root / 'android' / 'rules' / 'android_rules_webview_remove_javascript_interface.yaml'
         api_rules = root / 'android' / 'rules' / 'android_apis.yaml'
         niap_rules = root / 'android' / 'rules' / 'android_niap.yaml'
         code_findings = {}
@@ -51,6 +52,23 @@ def code_analysis(app_dir, typ, manifest_file):
             {'.java', '.kt'},
             [src],
             skp)
+
+        code_findings_webview_remove_javascript_interface = scan(
+            code_rules_webview_remove_javascript_interface.as_posix(),
+            {'.java', '.kt'},
+            [src],
+            skp)
+
+        logger.warning('weiry:code_analysis:code_findings_webview_remove_javascript_interface: %s', code_findings_webview_remove_javascript_interface)
+        if code_findings_webview_remove_javascript_interface['android_webview_remove_javascript_interface']:
+            if code_findings_webview_remove_javascript_interface['android_webview_accessibilitytraversal'] \
+                    and code_findings_webview_remove_javascript_interface['android_webview_accessibility'] \
+                    and code_findings_webview_remove_javascript_interface['android_webview_searchboxjavabridge']:
+                pass
+            else:
+                code_findings['android_webview_remove_javascript_interface'] = code_findings_webview_remove_javascript_interface['android_webview_remove_javascript_interface']
+
+
         logger.warning('weiry:code_analysis:code_findings: %s', code_findings)
         logger.warning('weiry:code_analysis:api_findings =========')
         api_findings = scan(
