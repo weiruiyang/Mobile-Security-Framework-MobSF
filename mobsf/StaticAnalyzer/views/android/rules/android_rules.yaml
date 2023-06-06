@@ -149,7 +149,7 @@
   message: >-
     Insecure WebView Implementation. Execution of user controlled code in
     WebView is a critical Security Hole.
-  type: RegexAnd
+  type: RegexOr
   pattern:
     - setJavaScriptEnabled\(true\)
     - addJavascriptInterface\(
@@ -807,3 +807,133 @@
     masvs: storage-14
     owasp-mobile: m9
     ref: https://github.com/MobSF/owasp-mstg/blob/master/Document/0x05d-Testing-Data-Storage.md#checking-memory-for-sensitive-data-mstg-storage-10
+- id: android_webview_from_file_urls
+  message: >-
+    weiry Insecure WebView Implementation. There is a risk that the application can use JavaScript to access malicious website links.
+  type: RegexOr
+  pattern:
+    - setAllowFileAccessFromFileURLs\(true\)
+    - setAllowUniversalAccessFromFileURLs\(true\)
+    - setAllowFileAccess\(true\)
+  severity: warning
+  input_case: exact
+  metadata:
+    cvss: 8.8
+    cwe: cwe-749
+    owasp-mobile: m1
+    masvs: platform-7
+    ref: https://github.com/MobSF/owasp-mstg/blob/master/Document/0x05h-Testing-Platform-Interaction.md#testing-javascript-execution-in-webviews-mstg-platform-5
+- id: android_webview_searchboxjavabridge
+  message: >-
+    weiry Security WebView Implementation.
+  type: Regex
+  pattern: removeJavascriptInterface\(\s*\"searchBoxJavaBridge_\"\s*\)
+  severity: good
+  input_case: exact
+  metadata:
+    cvss: 8.8
+    cwe: cwe-749
+    owasp-mobile: m1
+    masvs: platform-7
+    ref: https://github.com/MobSF/owasp-mstg/blob/master/Document/0x05h-Testing-Platform-Interaction.md#testing-javascript-execution-in-webviews-mstg-platform-5
+- id: android_webview_accessibility
+  message: >-
+    weiry Security WebView Implementation.
+  type: Regex
+  pattern: removeJavascriptInterface\(\s*\"accessibility\"\s*\)
+  severity: good
+  input_case: exact
+  metadata:
+    cvss: 8.8
+    cwe: cwe-749
+    owasp-mobile: m1
+    masvs: platform-7
+    ref: https://github.com/MobSF/owasp-mstg/blob/master/Document/0x05h-Testing-Platform-Interaction.md#testing-javascript-execution-in-webviews-mstg-platform-5
+- id: android_webview_accessibilitytraversal
+  message: >-
+    weiry Security WebView Implementation.
+  type: Regex
+  pattern: removeJavascriptInterface\(\s*\"accessibilityTraversal\"\s*\)
+  severity: good
+  input_case: exact
+  metadata:
+    cvss: 8.8
+    cwe: cwe-749
+    owasp-mobile: m1
+    masvs: platform-7
+    ref: https://github.com/MobSF/owasp-mstg/blob/master/Document/0x05h-Testing-Platform-Interaction.md#testing-javascript-execution-in-webviews-mstg-platform-5
+- id: android_webview_remove_javascript_interface
+  message: >-
+    weiry Insecure WebView Implementation. SearchBoxJavaBridge_ Accessibility , AccessibilityTraversal interfaces Calling the  not removed.
+  type: Regex
+  pattern: WebView
+  severity: warning
+  input_case: exact
+  metadata:
+    cvss: 8.8
+    cwe: cwe-749
+    owasp-mobile: m1
+    masvs: platform-7
+    ref: https://github.com/MobSF/owasp-mstg/blob/master/Document/0x05h-Testing-Platform-Interaction.md#testing-javascript-execution-in-webviews-mstg-platform-5
+- id: android_android_gif_drawable
+  message: >-
+    weiry Android-gif-Drawable < 1.1.17.
+  type: RegexAnd
+  pattern:
+   - VERSION_NAME\s*=\s*\"(?:0|[1-9]\d*)(?:\.(?:0|[1-9]\d*)){0,2}<1\.1\.17\"
+   - package\s+pl\.droidsonroids\.gif\s*;\s*
+   - public\s+final\s+class\s+BuildConfig\s*{
+   - APPLICATION_ID\s*=\s*\"pl\.droidsonroids\.gif\";
+  severity: warning
+  input_case: exact
+  metadata:
+    cvss: 8.8
+    cwe: cwe-749
+    owasp-mobile: m1
+    masvs: platform-7
+    ref: https://github.com/MobSF/owasp-mstg/blob/master/Document/0x05h-Testing-Platform-Interaction.md#testing-javascript-execution-in-webviews-mstg-platform-5
+- id: android_dynamic_dexloading
+  message: >-
+    weiry Dynamic Class and Dexloading
+  type: RegexOr
+  pattern:
+    - dalvik\.system\.DexClassLoader
+    - java\.security\.ClassLoader
+    - java\.net\.URLClassLoader
+    - java\.security\.SecureClassLoader
+  severity: warning
+  input_case: exact
+  metadata:
+    cvss: 8.8
+    cwe: cwe-749
+    owasp-mobile: m1
+    masvs: platform-7
+    ref: https://github.com/MobSF/owasp-mstg/blob/master/Document/0x05h-Testing-Platform-Interaction.md#testing-javascript-execution-in-webviews-mstg-platform-5
+- id: android_random
+  message: >-
+    weiry Using Random is not safe.
+  type: Regex
+  pattern: \s+new\s+Random\(\)
+  severity: warning
+  input_case: exact
+  metadata:
+    cvss: 8.8
+    cwe: cwe-749
+    owasp-mobile: m1
+    masvs: platform-7
+    ref: https://github.com/MobSF/owasp-mstg/blob/master/Document/0x05h-Testing-Platform-Interaction.md#testing-javascript-execution-in-webviews-mstg-platform-5
+- id: android_secure_random
+  message: >-
+    weiry It's not safe random
+  type: RegexAnd
+  pattern:
+    - (\s+|\()\s*SecureRandom\s+
+    - \.setSeed\(
+  severity: warning
+  input_case: exact
+  metadata:
+    cvss: 8.8
+    cwe: cwe-749
+    owasp-mobile: m1
+    masvs: platform-7
+    ref: https://github.com/MobSF/owasp-mstg/blob/master/Document/0x05h-Testing-Platform-Interaction.md#testing-javascript-execution-in-webviews-mstg-platform-5
