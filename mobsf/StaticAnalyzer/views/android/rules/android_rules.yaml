@@ -944,3 +944,31 @@
     owasp-mobile: m1
     masvs: platform-7
     ref: https://github.com/MobSF/owasp-mstg/blob/master/Document/0x05h-Testing-Platform-Interaction.md#testing-javascript-execution-in-webviews-mstg-platform-5
+- id: android_send_broadcast
+  message: >-
+    weiry No permissions are set for sending broadcasts
+  type: Regex
+  pattern: \.sendBroadcast\((?!\w+(,\w+){1,}\);
+  severity: warning
+  input_case: exact
+  metadata:
+    cvss: 8.8
+    cwe: cwe-749
+    owasp-mobile: m1
+    masvs: platform-7
+    ref: https://github.com/MobSF/owasp-mstg/blob/master/Document/0x05h-Testing-Platform-Interaction.md#testing-javascript-execution-in-webviews-mstg-platform-5
+- id: android_broadcast_registerReceiver
+  message: >-
+    weiry There are no set permissions for dynamically registered broadcasts
+  type: Regex
+  pattern: \.registerReceiver\((?!\w+(,\w+){3,}\);
+  severity: warning
+  input_case: exact
+  metadata:
+    cvss: 8.8
+    cwe: cwe-749
+    owasp-mobile: m1
+    masvs: platform-7
+    ref: https://github.com/MobSF/owasp-mstg/blob/master/Document/0x05h-Testing-Platform-Interaction.md#testing-javascript-execution-in-webviews-mstg-platform-5
+
+
