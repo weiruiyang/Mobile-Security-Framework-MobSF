@@ -24,14 +24,31 @@
     masvs: storage-7
 - id: android_insecure_ssl
   message: >-
-    Insecure Implementation of SSL. Trusting all the certificates or accepting
+    weiry Insecure Implementation of SSL. Trusting all the certificates or accepting
     self signed certificates is a critical Security Hole. This application is
     vulnerable to MITM attacks
   type: RegexAnd
   pattern:
     - javax\.net\.ssl
     - >-
-      TrustAllSSLSocket-Factory|AllTrustSSLSocketFactory|NonValidatingSSLSocketFactory|net\.SSLCertificateSocketFactory|ALLOW_ALL_HOSTNAME_VERIFIER|\.setDefaultHostnameVerifier\(|NullHostnameVerifier\(
+      TrustAllSSLSocket-Factory|AllTrustSSLSocketFactory|NonValidatingSSLSocketFactory|net\.SSLCertificateSocketFactory|ALLOW_ALL_HOSTNAME_VERIFIER|\.setDefaultHostnameVerifier\(|NullHostnameVerifier\(|AllowAllHostnameVerifier\(|\.setHostnameVerifier\(null
+  severity: high
+  input_case: exact
+  metadata:
+    cvss: 7.4
+    cwe: cwe-295
+    owasp-mobile: m3
+    masvs: network-3
+    ref: https://github.com/MobSF/owasp-mstg/blob/master/Document/0x05g-Testing-Network-Communication.md#android-network-apis
+- id: android_insecure_ssl_sethostnameverifier
+  message: >-
+    weiry Insecure Implementation of SSL. Trusting all the certificates or accepting
+    self signed certificates is a critical Security Hole. This application is
+    vulnerable to MITM attacks. Please set setHostnameVerifier
+  type: RegexAnd
+  pattern:
+    - javax\.net\.ssl\.HttpsURLConnection
+    - (?!\.setHostnameVerifier\()
   severity: high
   input_case: exact
   metadata:
@@ -823,6 +840,22 @@
     owasp-mobile: m1
     masvs: platform-7
     ref: https://github.com/MobSF/owasp-mstg/blob/master/Document/0x05h-Testing-Platform-Interaction.md#testing-javascript-execution-in-webviews-mstg-platform-5
+- id: android_webview_http_auth
+  message: >-
+    weiry HTTP authentication is not a secure way of authentication.
+  type: RegexAnd
+  pattern:
+    - WebView
+    - onReceivedHttpAuthRequest\(
+  severity: warning
+  input_case: exact
+  metadata:
+    cvss: 8.8
+    cwe: cwe-749
+    owasp-mobile: m1
+    masvs: platform-7
+    ref: https://github.com/MobSF/owasp-mstg/blob/master/Document/0x05h-Testing-Platform-Interaction.md#testing-javascript-execution-in-webviews-mstg-platform-5
+
 - id: android_android_gif_drawable
   message: >-
     weiry Android-gif-Drawable < 1.1.17.
@@ -877,6 +910,32 @@
   pattern:
     - SecureRandom\s+
     - \.setSeed\(
+  severity: warning
+  input_case: exact
+  metadata:
+    cvss: 8.8
+    cwe: cwe-749
+    owasp-mobile: m1
+    masvs: platform-7
+    ref: https://github.com/MobSF/owasp-mstg/blob/master/Document/0x05h-Testing-Platform-Interaction.md#testing-javascript-execution-in-webviews-mstg-platform-5
+- id: android_http
+  message: >-
+    weiry Using the HTTP protocol
+  type: Regex
+  pattern: http://[\w().=/;,#:@?&~*+!$%\'{}-]+
+  severity: warning
+  input_case: exact
+  metadata:
+    cvss: 8.8
+    cwe: cwe-749
+    owasp-mobile: m1
+    masvs: platform-7
+    ref: https://github.com/MobSF/owasp-mstg/blob/master/Document/0x05h-Testing-Platform-Interaction.md#testing-javascript-execution-in-webviews-mstg-platform-5
+- id: android_http_https
+  message: >-
+    weiry Possibly hard-coded urls
+  type: Regex
+  pattern: ?:https?://[\w().=/;,#:@?&~*+!$%\'{}-]+
   severity: warning
   input_case: exact
   metadata:
