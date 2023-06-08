@@ -48,6 +48,24 @@ def get_hardcoded_cert_keystore(files):
         return findings
     except Exception:
         logger.exception('Getting Hardcoded Certificates/Keystores')
+def get_files_web_h5(files):
+    """Returns the hardcoded certificate keystore."""
+    try:
+        logger.info('Getting Files web')
+        findings = []
+        webfiles = []
+        for file_name in files:
+            if '.' not in file_name:
+                continue
+            ext = file_name.split('.')[-1]
+            if re.search('js|html|htm', ext):
+                webfiles.append(escape(file_name))
+        if webfiles:
+            desc = 'Web H5 files inside the app.'
+            findings.append({'finding': desc, 'files': webfiles})
+        return findings
+    except Exception:
+        logger.exception('Web H5 files inside the app.')
 
 
 def cert_info(app_dir, app_file, man_dict):

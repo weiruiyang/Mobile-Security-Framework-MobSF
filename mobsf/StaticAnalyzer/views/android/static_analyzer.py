@@ -34,6 +34,7 @@ from mobsf.StaticAnalyzer.views.android.binary_analysis import elf_analysis
 from mobsf.StaticAnalyzer.views.android.cert_analysis import (
     cert_info,
     get_hardcoded_cert_keystore,
+    get_files_web_h5,
 )
 from mobsf.StaticAnalyzer.views.android.code_analysis import code_analysis
 from mobsf.StaticAnalyzer.views.android.converter import (
@@ -167,6 +168,7 @@ def static_analyzer(request, api=False):
                             api)
                     app_dic['certz'] = get_hardcoded_cert_keystore(app_dic[
                                                                    'files'])
+                    app_dic['webfiles'] = get_files_web_h5(app_dic['files'])
                     # Manifest XML
                     mani_file, mani_xml = get_manifest(
                         app_dic['app_path'],
@@ -387,6 +389,7 @@ def static_analyzer(request, api=False):
                             return HttpResponseRedirect(ret)
                     app_dic['certz'] = get_hardcoded_cert_keystore(
                         app_dic['files'])
+                    app_dic['webfiles'] = get_files_web_h5(app_dic['files'])
                     app_dic['zipped'] = pro_type
                     if valid and (pro_type in ['eclipse', 'studio']):
                         # ANALYSIS BEGINS

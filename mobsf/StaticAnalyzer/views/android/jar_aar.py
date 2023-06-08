@@ -30,6 +30,7 @@ from mobsf.StaticAnalyzer.views.android.binary_analysis import elf_analysis
 from mobsf.StaticAnalyzer.views.android.cert_analysis import (
     cert_info,
     get_hardcoded_cert_keystore,
+    get_files_web_h5,
 )
 from mobsf.StaticAnalyzer.models import (
     StaticAnalyzerAndroid,
@@ -66,6 +67,7 @@ def common_analysis(request, app_dic, rescan, api, analysis_type):
                 f'{analysis_type.upper()} file is invalid or corrupt',
                 api)
         app_dic['certz'] = get_hardcoded_cert_keystore(app_dic['files'])
+        app_dic['webfiles'] = get_files_web_h5(app_dic['files'])
         app_dic['playstore'] = {'error': True}
         if analysis_type == 'aar':
             # AAR has manifest and sometimes certificate
