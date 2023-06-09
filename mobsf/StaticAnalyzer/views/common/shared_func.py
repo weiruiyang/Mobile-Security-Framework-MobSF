@@ -88,9 +88,11 @@ def url_n_email_extract(dat, relative_path):
     """Extract URLs and Emails from Source Code."""
     urls = []
     emails = []
+    phones = []
     urllist = []
     url_n_file = []
     email_n_file = []
+    phone_n_file = []
     # URLs Extraction My Custom regex
     pattern = re.compile(
         (
@@ -119,7 +121,19 @@ def url_n_email_extract(dat, relative_path):
     if eflag == 1:
         email_n_file.append(
             {'emails': emails, 'path': escape(relative_path)})
-    return urllist, url_n_file, email_n_file
+
+    # phone Extraction Regex
+    regex = re.compile(r'\s*\+?(86)?1[3-9]\d{9}\s*')
+    pflag = 0
+    for phone in regex.findall(dat.lower()):
+        if (phone not in phones) and (not phone.startswith('//')):
+            phones.append(phone)
+            pflag = 1
+    if pflag == 1:
+        phone_n_file.append(
+            {'phones': phones, 'path': escape(relative_path)})
+
+    return urllist, url_n_file, email_n_file, phone_n_file
 
 
 # This is just the first sanity check that triggers generic_compare

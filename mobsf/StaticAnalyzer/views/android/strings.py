@@ -23,6 +23,7 @@ def strings_from_apk(app_file, app_dir, elf_strings):
         urls = []
         urls_nf = []
         emails_nf = []
+        phones_nf = []
         apk_file = os.path.join(app_dir, app_file)
         and_a = apk.APK(apk_file)
         rsrc = and_a.get_android_resources()
@@ -38,7 +39,7 @@ def strings_from_apk(app_file, app_dir, elf_strings):
                             secrets.append(cap_str)
                         dat.append(cap_str)
             data_string = ''.join(dat)
-            urls, urls_nf, emails_nf = url_n_email_extract(
+            urls, urls_nf, emails_nf, phone_nf = url_n_email_extract(
                 data_string, 'Android String Resource')
         if elf_strings:
             for solib in elf_strings:
@@ -47,17 +48,19 @@ def strings_from_apk(app_file, app_dir, elf_strings):
                     dat.extend(str_list)
                     # extract url, email
                     so_str = ' '.join(str_list)
-                    su, suf, sem = url_n_email_extract(
+                    su, suf, sem, sph  = url_n_email_extract(
                         so_str, so)
                     urls.extend(su)
                     urls_nf.extend(suf)
                     emails_nf.extend(sem)
+                    phones_nf.extend(sph)
         strings_dat = list(set(dat))
         return {
             'strings': strings_dat,
             'urls_list': urls,
             'url_nf': urls_nf,
             'emails_nf': emails_nf,
+            'phones_nf': phones_nf,
             'secrets': secrets,
         }
     except Exception:

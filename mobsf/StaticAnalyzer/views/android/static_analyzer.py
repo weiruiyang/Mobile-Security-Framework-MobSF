@@ -249,6 +249,7 @@ def static_analyzer(request, api=False):
                             string_res['urls_list'])
                         code_an_dic['urls'].extend(string_res['url_nf'])
                         code_an_dic['emails'].extend(string_res['emails_nf'])
+                        code_an_dic['phones'].extend(string_res['phones_nf'])
                     else:
                         app_dic['strings'] = []
                         app_dic['secrets'] = []

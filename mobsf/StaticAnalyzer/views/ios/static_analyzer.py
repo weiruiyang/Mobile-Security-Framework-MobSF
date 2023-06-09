@@ -152,6 +152,7 @@ def static_analyzer_ios(request, api=False):
                         'urlnfile': recon['urlnfile'],
                         'domains': recon['domains'],
                         'emailnfile': recon['emailnfile'],
+                        'phonenfile': recon['phonenfile'],
                         'firebase': firebase_analysis(recon['urls_list']),
                         'trackers': trackers,
                     }

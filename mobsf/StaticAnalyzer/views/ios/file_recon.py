@@ -16,6 +16,7 @@ def extract_urls_n_email(src, all_files, strings):
     try:
         logger.info('Starting IPA URL and Email Extraction')
         email_n_file = []
+        phone_n_file = []
         url_n_file = []
         url_list = []
         domains = {}
@@ -40,11 +41,12 @@ def extract_urls_n_email(src, all_files, strings):
                              errors='ignore') as flip:
                     dat = flip.read()
             # Extract URLs and Emails from Plists
-            urls, urls_nf, emails_nf = url_n_email_extract(
+            urls, urls_nf, emails_nf, phones_nf = url_n_email_extract(
                 dat, relative_src_path)
             url_list.extend(urls)
             url_n_file.extend(urls_nf)
             email_n_file.extend(emails_nf)
+            phone_n_file.extend(phones_nf)
         # Unique URLs
         urls_list = list(set(url_list))
         # Domain Extraction and Malware Check
@@ -56,6 +58,7 @@ def extract_urls_n_email(src, all_files, strings):
             'urlnfile': url_n_file,
             'domains': domains,
             'emailnfile': email_n_file,
+            'phonenfile': phone_n_file,
         }
         return binary_recon
 

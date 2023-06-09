@@ -29,6 +29,7 @@ def code_analysis(app_dir, typ, manifest_file):
         code_findings = {}
         api_findings = {}
         email_n_file = []
+        phone_n_file = []
         is_confusing = False
         url_n_file = []
         url_list = []
@@ -101,11 +102,12 @@ def code_analysis(app_dir, typ, manifest_file):
                 except Exception:
                     continue
                 relative_java_path = pfile.as_posix().replace(src, '')
-                urls, urls_nf, emails_nf = url_n_email_extract(
+                urls, urls_nf, emails_nf, phone_nf = url_n_email_extract(
                     content, relative_java_path)
                 url_list.extend(urls)
                 url_n_file.extend(urls_nf)
                 email_n_file.extend(emails_nf)
+                phone_n_file.extend(phone_nf)
         logger.info('Finished Code Analysis, Email and URL Extraction')
 
         sum = 0
@@ -140,6 +142,7 @@ def code_analysis(app_dir, typ, manifest_file):
             'urls_list': url_list,
             'urls': url_n_file,
             'emails': email_n_file,
+            'phones': phone_n_file,
             'is_confusing': is_confusing,
         }
         logger.warning('weiry:code_analysis:code_an_dic : %s', code_an_dic)

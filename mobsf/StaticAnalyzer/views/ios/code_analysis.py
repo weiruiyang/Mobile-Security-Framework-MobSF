@@ -33,6 +33,7 @@ def ios_source_analysis(src):
         code_findings = {}
         api_findings = {}
         email_n_file = []
+        phone_n_file = []
         url_n_file = []
         url_list = []
         domains = {}
@@ -70,11 +71,12 @@ def ios_source_analysis(src):
                     and pfile.is_dir() is False)
             ):
                 relative_java_path = pfile.as_posix().replace(src, '')
-                urls, urls_nf, emails_nf = url_n_email_extract(
+                urls, urls_nf, emails_nf, phones_nf = url_n_email_extract(
                     pfile.read_text('utf-8', 'ignore'), relative_java_path)
                 url_list.extend(urls)
                 url_n_file.extend(urls_nf)
                 email_n_file.extend(emails_nf)
+                phone_n_file.extend(phones_nf)
 
         if not source_types:
             source_type = _SourceType.nocode.value
@@ -95,6 +97,7 @@ def ios_source_analysis(src):
             'urlnfile': url_n_file,
             'domains': domains,
             'emailnfile': email_n_file,
+            'phonenfile': phone_n_file,
             'source_type': source_type,
         }
         return code_analysis_dict
