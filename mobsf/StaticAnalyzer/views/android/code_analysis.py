@@ -87,6 +87,7 @@ def code_analysis(app_dir, typ, manifest_file):
         logger.warning('weiry:code_analysis:niap_findings : %s', niap_findings)
         # Extract URLs and Emails
         for pfile in Path(src).rglob('*'):
+            logger.warning('weiry:code_analysis:src_pfile : %s', pfile)
             if (
                 (pfile.suffix in ('.java', '.kt')
                     and any(skip_path in pfile.as_posix()
