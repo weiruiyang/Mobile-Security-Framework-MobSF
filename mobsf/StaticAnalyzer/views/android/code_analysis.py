@@ -126,9 +126,9 @@ def code_analysis(app_dir, typ, manifest_file):
                         filename_str = str(pfile.name)
                         filename_no_ext, file_extension = os.path.splitext(filename_str)
                         filename_str = filename_no_ext
-                        logger.warning('weiry:code_analysis:filename_str : %s', filename_str)
+                        # logger.warning('weiry:code_analysis:filename_str : %s', filename_str)
                         if '$' in filename_str:
-                            filename_str = filename_str.split('&')[0]
+                            filename_str = filename_str.split('$')[0]
                         if len(filename_str) < 3:
                             n = n + 1
                 except Exception:
