@@ -935,7 +935,7 @@
   message: >-
     weiry Possibly hard-coded urls
   type: Regex
-  pattern: ?:https?://[\w().=/;,#:@?&~*+!$%\'{}-]+
+  pattern: https?://[\w().=/;,#:@?&~*+!$%\'{}-]+
   severity: warning
   input_case: exact
   metadata:
