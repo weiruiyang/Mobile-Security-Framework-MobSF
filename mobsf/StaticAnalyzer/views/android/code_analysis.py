@@ -55,6 +55,8 @@ def code_analysis(app_dir, typ, manifest_file):
             [src],
             skp)
 
+        logger.warning('weiry:code_analysis:code_findings code_findings_webview_remove_javascript_interface =========')
+
         code_findings_webview_remove_javascript_interface = scan(
             code_rules_webview_remove_javascript_interface.as_posix(),
             {'.java', '.kt'},
