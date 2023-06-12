@@ -37,6 +37,8 @@ def code_analysis(app_dir, typ, manifest_file):
         app_dir = Path(app_dir)
         if typ == 'apk':
             src = app_dir / 'java_source'
+            assets_src = app_dir / 'assets'
+            assets_src = assets_src.as_posix() + '/'
         elif typ == 'studio':
             src = app_dir / 'app' / 'src' / 'main' / 'java'
             kt = app_dir / 'app' / 'src' / 'main' / 'kotlin'
@@ -110,6 +112,32 @@ def code_analysis(app_dir, typ, manifest_file):
                 url_n_file.extend(urls_nf)
                 email_n_file.extend(emails_nf)
                 phone_n_file.extend(phone_nf)
+
+        if assets_src:
+            for pfile in Path(assets_src).rglob('*'):
+                if pfile.is_file():
+                    content = None
+                    try:
+                        content = pfile.read_text('utf-8', 'ignore')
+                        # Certain file path cannot be read in windows
+                    except Exception:
+                        continue
+                    relative_java_path = 'assets'
+                    urls, urls_nf, emails_nf, phone_nf = url_n_email_extract(
+                        content, relative_java_path)
+                    url_list.extend(urls)
+                    url_n_file.extend(urls_nf)
+                    email_n_file.extend(emails_nf)
+                    phone_n_file.extend(phone_nf)
+
+        if manifest_file:
+            urls, urls_nf, emails_nf, phone_nf = url_n_email_extract(
+                manifest_file, 'manifest')
+            url_list.extend(urls)
+            url_n_file.extend(urls_nf)
+            email_n_file.extend(emails_nf)
+            phone_n_file.extend(phone_nf)
+
         logger.info('Finished Code Analysis, Email and URL Extraction')
 
         sum = 0
