@@ -855,7 +855,6 @@
     owasp-mobile: m1
     masvs: platform-7
     ref: https://github.com/MobSF/owasp-mstg/blob/master/Document/0x05h-Testing-Platform-Interaction.md#testing-javascript-execution-in-webviews-mstg-platform-5
-
 - id: android_android_gif_drawable
   message: >-
     weiry Android-gif-Drawable < 1.1.17.
