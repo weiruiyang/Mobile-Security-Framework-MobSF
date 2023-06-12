@@ -91,7 +91,6 @@ def code_analysis(app_dir, typ, manifest_file):
         logger.warning('weiry:code_analysis:niap_findings : %s', niap_findings)
         # Extract URLs and Emails
         for pfile in Path(src).rglob('*'):
-            logger.warning('weiry:code_analysis:src_pfile : %s', pfile)
             if (
                 (pfile.suffix in ('.java', '.kt')
                     and any(skip_path in pfile.as_posix()
@@ -123,10 +122,11 @@ def code_analysis(app_dir, typ, manifest_file):
                 try:
                     sum = sum + 1
                     if pfile.is_file():
-                        filename_str = str(pfile.name)  # 获取文件名并将其转换为字符串
-                        if '&' in filename_str:  # 判断文件名是否包含&
-                            filename_str = filename_str.split('&')[0]  # 获取&之前的部分
-                        if len(filename_str) < 3:  # 判断文件名长度是否小于3
+                        filename_str = str(pfile.name)
+                        logger.warning('weiry:code_analysis:filename_str : %s', filename_str)
+                        if '&' in filename_str:
+                            filename_str = filename_str.split('&')[0]
+                        if len(filename_str) < 3:
                             n = n + 1
                 except Exception:
                     continue
@@ -135,7 +135,7 @@ def code_analysis(app_dir, typ, manifest_file):
             b = n / sum * 100
             if b > 60:
                 is_confusing = True
-        logger.info('Finished Code Is it confusing:%s,%s', is_confusing, b)
+        logger.info('Finished Code Is it confusing:%s/%s=%s , %s', n, sum, b, is_confusing)
 
         code_an_dic = {
             'api': api_findings,
