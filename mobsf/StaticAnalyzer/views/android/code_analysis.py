@@ -3,6 +3,7 @@
 
 import logging
 from pathlib import Path
+import os
 
 from django.conf import settings
 
@@ -123,6 +124,8 @@ def code_analysis(app_dir, typ, manifest_file):
                     sum = sum + 1
                     if pfile.is_file():
                         filename_str = str(pfile.name)
+                        filename_no_ext, file_extension = os.path.splitext(filename_str)
+                        filename_str = filename_no_ext
                         logger.warning('weiry:code_analysis:filename_str : %s', filename_str)
                         if '&' in filename_str:
                             filename_str = filename_str.split('&')[0]
