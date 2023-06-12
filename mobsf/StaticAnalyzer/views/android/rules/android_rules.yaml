@@ -969,5 +969,20 @@
     owasp-mobile: m1
     masvs: platform-7
     ref: https://github.com/MobSF/owasp-mstg/blob/master/Document/0x05h-Testing-Platform-Interaction.md#testing-javascript-execution-in-webviews-mstg-platform-5
+- id: android_zipper_down
+  message: >-
+    weiry ZipperDown. You must make a judgment on name (filePath. contents ("../") | | filePath. startsWith ("/") | | filePath. endsWith ("/"))
+  type: RegexAnd
+  pattern:
+    - ZipInputStream
+    - (?!\.contains\(\"\.\.\/\"\))|(?!\.startsWith\(\"\/\"\))|(?!\.endsWith\(\"\/\"\))
+  severity: warning
+  input_case: exact
+  metadata:
+    cvss: 8.8
+    cwe: cwe-749
+    owasp-mobile: m1
+    masvs: platform-7
+    ref: https://github.com/MobSF/owasp-mstg/blob/master/Document/0x05h-Testing-Platform-Interaction.md#testing-javascript-execution-in-webviews-mstg-platform-5
 
 
