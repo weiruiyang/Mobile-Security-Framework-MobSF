@@ -975,7 +975,8 @@
   type: RegexAnd
   pattern:
     - ZipInputStream
-    - (?!\.contains\(\"\.\.\/\"\))|(?!\.startsWith\(\"\/\"\))|(?!\.endsWith\(\"\/\"\))
+    - (?!\.contains\(\"..\/\"\))|(?!\.startsWith\(\"\/\"\))|(?!\.endsWith\(\"\/\"\))
+    - ^.*\bZipInputStream\b(?!.*\.contains\().*$
   severity: warning
   input_case: exact
   metadata:
