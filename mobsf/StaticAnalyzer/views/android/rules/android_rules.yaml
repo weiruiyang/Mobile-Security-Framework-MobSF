@@ -985,4 +985,22 @@
     masvs: platform-7
     ref: https://github.com/MobSF/owasp-mstg/blob/master/Document/0x05h-Testing-Platform-Interaction.md#testing-javascript-execution-in-webviews-mstg-platform-5
 
-
+- id: android_no_zip_contains
+  message: ZipInputStream ZipInputStream ZipInputStream.
+  type: And
+  conditions:
+    - any:
+        field: call
+        values:
+          - 'java.util.zip.ZipInputStream'
+    - not:
+        field: argument
+        value: '.contains('
+  severity: warning
+  input_case: exact
+  metadata:
+    cvss: 8.8
+    cwe: cwe-749
+    owasp-mobile: m1
+    masvs: platform-7
+    ref: https://github.com/MobSF/owasp-mstg/blob/master/Document/0x05h-Testing-Platform-Interaction.md#testing-javascript-execution-in-webviews-mstg-platform-5
