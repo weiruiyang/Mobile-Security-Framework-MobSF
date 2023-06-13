@@ -974,9 +974,8 @@
     weiry ZipperDown. You must make a judgment on name (filePath. contents ("../") | | filePath. startsWith ("/") | | filePath. endsWith ("/"))
   type: RegexAnd
   pattern:
-    - ZipInputStream
-    - (?!\.contains\(\"..\/\"\))|(?!\.startsWith\(\"\/\"\))|(?!\.endsWith\(\"\/\"\))
-    - ^.*\bZipInputStream\b(?!.*\.contains\().*$
+    - java\.util\.zip\.ZipInputStream;
+    - (?!.*\.contains\()
   severity: warning
   input_case: exact
   metadata:
