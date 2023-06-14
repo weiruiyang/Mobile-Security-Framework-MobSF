@@ -51,6 +51,7 @@ class Frida:
             return header
         def_scripts = os.path.join(self.frida_dir, 'default')
         logger.warning('weiry:get_default_scripts:def_scripts: %s', def_scripts)
+        logger.warning('weiry:get_default_scripts:self.defaults: %s', self.defaults)
         files = glob.glob(def_scripts + '**/*.js', recursive=True)
         for item in files:
             script = Path(item)
