@@ -493,6 +493,29 @@ var apis = [{
 }
 ];
 
+function isArguments(api, arguments) {
+    var clazz = api.class;
+    var method = api.method;
+    var name = api.name;
+    try {
+        if ("startActivity" === name) {
+            var intent = arguments[0];
+            let data = intent.getData();
+            let component = intent.getComponent();
+            let categories = intent.getCategories();
+            let package = intent.getPackage();
+            send('[API Monitor] isArguments data ' + data );
+            send('[API Monitor] isArguments component ' + component );
+            send('[API Monitor] isArguments categories ' + categories );
+            send('[API Monitor] isArguments package ' + package );
+        }
+    } catch (err) {
+        send('[API Monitor] isArguments ' + clazz + '.' + method);
+        send('[API Monitor] isArguments err ' + err);
+    }
+    return true
+}
+
 // Dynamic Hooks
 function hook(api, callback) {
     var Exception = Java.use('java.lang.Exception');
@@ -519,6 +542,10 @@ function hook(api, callback) {
         var overloadCount = toHook.overloads.length;
         for (var i = 0; i < overloadCount; i++) {
             toHook.overloads[i].implementation = function () {
+                if (!isArguments(api, arguments)) {
+                    send('[API Monitor] isArguments is false ' + clazz + '.' + method);
+                    return
+                }
                 var argz = [].slice.call(arguments);
                 // Call original function
                 var retval = this[method].apply(this, arguments);
