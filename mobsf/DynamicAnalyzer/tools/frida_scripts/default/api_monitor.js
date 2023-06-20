@@ -512,6 +512,7 @@ function isArguments(a, b) {
                 null == component &&
                 null == categories &&
                 null == pak) {
+                send('[API Monitor] isArguments return false ');
                 return false;
             }
         }
@@ -519,6 +520,7 @@ function isArguments(a, b) {
         send('[API Monitor] isArguments ' + clazz + '.' + method);
         send('[API Monitor] isArguments err ' + err);
     }
+    send('[API Monitor] isArguments return true ');
     return true
 }
 
