@@ -557,10 +557,11 @@ function hook(api, callback) {
         var overloadCount = toHook.overloads.length;
         for (var i = 0; i < overloadCount; i++) {
             toHook.overloads[i].implementation = function () {
+                var isOk = true;
                 try {
-                    if (!isArguments(api, arguments)) {
+                    isOk = !isArguments(api, arguments);
+                    if (isOk) {
                         send('[API Monitor] isArguments is false ' + clazz + '.' + method);
-                        return
                     }
                 } catch (err) {
                     send('[API Monitor] isArguments is err ' + clazz + '.' + method);
@@ -569,7 +570,7 @@ function hook(api, callback) {
                 var argz = [].slice.call(arguments);
                 // Call original function
                 var retval = this[method].apply(this, arguments);
-                if (callback) {
+                if (isOk && callback) {
                     let split = Exception.$new().getStackTrace().toString().split(',');
                     var calledFrom = "";
                     for (let j = 0; j < split.length; j++) {
