@@ -559,8 +559,8 @@ function hook(api, callback) {
             toHook.overloads[i].implementation = function () {
                 var isOk = true;
                 try {
-                    isOk = !isArguments(api, arguments);
-                    if (isOk) {
+                    isOk = isArguments(api, arguments);
+                    if (!isOk) {
                         send('[API Monitor] isArguments is false ' + clazz + '.' + method);
                     }
                 } catch (err) {
