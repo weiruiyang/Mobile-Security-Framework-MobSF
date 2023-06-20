@@ -496,25 +496,32 @@ var apis = [{
 function isArguments(a, b) {
     var clazz = a.class;
     var method = a.method;
-    // var name = a.name;
+
+    function startActivityImp() {
+        var intent = b[0];
+        let data = intent.getData();
+        let component = intent.getComponent();
+        let categories = intent.getCategories();
+        let pak = intent.getPackage();
+        send('[API Monitor] isArguments data ' + data);
+        send('[API Monitor] isArguments component ' + component);
+        send('[API Monitor] isArguments categories ' + categories);
+        send('[API Monitor] isArguments package ' + pak);
+        if (typeof data === 'undefined' &&
+            typeof component === 'undefined' &&
+            typeof categories === 'undefined' &&
+            typeof pak === 'undefined') {
+            send('[API Monitor] startActivityImp return true ');
+            return true;
+        } else {
+            send('[API Monitor] startActivityImp return false ');
+            return false;
+        }
+    }
+
     try {
         if ("startActivity" === method) {
-            var intent = b[0];
-            let data = intent.getData();
-            let component = intent.getComponent();
-            let categories = intent.getCategories();
-            let pak = intent.getPackage();
-            send('[API Monitor] isArguments data ' + data);
-            send('[API Monitor] isArguments component ' + component);
-            send('[API Monitor] isArguments categories ' + categories);
-            send('[API Monitor] isArguments package ' + pak);
-            if (typeof data === 'undefined' &&
-                typeof component === 'undefined' &&
-                typeof categories === 'undefined' &&
-                typeof pak === 'undefined') {
-                send('[API Monitor] isArguments return false ');
-                return false;
-            }
+            return startActivityImp();
         }
     } catch (err) {
         send('[API Monitor] isArguments ' + clazz + '.' + method);
