@@ -571,11 +571,7 @@ function hook(api, callback) {
                 // Call original function
                 var retval = this[method].apply(this, arguments);
                 if (isOk && callback) {
-                    let split = Exception.$new().getStackTrace().toString().split(',');
-                    var calledFrom = "";
-                    for (let j = 0; j < split.length; j++) {
-                        calledFrom += split[j] + "\n"
-                    }
+                    var calledFrom = Exception.$new().getStackTrace().toString().split(',')[1];
                     var message = {
                         name: name,
                         class: clazz,
