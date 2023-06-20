@@ -493,21 +493,27 @@ var apis = [{
 }
 ];
 
-function isArguments(api, arguments) {
-    var clazz = api.class;
-    var method = api.method;
-    var name = api.name;
+function isArguments(a, b) {
+    var clazz = a.class;
+    var method = a.method;
+    // var name = a.name;
     try {
-        if ("startActivity" === name) {
-            var intent = arguments[0];
+        if ("startActivity" === method) {
+            var intent = b[0];
             let data = intent.getData();
             let component = intent.getComponent();
             let categories = intent.getCategories();
-            let package = intent.getPackage();
-            send('[API Monitor] isArguments data ' + data );
-            send('[API Monitor] isArguments component ' + component );
-            send('[API Monitor] isArguments categories ' + categories );
-            send('[API Monitor] isArguments package ' + package );
+            let pak = intent.getPackage();
+            send('[API Monitor] isArguments data ' + data);
+            send('[API Monitor] isArguments component ' + component);
+            send('[API Monitor] isArguments categories ' + categories);
+            send('[API Monitor] isArguments package ' + pak);
+            if (null === data &&
+                null == component &&
+                null == categories &&
+                null == pak) {
+                return false;
+            }
         }
     } catch (err) {
         send('[API Monitor] isArguments ' + clazz + '.' + method);
