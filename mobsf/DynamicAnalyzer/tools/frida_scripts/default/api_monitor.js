@@ -542,10 +542,15 @@ function hook(api, callback) {
         var overloadCount = toHook.overloads.length;
         for (var i = 0; i < overloadCount; i++) {
             toHook.overloads[i].implementation = function () {
-                if (!isArguments(api, arguments)) {
-                    send('[API Monitor] isArguments is false ' + clazz + '.' + method);
-                    return
+                try {
+                    if (!isArguments(api, arguments)) {
+                        send('[API Monitor] isArguments is false ' + clazz + '.' + method);
+                        return
+                    }
+                } catch (err) {
+                    send('[API Monitor] isArguments is err ' + clazz + '.' + method);
                 }
+
                 var argz = [].slice.call(arguments);
                 // Call original function
                 var retval = this[method].apply(this, arguments);
