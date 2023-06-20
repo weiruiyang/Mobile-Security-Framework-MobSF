@@ -503,18 +503,18 @@ function isArguments(a, b) {
         let component = intent.getComponent();
         let categories = intent.getCategories();
         let pak = intent.getPackage();
-        send('[API Monitor] isArguments data ' + data);
-        send('[API Monitor] isArguments component ' + component);
-        send('[API Monitor] isArguments categories ' + categories);
-        send('[API Monitor] isArguments package ' + pak);
+        // send('[API Monitor] isArguments data ' + data);
+        // send('[API Monitor] isArguments component ' + component);
+        // send('[API Monitor] isArguments categories ' + categories);
+        // send('[API Monitor] isArguments package ' + pak);
         if (typeof data === 'undefined' &&
             typeof component === 'undefined' &&
             typeof categories === 'undefined' &&
             typeof pak === 'undefined') {
-            send('[API Monitor] startActivityImp return true ');
+            // send('[API Monitor] startActivityImp return true ');
             return true;
         } else {
-            send('[API Monitor] startActivityImp return false ');
+            // send('[API Monitor] startActivityImp return false ');
             return false;
         }
     }
@@ -527,7 +527,7 @@ function isArguments(a, b) {
         send('[API Monitor] isArguments ' + clazz + '.' + method);
         send('[API Monitor] isArguments err ' + err);
     }
-    send('[API Monitor] isArguments return true ');
+    // send('[API Monitor] isArguments return true ');
     return true
 }
 
