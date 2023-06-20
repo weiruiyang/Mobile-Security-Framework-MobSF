@@ -508,10 +508,10 @@ function isArguments(a, b) {
             send('[API Monitor] isArguments component ' + component);
             send('[API Monitor] isArguments categories ' + categories);
             send('[API Monitor] isArguments package ' + pak);
-            if (null === data &&
-                null == component &&
-                null == categories &&
-                null == pak) {
+            if (typeof data === 'undefined' &&
+                typeof component === 'undefined' &&
+                typeof categories === 'undefined' &&
+                typeof pak === 'undefined') {
                 send('[API Monitor] isArguments return false ');
                 return false;
             }
@@ -563,7 +563,11 @@ function hook(api, callback) {
                 // Call original function
                 var retval = this[method].apply(this, arguments);
                 if (callback) {
-                    var calledFrom = Exception.$new().getStackTrace().toString().split(',')[1];
+                    let split = Exception.$new().getStackTrace().toString().split(',');
+                    var calledFrom = "";
+                    for (let j = 0; j < split.length; j++) {
+                        calledFrom += split[j] + "\n"
+                    }
                     var message = {
                         name: name,
                         class: clazz,
