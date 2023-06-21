@@ -544,10 +544,10 @@ function isArguments(a, b) {
         // send('[API Monitor] onlyActionIntent component ' + typeof component);
         // send('[API Monitor] onlyActionIntent categories ' + typeof categories);
         // send('[API Monitor] onlyActionIntent package ' + typeof pak);
-        if (typeof data === 'undefined' &&
-            typeof component === 'undefined' &&
-            typeof categories === 'undefined' &&
-            typeof pak === 'undefined') {
+        if ((typeof data === 'undefined' || data === null) &&
+            (typeof component === 'undefined' || component === null) &&
+            (typeof categories === 'undefined' || categories === null) &&
+            (typeof pak === 'undefined' || pak === null)) {
             // send('[API Monitor] onlyActionIntent return true ');
             return {
                 severity_is:true,
