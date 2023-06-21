@@ -563,14 +563,17 @@ function isArguments(a, b) {
     }
 
     function startActivityImp() {
+        // send('[API Monitor] startActivityImp ');
         var intent = b[0];
         return onlyActionIntent(intent);
     }
     function startServiceImp() {
+        // send('[API Monitor] startServiceImp ');
         var intent = b[0];
         return onlyActionIntent(intent);
     }
     function pendingIntentImp() {
+        // send('[API Monitor] pendingIntentImp ');
         var intent = b[2];
         return onlyActionIntent(intent);
     }
