@@ -493,35 +493,53 @@ var apis = [{
 }
 ];
 
+
+
 function isArguments(a, b) {
+// high、warning、info
     var clazz = a.class;
     var method = a.method;
-
-    function startActivityImp() {
-        var intent = b[0];
+    function onlyActionIntent(intent) {
         let data = intent.getData();
         let component = intent.getComponent();
         let categories = intent.getCategories();
         let pak = intent.getPackage();
-        // send('[API Monitor] isArguments data ' + data);
-        // send('[API Monitor] isArguments component ' + component);
-        // send('[API Monitor] isArguments categories ' + categories);
-        // send('[API Monitor] isArguments package ' + pak);
+        // send('[API Monitor] onlyActionIntent data ' + data);
+        // send('[API Monitor] onlyActionIntent component ' + component);
+        // send('[API Monitor] onlyActionIntent categories ' + categories);
+        // send('[API Monitor] onlyActionIntent package ' + pak);
         if (typeof data === 'undefined' &&
             typeof component === 'undefined' &&
             typeof categories === 'undefined' &&
             typeof pak === 'undefined') {
-            // send('[API Monitor] startActivityImp return true ');
-            return true;
+            // send('[API Monitor] onlyActionIntent return true ');
+            return {
+                severity_is:true,
+                severity:'warning',
+                severity_msg: 'only has Action'
+            };
         } else {
-            // send('[API Monitor] startActivityImp return false ');
-            return false;
+            // send('[API Monitor] onlyActionIntent return false ');
+            return {
+                severity_is:false
+            };
         }
+    }
+
+    function startActivityImp() {
+        var intent = b[0];
+        return onlyActionIntent(intent);
+    }
+    function startServiceImp() {
+        var intent = b[0];
+        return onlyActionIntent(intent);
     }
 
     try {
         if ("startActivity" === method) {
             return startActivityImp();
+        }else if ("startService" === method){
+            return startServiceImp();
         }
     } catch (err) {
         send('[API Monitor] isArguments ' + clazz + '.' + method);
@@ -557,12 +575,9 @@ function hook(api, callback) {
         var overloadCount = toHook.overloads.length;
         for (var i = 0; i < overloadCount; i++) {
             toHook.overloads[i].implementation = function () {
-                var isOk = true;
+                var arguments_re={};
                 try {
-                    isOk = isArguments(api, arguments);
-                    if (!isOk) {
-                        send('[API Monitor] isArguments is false ' + clazz + '.' + method);
-                    }
+                    arguments_re = isArguments(api, arguments);
                 } catch (err) {
                     send('[API Monitor] isArguments is err ' + clazz + '.' + method);
                 }
@@ -570,7 +585,7 @@ function hook(api, callback) {
                 var argz = [].slice.call(arguments);
                 // Call original function
                 var retval = this[method].apply(this, arguments);
-                if (isOk && callback) {
+                if (callback) {
                     var calledFrom = Exception.$new().getStackTrace().toString().split(',')[1];
                     var message = {
                         name: name,
@@ -580,6 +595,14 @@ function hook(api, callback) {
                         result: retval ? retval.toString() : null,
                         calledFrom: calledFrom
                     };
+                    if (arguments_re.severity_is) {
+                        message.severity = arguments_re.severity;
+                        message.severity_msg = arguments_re.severity_msg;
+                    }
+                    if (api.only_severity && !arguments_re.severity_is) {
+                        send('[API Monitor] only_severity is true ' + clazz + '.' + method);
+                        return
+                    }
                     retval = callback(retval, message);
                 }
                 return retval;
