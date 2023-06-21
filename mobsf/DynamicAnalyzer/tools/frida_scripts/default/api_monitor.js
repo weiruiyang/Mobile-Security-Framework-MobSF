@@ -262,6 +262,21 @@ var apis = [{
     method: 'registerReceiver',
     name: 'IPC'
 }, {
+    class: 'android.app.PendingIntent',
+    method: 'getActivity',
+    name: 'IPC',
+    only_severity: true
+}, {
+    class: 'android.app.PendingIntent',
+    method: 'getBroadcast',
+    name: 'IPC',
+    only_severity: true
+}, {
+    class: 'android.app.PendingIntent',
+    method: 'getService',
+    name: 'IPC',
+    only_severity: true
+}, {
     class: 'android.app.ContextImpl',
     method: 'registerReceiver',
     name: 'Binder'
@@ -499,6 +514,27 @@ function isArguments(a, b) {
 // high、warning、info
     var clazz = a.class;
     var method = a.method;
+    try {
+        if ("startActivity" === method) {
+            return startActivityImp();
+        } else if ("startService" === method) {
+            return startServiceImp();
+        } else if ("android.app.PendingIntent" === clazz
+            && ("getActivity" === method
+                || "getBroadcast" === method
+                || "getService" === method)) {
+            return pendingIntentImp();
+        }
+    } catch (err) {
+        send('[API Monitor] isArguments ' + clazz + '.' + method);
+        send('[API Monitor] isArguments err ' + err);
+    }
+    // send('[API Monitor] isArguments return true ');
+    return {
+        severity_is: false
+    };
+
+
     function onlyActionIntent(intent) {
         let data = intent.getData();
         let component = intent.getComponent();
@@ -534,19 +570,10 @@ function isArguments(a, b) {
         var intent = b[0];
         return onlyActionIntent(intent);
     }
-
-    try {
-        if ("startActivity" === method) {
-            return startActivityImp();
-        }else if ("startService" === method){
-            return startServiceImp();
-        }
-    } catch (err) {
-        send('[API Monitor] isArguments ' + clazz + '.' + method);
-        send('[API Monitor] isArguments err ' + err);
+    function pendingIntentImp() {
+        var intent = b[2];
+        return onlyActionIntent(intent);
     }
-    // send('[API Monitor] isArguments return true ');
-    return true
 }
 
 // Dynamic Hooks
