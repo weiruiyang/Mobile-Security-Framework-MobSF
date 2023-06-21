@@ -511,7 +511,7 @@ var apis = [{
 
 
 function isArguments(a, b) {
-// high、warning、info
+// high\warning\info
     var clazz = a.class;
     var method = a.method;
     try {
