@@ -540,10 +540,10 @@ function isArguments(a, b) {
         let component = intent.getComponent();
         let categories = intent.getCategories();
         let pak = intent.getPackage();
-        // send('[API Monitor] onlyActionIntent data ' + data);
-        // send('[API Monitor] onlyActionIntent component ' + component);
-        // send('[API Monitor] onlyActionIntent categories ' + categories);
-        // send('[API Monitor] onlyActionIntent package ' + pak);
+        // send('[API Monitor] onlyActionIntent data ' + typeof data);
+        // send('[API Monitor] onlyActionIntent component ' + typeof component);
+        // send('[API Monitor] onlyActionIntent categories ' + typeof categories);
+        // send('[API Monitor] onlyActionIntent package ' + typeof pak);
         if (typeof data === 'undefined' &&
             typeof component === 'undefined' &&
             typeof categories === 'undefined' &&
@@ -612,7 +612,7 @@ function hook(api, callback) {
                 var argz = [].slice.call(arguments);
                 // Call original function
                 var retval = this[method].apply(this, arguments);
-                if (callback) {
+                if (!(api.only_severity && !arguments_re.severity_is) && callback) {
                     var calledFrom = Exception.$new().getStackTrace().toString().split(',')[1];
                     var message = {
                         name: name,
@@ -625,10 +625,6 @@ function hook(api, callback) {
                     if (arguments_re.severity_is) {
                         message.severity = arguments_re.severity;
                         message.severity_msg = arguments_re.severity_msg;
-                    }
-                    if (api.only_severity && !arguments_re.severity_is) {
-                        send('[API Monitor] only_severity is true ' + clazz + '.' + method);
-                        return
                     }
                     retval = callback(retval, message);
                 }
