@@ -719,9 +719,12 @@ function isArguments(a, b) {
         if ("location" === serviceName) {
             ty_msg = 'get location service'
             type_n = 'location'
-        }else if ("clipboard" === serviceName) {
+        } else if ("clipboard" === serviceName) {
             ty_msg = 'get clipboard service'
             type_n = 'clipboard'
+        } else if ("usagestats" === serviceName) {
+            ty_msg = 'get usage stats service'
+            type_n = 'usage_stats'
         } else {
             ty_is = false
         }
