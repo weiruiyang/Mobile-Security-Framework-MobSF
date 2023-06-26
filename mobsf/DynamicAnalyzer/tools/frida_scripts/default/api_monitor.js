@@ -307,14 +307,42 @@ var apis = [{
 }, {
     class: 'android.telephony.TelephonyManager',
     method: 'getDeviceId',
+    tag:'imei',
+    name: 'Device Info'
+}, {
+    class: 'android.telephony.TelephonyManager',
+    method: 'getImei',
+    tag:'imei',
+    name: 'Device Info'
+}, {
+    class: 'android.telephony.TelephonyManager',
+    method: 'getMeid',
+    tag:'imei',
     name: 'Device Info'
 }, {
     class: 'android.telephony.TelephonyManager',
     method: 'getSubscriberId',
+    tag:'imsi',
+    name: 'Device Info'
+}, {
+    class: 'android.telephony.TelephonyManager',
+    method: 'getSimSerialNumber',
+    tag:'imsi',
+    name: 'Device Info'
+}, {
+    class: 'android.telephony.TelephonyManager',
+    method: 'getUiccCardsInfo',
+    tag:'imsi',
     name: 'Device Info'
 }, {
     class: 'android.telephony.TelephonyManager',
     method: 'getLine1Number',
+    tag:'imsi',
+    name: 'Device Info'
+}, {
+    class: 'android.telephony.TelephonyManager',
+    method: 'getAllCellInfo',
+    tag:'location',
     name: 'Device Info'
 }, {
     class: 'android.telephony.TelephonyManager',
@@ -329,28 +357,8 @@ var apis = [{
     method: 'getSimOperatorName',
     name: 'Device Info'
 }, {
-    class: 'android.net.wifi.WifiInfo',
-    method: 'getMacAddress',
-    name: 'Device Info'
-}, {
-    class: 'android.net.wifi.WifiInfo',
-    method: 'getBSSID',
-    name: 'Device Info'
-}, {
-    class: 'android.net.wifi.WifiInfo',
-    method: 'getIpAddress',
-    name: 'Device Info'
-}, {
-    class: 'android.net.wifi.WifiInfo',
-    method: 'getNetworkId',
-    name: 'Device Info'
-}, {
     class: 'android.telephony.TelephonyManager',
     method: 'getSimCountryIso',
-    name: 'Device Info'
-}, {
-    class: 'android.telephony.TelephonyManager',
-    method: 'getSimSerialNumber',
     name: 'Device Info'
 }, {
     class: 'android.telephony.TelephonyManager',
@@ -359,6 +367,31 @@ var apis = [{
 }, {
     class: 'android.telephony.TelephonyManager',
     method: 'getDeviceSoftwareVersion',
+    name: 'Device Info'
+}, {
+    class: 'android.net.wifi.WifiInfo',
+    method: 'getMacAddress',
+    tag:'mac_address',
+    name: 'Device Info'
+}, {
+    class: 'android.net.wifi.WifiInfo',
+    method: 'getBSSID',
+    tag:'mac_address',
+    name: 'Device Info'
+}, {
+    class: 'android.net.wifi.WifiInfo',
+    method: 'getIpAddress',
+    tag:'ip_address',
+    name: 'Device Info'
+}, {
+    class: 'android.net.wifi.WifiInfo',
+    method: 'getNetworkId',
+    tag:'network_id',
+    name: 'Device Info'
+},  {
+    class: 'java.net.NetworkInterface',
+    method: 'getNetworkInterfaces',
+    tag:'network_list',
     name: 'Device Info'
 }, {
     class: 'android.os.Debug',
@@ -370,17 +403,85 @@ var apis = [{
     name: 'Device Info'
 }, {
     class: 'android.content.pm.PackageManager',
-    method: 'getInstalledApplications',
-    name: 'Device Info'
-}, {
-    class: 'android.content.pm.PackageManager',
     method: 'getInstalledModules',
     name: 'Device Info',
     target: 10,
 }, {
     class: 'android.content.pm.PackageManager',
-    method: 'getInstalledPackages',
+    method: 'getApplicationInfo',
+    tag:'app_third_info',
     name: 'Device Info'
+}, {
+    class: 'android.content.pm.PackageManager',
+    method: 'getPackageInfo',
+    tag:'app_third_info',
+    name: 'Device Info'
+}, {
+    class: 'android.content.pm.PackageManager',
+    method: 'getPackageArchiveInfo',
+    tag:'app_third_info',
+    name: 'Device Info'
+}, {
+    class: 'android.content.pm.PackageManager',
+    method: 'getInstalledApplications',
+    tag:'app_list',
+    name: 'Device Info'
+}, {
+    class: 'android.content.pm.PackageManager',
+    method: 'getInstalledPackages',
+    tag:'app_list',
+    name: 'Device Info'
+}, {
+    class: 'android.content.pm.PackageManager',
+    method: 'queryIntentServices',
+    tag:'app_list',
+    name: 'Device Info'
+}, {
+    class: 'android.content.pm.PackageManager',
+    method: 'queryBroadcastReceivers',
+    tag:'app_list',
+    name: 'Device Info'
+},{
+    class: 'android.content.pm.PackageManager',
+    method: 'queryIntentActivities',
+    tag:'app_list',
+    name: 'Device Info'
+},{
+    class: 'android.content.pm.PackageManager',
+    method: 'queryIntentContentProviders',
+    tag:'app_list',
+    name: 'Device Info'
+}, {
+    class: 'android.app.ActivityManager',
+    method: 'getRunningAppProcesses',
+    tag:'app_list',
+    name: 'Device Info'
+}, {
+    class: 'android.app.ActivityManager',
+    method: 'getRunningTasks',
+    tag:'app_list',
+    name: 'Device Info'
+}, {
+    class: 'android.content.Context',
+    method: 'getSystemService',
+    name: 'Device Info',
+    only_severity: true
+}, {
+    class: 'android.content.ContextWrapper',
+    method: 'getSystemService',
+    name: 'Device Info',
+    only_severity: true
+}, {
+    class: 'android.view.ContextThemeWrapper',
+    method: 'getSystemService',
+    name: 'Device Info',
+    only_severity: true
+}, {
+    class: 'android.provider.Settings',
+    method: 'getString',
+    name: 'Device Info',
+    tag:'android_id',
+    only_severity: true
 }, {
     class: 'java.net.URL',
     method: 'openConnection',
@@ -524,6 +625,17 @@ function isArguments(a, b) {
                 || "getBroadcast" === method
                 || "getService" === method)) {
             return pendingIntentImp();
+        } else if ("android.provider.Settings" === clazz
+            && "getString" === method) {
+            return androidIdImp();
+        } else if ("getSystemService" === method){
+            return getSystemServiceImp();
+        } else if ("android.content.pm.PackageManager" === clazz
+            && "getApplicationInfo" == method) {
+            return getApplicationInfoImp(method);
+        } else if ("android.content.pm.PackageManager" === clazz
+            && "getPackageInfo" == method) {
+            return getPackageInfoImp(method);
         }
     } catch (err) {
         send('[API Monitor] isArguments ' + clazz + '.' + method);
@@ -577,6 +689,99 @@ function isArguments(a, b) {
         var intent = b[2];
         return onlyActionIntent(intent);
     }
+
+    function androidIdImp() {
+        // send('[API Monitor] pendingIntentImp ');
+        var arg_name = b[1];
+        if ("android_id" === arg_name) {
+            return {
+                severity_is: true,
+                severity: 'warning',
+                tag: 'android_id',
+                severity_msg: 'get android_id'
+            };
+        }
+        return {
+            severity_is: false
+        };
+    }
+    function getSystemServiceImp() {
+        // send('[API Monitor] pendingIntentImp ');
+        var serviceName = b[0];
+        const String = Java.use('java.lang.String');
+        if (!(serviceName instanceof String)) {
+            serviceName = getContext().getSystemServiceName(serviceName);
+        }
+        var ty_is = true;
+        var ty = 'warning'
+        var ty_msg = ''
+        var type_n;
+        if ("location" === serviceName) {
+            ty_msg = 'get location service'
+            type_n = 'location'
+        }else if ("clipboard" === serviceName) {
+            ty_msg = 'get clipboard service'
+            type_n = 'clipboard'
+        } else {
+            ty_is = false
+        }
+        return {
+                severity_is:ty_is,
+                severity:ty,
+                severity_msg: ty_msg,
+                tag: type_n
+            };
+    }
+    function getApplicationInfoImp() {
+        // send('[API Monitor] pendingIntentImp ');
+        var packageName_arg = b[0];
+        const packageName = getContext().getPackageName();
+
+        var ty_is = true;
+        var ty = 'warning'
+        var ty_msg = ''
+        var type_n;
+        if (packageName !== packageName_arg) {
+            ty_msg = 'get third app info'
+            type_n = 'app_third_info'
+        } else {
+            ty_is = false
+        }
+        return {
+                severity_is:ty_is,
+                severity:ty,
+                severity_msg: ty_msg,
+                tag: type_n
+            };
+    }
+    function getPackageInfoImp() {
+        // send('[API Monitor] pendingIntentImp ');
+        var packageName_arg = b[0];
+        const packageName = getContext().getPackageName();
+        var ty_is = true;
+        var ty = 'warning'
+        var ty_msg = ''
+        var type_n;
+        const String = Java.use('java.lang.String');
+        if (!(typeof packageName_arg instanceof String)){
+            packageName_arg = packageName_arg.getPackageName()
+        }
+        if (packageName !== packageName_arg) {
+            ty_msg = 'get third app info'
+            type_n = 'app_third_info'
+        } else {
+            ty_is = false
+        }
+        return {
+                severity_is:ty_is,
+                severity:ty,
+                severity_msg: ty_msg,
+                tag: type_n
+            };
+    }
+    function getContext() {
+        return Java.use('android.app.ActivityThread').currentApplication().getApplicationContext();
+    }
 }
 
 // Dynamic Hooks
@@ -587,6 +792,7 @@ function hook(api, callback) {
         var clazz = api.class;
         var method = api.method;
         var name = api.name;
+        var tag = api.tag;
         try {
             if (api.target && parseInt(Java.androidVersion, 10) < api.target) {
                 // send('[API Monitor] Not Hooking unavailable class/method - ' + clazz + '.' + method)
@@ -625,9 +831,15 @@ function hook(api, callback) {
                         result: retval ? retval.toString() : null,
                         calledFrom: calledFrom
                     };
+                    if (tag){
+                       message.tag = tag;
+                    }
                     if (arguments_re.severity_is) {
                         message.severity = arguments_re.severity;
                         message.severity_msg = arguments_re.severity_msg;
+                        if (arguments_re.tag) {
+                            message.tag = arguments_re.tag;
+                        }
                     }
                     retval = callback(retval, message);
                 }
