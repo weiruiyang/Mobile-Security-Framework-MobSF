@@ -318,7 +318,8 @@ var apis = [{
     class: 'android.telephony.TelephonyManager',
     method: 'getMeid',
     tag:'imei',
-    name: 'Device Info'
+    name: 'Device Info',
+    target: 8
 }, {
     class: 'android.telephony.TelephonyManager',
     method: 'getSubscriberId',
@@ -333,7 +334,8 @@ var apis = [{
     class: 'android.telephony.TelephonyManager',
     method: 'getUiccCardsInfo',
     tag:'imsi',
-    name: 'Device Info'
+    name: 'Device Info',
+    target: 10
 }, {
     class: 'android.telephony.TelephonyManager',
     method: 'getLine1Number',
@@ -477,7 +479,7 @@ var apis = [{
     name: 'Device Info',
     only_severity: true
 }, {
-    class: 'android.provider.Settings',
+    class: 'android.provider.Settings.Secure',
     method: 'getString',
     name: 'Device Info',
     tag:'android_id',
@@ -625,7 +627,7 @@ function isArguments(a, b) {
                 || "getBroadcast" === method
                 || "getService" === method)) {
             return pendingIntentImp();
-        } else if ("android.provider.Settings" === clazz
+        } else if ("android.provider.Settings.Secure" === clazz
             && "getString" === method) {
             return androidIdImp();
         } else if ("getSystemService" === method){
