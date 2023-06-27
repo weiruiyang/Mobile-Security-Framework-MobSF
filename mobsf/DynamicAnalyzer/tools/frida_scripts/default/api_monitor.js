@@ -248,7 +248,8 @@ var apis = [{
 }, {
     class: 'android.content.ContextWrapper',
     method: 'startActivity',
-    name: 'IPC'
+    name: 'IPC',
+    only_severity: true
 }, {
     class: 'android.content.ContextWrapper',
     method: 'startService',
