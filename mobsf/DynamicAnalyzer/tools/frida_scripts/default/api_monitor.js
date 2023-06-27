@@ -252,7 +252,8 @@ var apis = [{
 }, {
     class: 'android.content.ContextWrapper',
     method: 'startService',
-    name: 'IPC'
+    name: 'IPC',
+    only_severity: true
 }, {
     class: 'android.content.ContextWrapper',
     method: 'stopService',
@@ -287,7 +288,8 @@ var apis = [{
 }, {
     class: 'android.app.Activity',
     method: 'startActivity',
-    name: 'Binder'
+    name: 'Binder',
+    only_severity: true
 }, {
     class: 'javax.crypto.spec.SecretKeySpec',
     method: '$init',
@@ -412,12 +414,14 @@ var apis = [{
     class: 'android.app.ApplicationPackageManager',
     method: 'getApplicationInfo',
     tag:'app_third_info',
-    name: 'Device Info'
+    name: 'Device Info',
+    only_severity: true
 }, {
     class: 'android.app.ApplicationPackageManager',
     method: 'getPackageInfo',
     tag:'app_third_info',
-    name: 'Device Info'
+    name: 'Device Info',
+    only_severity: true
 }, {
     class: 'android.app.ApplicationPackageManager',
     method: 'getPackageArchiveInfo',
