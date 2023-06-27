@@ -158,6 +158,7 @@ class Frida:
                 logger.warning('weiry:connect:response: %s', response)
                 script.on('message', response)
                 script.load()
+                time.sleep(5)
                 device.resume(pid)
                 sys.stdin.read()
                 script.unload()
