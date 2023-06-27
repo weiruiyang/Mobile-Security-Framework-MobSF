@@ -821,7 +821,7 @@ function hook(api, callback) {
                     send('[API Monitor] isArguments is err: ' + clazz + '.' + method + " [\"Error\"] => " + err);
                 }
                 var argz = [].slice.call(arguments);
-                // send('[API Monitor] isArguments arguments_re: ' + clazz + '.' + method + " \n " + JSON.stringify(arguments_re) + "\n arg:" + argz);
+                // send('[API Monitor] isArguments : ' + clazz + '.' + method + ", arguments_re: " + JSON.stringify(arguments_re) + ", arg:" + argz);
                 // Call original function
                 var retval = this[method].apply(this, arguments);
                 if (!(api.only_severity && !arguments_re.severity_is) && callback) {
