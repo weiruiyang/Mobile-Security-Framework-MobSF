@@ -807,7 +807,11 @@ function hook(api, callback) {
                 var argz = [].slice.call(arguments);
                 // send('[API Monitor] isArguments : ' + clazz + '.' + method + ", arg:" + argz + ", arguments_re: " + JSON.stringify(arguments_re) );
                 // Call original function
-                var retval = this[method].apply(this, arguments);
+                try {
+                    var retval = this[method].apply(this, arguments);
+                } catch (err) {
+                    send('[API Monitor] apply err: ' + clazz + '.' + method + " [\"Error\"] => " + err);
+                }
                 if (!(api.only_severity && !arguments_re.severity_is) && callback) {
                     var calledFrom = Exception.$new().getStackTrace().toString().split(',')[1];
                     var message = {
