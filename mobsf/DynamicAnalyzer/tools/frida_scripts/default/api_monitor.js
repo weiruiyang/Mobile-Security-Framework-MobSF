@@ -698,9 +698,7 @@ function isArguments(a, b) {
         if ("android_id" === arg_name) {
             return {
                 severity_is: true,
-                severity: 'warning',
-                tag: 'android_id',
-                severity_msg: 'get android_id'
+                tag: 'android_id'
             };
         }
         return {
@@ -714,25 +712,18 @@ function isArguments(a, b) {
             serviceName = getContext().getSystemServiceName(serviceName);
         }
         var ty_is = true;
-        var ty = 'warning'
-        var ty_msg = ''
         var type_n;
         if ("location" === serviceName) {
-            ty_msg = 'get location service'
             type_n = 'location'
         } else if ("clipboard" === serviceName) {
-            ty_msg = 'get clipboard service'
             type_n = 'clipboard'
         } else if ("usagestats" === serviceName) {
-            ty_msg = 'get usage stats service'
             type_n = 'usage_stats'
         } else {
             ty_is = false
         }
         return {
                 severity_is:ty_is,
-                severity:ty,
-                severity_msg: ty_msg,
                 tag: type_n
             };
     }
@@ -742,19 +733,14 @@ function isArguments(a, b) {
         const packageName = getContext().getPackageName();
 
         var ty_is = true;
-        var ty = 'warning'
-        var ty_msg = ''
         var type_n;
         if (packageName !== packageName_arg) {
-            ty_msg = 'get third app info'
             type_n = 'app_third_info'
         } else {
             ty_is = false
         }
         return {
                 severity_is:ty_is,
-                severity:ty,
-                severity_msg: ty_msg,
                 tag: type_n
             };
     }
@@ -776,11 +762,9 @@ function isArguments(a, b) {
             ty_is = false
         }
         return {
-                severity_is:ty_is,
-                severity:ty,
-                severity_msg: ty_msg,
-                tag: type_n
-            };
+            severity_is: ty_is,
+            tag: type_n
+        };
     }
     function getContext() {
         return Java.use('android.app.ActivityThread').currentApplication().getApplicationContext();
