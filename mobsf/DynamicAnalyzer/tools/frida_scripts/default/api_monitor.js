@@ -617,6 +617,7 @@ function isArguments(a, b) {
 // high\warning\info
     var clazz = a.class;
     var method = a.method;
+    // send('[API Monitor] isArguments arg: ' + clazz + '.' + method);
     try {
         if ("startActivity" === method) {
             return startActivityImp();
