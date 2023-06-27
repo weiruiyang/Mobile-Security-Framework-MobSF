@@ -400,56 +400,56 @@ var apis = [{
     method: 'isDebuggerConnected',
     name: 'Device Info'
 }, {
-    class: 'android.content.pm.PackageManager',
+    class: 'android.app.ApplicationPackageManager',
     method: 'getInstallerPackageName',
     name: 'Device Info'
 }, {
-    class: 'android.content.pm.PackageManager',
+    class: 'android.app.ApplicationPackageManager',
     method: 'getInstalledModules',
     name: 'Device Info',
     target: 10,
 }, {
-    class: 'android.content.pm.PackageManager',
+    class: 'android.app.ApplicationPackageManager',
     method: 'getApplicationInfo',
     tag:'app_third_info',
     name: 'Device Info'
 }, {
-    class: 'android.content.pm.PackageManager',
+    class: 'android.app.ApplicationPackageManager',
     method: 'getPackageInfo',
     tag:'app_third_info',
     name: 'Device Info'
 }, {
-    class: 'android.content.pm.PackageManager',
+    class: 'android.app.ApplicationPackageManager',
     method: 'getPackageArchiveInfo',
     tag:'app_third_info',
     name: 'Device Info'
 }, {
-    class: 'android.content.pm.PackageManager',
+    class: 'android.app.ApplicationPackageManager',
     method: 'getInstalledApplications',
     tag:'app_list',
     name: 'Device Info'
 }, {
-    class: 'android.content.pm.PackageManager',
+    class: 'android.app.ApplicationPackageManager',
     method: 'getInstalledPackages',
     tag:'app_list',
     name: 'Device Info'
 }, {
-    class: 'android.content.pm.PackageManager',
+    class: 'android.app.ApplicationPackageManager',
     method: 'queryIntentServices',
     tag:'app_list',
     name: 'Device Info'
 }, {
-    class: 'android.content.pm.PackageManager',
+    class: 'android.app.ApplicationPackageManager',
     method: 'queryBroadcastReceivers',
     tag:'app_list',
     name: 'Device Info'
 },{
-    class: 'android.content.pm.PackageManager',
+    class: 'android.app.ApplicationPackageManager',
     method: 'queryIntentActivities',
     tag:'app_list',
     name: 'Device Info'
 },{
-    class: 'android.content.pm.PackageManager',
+    class: 'android.app.ApplicationPackageManager',
     method: 'queryIntentContentProviders',
     tag:'app_list',
     name: 'Device Info'
@@ -479,7 +479,7 @@ var apis = [{
     name: 'Device Info',
     only_severity: true
 }, {
-    class: 'android.provider.Settings.Secure',
+    class: 'android.provider.Settings$Secure',
     method: 'getString',
     name: 'Device Info',
     tag:'android_id',
@@ -604,10 +604,6 @@ var apis = [{
     class: 'android.os.SystemProperties',
     method: 'get',
     name: 'Device Data'
-}, {
-    class: 'android.app.ApplicationPackageManager',
-    method: 'getInstalledPackages',
-    name: 'Device Data'
 }
 ];
 
@@ -628,21 +624,20 @@ function isArguments(a, b) {
                 || "getBroadcast" === method
                 || "getService" === method)) {
             return pendingIntentImp();
-        } else if ("android.provider.Settings.Secure" === clazz
+        } else if ("android.provider.Settings$Secure" === clazz
             && "getString" === method) {
             return androidIdImp();
         } else if ("getSystemService" === method){
             return getSystemServiceImp();
-        } else if ("android.content.pm.PackageManager" === clazz
+        } else if ("android.app.ApplicationPackageManager" === clazz
             && "getApplicationInfo" == method) {
             return getApplicationInfoImp(method);
-        } else if ("android.content.pm.PackageManager" === clazz
+        } else if ("android.app.ApplicationPackageManager" === clazz
             && "getPackageInfo" == method) {
             return getPackageInfoImp(method);
         }
     } catch (err) {
-        send('[API Monitor] isArguments ' + clazz + '.' + method);
-        send('[API Monitor] isArguments err ' + err);
+        send('[API Monitor] isArguments err: ' + clazz + '.' + method + " [\"Error\"] => " + err);
     }
     // send('[API Monitor] isArguments return true ');
     return {
@@ -711,8 +706,7 @@ function isArguments(a, b) {
     function getSystemServiceImp() {
         // send('[API Monitor] pendingIntentImp ');
         var serviceName = b[0];
-        const String = Java.use('java.lang.String');
-        if (!(serviceName instanceof String)) {
+        if (typeof serviceName !== 'string') {
             serviceName = getContext().getSystemServiceName(serviceName);
         }
         var ty_is = true;
@@ -768,8 +762,7 @@ function isArguments(a, b) {
         var ty = 'warning'
         var ty_msg = ''
         var type_n;
-        const String = Java.use('java.lang.String');
-        if (!(typeof packageName_arg instanceof String)){
+        if (typeof packageName_arg !== 'string'){
             packageName_arg = packageName_arg.getPackageName()
         }
         if (packageName !== packageName_arg) {
@@ -821,10 +814,10 @@ function hook(api, callback) {
                 try {
                     arguments_re = isArguments(api, arguments);
                 } catch (err) {
-                    send('[API Monitor] isArguments is err ' + clazz + '.' + method);
+                    send('[API Monitor] isArguments is err: ' + clazz + '.' + method + " [\"Error\"] => " + err);
                 }
-
                 var argz = [].slice.call(arguments);
+                // send('[API Monitor] isArguments arguments_re: ' + clazz + '.' + method + " \n " + JSON.stringify(arguments_re) + "\n arg:" + argz);
                 // Call original function
                 var retval = this[method].apply(this, arguments);
                 if (!(api.only_severity && !arguments_re.severity_is) && callback) {
