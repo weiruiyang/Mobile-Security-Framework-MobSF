@@ -320,7 +320,7 @@ var apis = [{
 }, {
     class: 'android.telephony.TelephonyManager',
     method: 'getMeid',
-    tag:'imei',
+    tag:'meid',
     name: 'Device Info',
     target: 8
 }, {
@@ -331,7 +331,7 @@ var apis = [{
 }, {
     class: 'android.telephony.TelephonyManager',
     method: 'getSimSerialNumber',
-    tag:'imsi',
+    tag:'iccid',
     name: 'Device Info'
 }, {
     class: 'android.telephony.TelephonyManager',
