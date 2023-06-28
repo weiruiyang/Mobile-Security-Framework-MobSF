@@ -22,6 +22,11 @@ from mobsf.StaticAnalyzer.views.common.pdf import pdf
 from mobsf.StaticAnalyzer.views.common.appsec import appsec_dashboard
 from mobsf.StaticAnalyzer.views.windows import windows
 
+@request_method(['POST'])
+@csrf_exempt
+def api_privacy_scan(request):
+    """POST - Scan API."""
+    return make_api_response({'error': 'Missing Parameters'}, 200)
 
 @request_method(['POST'])
 @csrf_exempt
