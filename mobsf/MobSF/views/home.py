@@ -9,6 +9,11 @@ import shutil
 from pathlib import Path
 from wsgiref.util import FileWrapper
 
+from selenium import webdriver
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
+
 from django.conf import settings
 from django.core.paginator import Paginator
 from django.http import HttpResponse, HttpResponseRedirect
@@ -359,13 +364,31 @@ def privacy_scan(request, api=False):
     logger.error('weiry:privacy_scan:')
     try:
         if request.method == 'POST':
+            data = {'deleted': 'scan hash not found'}
             if api:
+                body = request.body
+                json_loads = json.loads(body)
+                logger.info('weiry:privacy_scan json_loads: %s', json_loads)
+                url_ = json_loads["url"]
+                search_ = json_loads["search"]
+                logger.info('weiry:privacy_scan url_: %s', url_)
+                logger.info('weiry:privacy_scan search_: %s', search_)
+
+                driver = webdriver.Chrome()
+                driver.get(url_)
+
+                # 等待页面加载完成
+                wait = WebDriverWait(driver, 10)
+                wait.until(EC.presence_of_element_located((By.TAG_NAME, "body")))
+
+                content = driver.page_source
+                logger.info('weiry:privacy_scan content: %s', content)
+                driver.quit()
                 pass
                 # md5_hash = request.POST['hash']
             else:
                 pass
                 # md5_hash = request.POST['md5']
-            data = {'deleted': 'scan hash not found'}
             if api:
                 return data
             else:
