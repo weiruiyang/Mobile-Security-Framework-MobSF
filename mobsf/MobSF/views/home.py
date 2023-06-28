@@ -393,7 +393,7 @@ def privacy_scan(request, api=False):
                 v_s = []
                 for keys in search_:
                     for k in keys:
-                        if k:
+                        if k != "":
                             if k.lower() in content:
                                 v_s.append(keys["v"])
                                 break
