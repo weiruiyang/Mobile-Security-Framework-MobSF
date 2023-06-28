@@ -386,17 +386,19 @@ def privacy_scan(request, api=False):
                 # content = driver.page_source
                 content = driver.execute_script("return document.body.innerHTML")
                 content = content.lower()
-                logger.info('weiry:privacy_scan content: %s', content)
+                # logger.info('weiry:privacy_scan content: %s', content)
                 driver.quit()
 
 
                 v_s = []
                 for keys in search_:
-                    for k in keys:
-                        if k != "":
-                            if k.lower() in content:
-                                v_s.append(keys["v"])
-                                break
+                    # logger.info('weiry:privacy_scan keys: %s', keys)
+                    for k in keys["k"]:
+                        # logger.info('weiry:privacy_scan k: %s', k)
+                        if k.lower() in content:
+                            # logger.info('weiry:privacy_scan v: %s', keys["v"])
+                            v_s.append(keys["v"])
+                            break
                 data["data"] = v_s
             else:
                 pass
