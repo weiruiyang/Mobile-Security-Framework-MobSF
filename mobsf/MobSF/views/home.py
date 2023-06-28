@@ -383,7 +383,8 @@ def privacy_scan(request, api=False):
                 wait.until(EC.presence_of_element_located((By.TAG_NAME, "body")))
                 time.sleep(3)
 
-                content = driver.page_source
+                # content = driver.page_source
+                content = driver.execute_script("return document.body.innerHTML")
                 content = content.lower()
                 logger.info('weiry:privacy_scan content: %s', content)
                 driver.quit()
