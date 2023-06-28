@@ -384,6 +384,7 @@ def privacy_scan(request, api=False):
                 time.sleep(3)
 
                 content = driver.page_source
+                content = content.lower()
                 logger.info('weiry:privacy_scan content: %s', content)
                 driver.quit()
 
@@ -391,7 +392,7 @@ def privacy_scan(request, api=False):
                 v_s = []
                 for keys in search_:
                     for k in keys:
-                        if k in content:
+                        if k.lower() in content:
                             v_s.append(keys["v"])
                             break
                 data["data"] = v_s
