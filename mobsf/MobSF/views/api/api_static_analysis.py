@@ -5,7 +5,7 @@ from django.http import HttpResponse
 from django.views.decorators.csrf import csrf_exempt
 
 from mobsf.MobSF.views.helpers import request_method
-from mobsf.MobSF.views.home import RecentScans, Upload, delete_scan
+from mobsf.MobSF.views.home import RecentScans, Upload, delete_scan, privacy_scan
 from mobsf.MobSF.views.api.api_middleware import make_api_response
 from mobsf.StaticAnalyzer.views.android import view_source
 from mobsf.StaticAnalyzer.views.android.static_analyzer import static_analyzer
@@ -26,7 +26,12 @@ from mobsf.StaticAnalyzer.views.windows import windows
 @csrf_exempt
 def api_privacy_scan(request):
     """POST - Scan API."""
-    return make_api_response({'error': 'Missing Parameters'}, 200)
+    resp = privacy_scan(request, True)
+    if 'error' in resp:
+        response = make_api_response(resp, 500)
+    else:
+        response = make_api_response(resp, 200)
+    return response
 
 @request_method(['POST'])
 @csrf_exempt

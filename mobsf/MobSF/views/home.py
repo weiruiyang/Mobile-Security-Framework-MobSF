@@ -354,6 +354,30 @@ def delete_scan(request, api=False):
             return print_n_send_error_response(request, msg, True, exp_doc)
         else:
             return print_n_send_error_response(request, msg, False, exp_doc)
+def privacy_scan(request, api=False):
+    """Delete Scan from DB and remove the scan related files."""
+    logger.error('weiry:privacy_scan:')
+    try:
+        if request.method == 'POST':
+            if api:
+                pass
+                # md5_hash = request.POST['hash']
+            else:
+                pass
+                # md5_hash = request.POST['md5']
+            data = {'deleted': 'scan hash not found'}
+            if api:
+                return data
+            else:
+                ctype = 'application/json; charset=utf-8'
+                return HttpResponse(json.dumps(data), content_type=ctype)
+    except Exception as exp:
+        msg = str(exp)
+        exp_doc = exp.__doc__
+        if api:
+            return print_n_send_error_response(request, msg, True, exp_doc)
+        else:
+            return print_n_send_error_response(request, msg, False, exp_doc)
 
 
 class RecentScans(object):
