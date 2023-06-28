@@ -365,7 +365,7 @@ def privacy_scan(request, api=False):
     logger.error('weiry:privacy_scan:')
     try:
         if request.method == 'POST':
-            data = {'deleted': 'scan hash not found'}
+            data = {'data': []}
             if api:
                 body = request.body
                 json_loads = json.loads(body)
@@ -386,8 +386,15 @@ def privacy_scan(request, api=False):
                 content = driver.page_source
                 logger.info('weiry:privacy_scan content: %s', content)
                 driver.quit()
-                pass
-                # md5_hash = request.POST['hash']
+
+
+                v_s = []
+                for keys in search_:
+                    for k in keys:
+                        if k in content:
+                            v_s.append(keys["v"])
+                            break
+                data["data"] = v_s
             else:
                 pass
                 # md5_hash = request.POST['md5']
