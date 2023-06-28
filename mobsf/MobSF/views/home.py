@@ -395,10 +395,11 @@ def privacy_scan(request, api=False):
                     # logger.info('weiry:privacy_scan keys: %s', keys)
                     for k in keys["k"]:
                         # logger.info('weiry:privacy_scan k: %s', k)
-                        if k.lower() in content:
-                            # logger.info('weiry:privacy_scan v: %s', keys["v"])
-                            v_s.append(keys["v"])
-                            break
+                        if k != "":
+                            if k.lower() in content:
+                                # logger.info('weiry:privacy_scan v: %s', keys["v"])
+                                v_s.append(keys["v"])
+                                break
                 data["data"] = v_s
             else:
                 pass
