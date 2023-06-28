@@ -378,7 +378,7 @@ def privacy_scan(request, api=False):
                 driver = webdriver.Chrome()
                 driver.get(url_)
 
-                # 等待页面加载完成
+
                 wait = WebDriverWait(driver, 10)
                 wait.until(EC.presence_of_element_located((By.TAG_NAME, "body")))
                 time.sleep(3)
