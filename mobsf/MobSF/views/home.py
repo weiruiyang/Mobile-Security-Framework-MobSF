@@ -6,6 +6,7 @@ import os
 import platform
 import re
 import shutil
+import time
 from pathlib import Path
 from wsgiref.util import FileWrapper
 
@@ -380,6 +381,7 @@ def privacy_scan(request, api=False):
                 # 等待页面加载完成
                 wait = WebDriverWait(driver, 10)
                 wait.until(EC.presence_of_element_located((By.TAG_NAME, "body")))
+                time.sleep(3)
 
                 content = driver.page_source
                 logger.info('weiry:privacy_scan content: %s', content)
