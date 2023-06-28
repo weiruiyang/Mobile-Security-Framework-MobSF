@@ -369,7 +369,7 @@ def privacy_scan(request, api=False):
             if api:
                 body = request.body
                 json_loads = json.loads(body)
-                logger.info('weiry:privacy_scan json_loads: %s', json_loads)
+                # logger.info('weiry:privacy_scan json_loads: %s', json_loads)
                 url_ = json_loads["url"]
                 search_ = json_loads["search"]
                 logger.info('weiry:privacy_scan url_: %s', url_)
@@ -381,7 +381,7 @@ def privacy_scan(request, api=False):
 
                 wait = WebDriverWait(driver, 10)
                 wait.until(EC.presence_of_element_located((By.TAG_NAME, "body")))
-                time.sleep(3)
+                time.sleep(1)
 
                 # content = driver.page_source
                 content = driver.execute_script("return document.body.innerHTML")
