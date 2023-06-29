@@ -961,8 +961,8 @@
     weiry There are no set permissions for dynamically registered broadcasts
   type: RegexOr
   pattern:
-    - \.registerReceiver\([^(),]+,[^(),]+\);
-    - \.registerReceiver\([^(),]+,[^(),]+,[^(),]+\);
+    - \.registerReceiver\([^,]+,[^,]+\);
+    - \.registerReceiver\([^,]+,[^,]+,[^,]+\);
   severity: warning
   input_case: exact
   metadata:
