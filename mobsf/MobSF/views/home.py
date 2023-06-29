@@ -381,7 +381,7 @@ def privacy_scan(request, api=False):
 
                 wait = WebDriverWait(driver, 10)
                 wait.until(EC.presence_of_element_located((By.TAG_NAME, "body")))
-                time.sleep(1)
+                # time.sleep(1)
 
                 # content = driver.page_source
                 content = driver.execute_script("return document.body.innerHTML")
