@@ -240,7 +240,8 @@ var apis = [{
 }, {
     class: 'android.content.ContextWrapper',
     method: 'sendBroadcast',
-    name: 'IPC'
+    name: 'IPC',
+    only_severity: true
 }, {
     class: 'android.content.ContextWrapper',
     method: 'sendStickyBroadcast',
@@ -262,7 +263,8 @@ var apis = [{
 }, {
     class: 'android.content.ContextWrapper',
     method: 'registerReceiver',
-    name: 'IPC'
+    name: 'IPC',
+    only_severity: true
 }, {
     class: 'android.app.PendingIntent',
     method: 'getActivity',
@@ -281,7 +283,8 @@ var apis = [{
 }, {
     class: 'android.app.ContextImpl',
     method: 'registerReceiver',
-    name: 'Binder'
+    name: 'Binder',
+    only_severity: true
 }, {
     class: 'android.app.ActivityThread',
     method: 'handleReceiver',
@@ -624,6 +627,10 @@ function isArguments(a, b) {
             return startActivityImp();
         } else if ("startService" === method) {
             return startServiceImp();
+        } else if ("registerReceiver" === method) {
+            return registerReceiverImp();
+        }  else if ("sendBroadcast" === method) {
+            return sendBroadcastImp();
         } else if ("android.app.PendingIntent" === clazz
             && ("getActivity" === method
                 || "getBroadcast" === method
@@ -673,6 +680,35 @@ function isArguments(a, b) {
             // send('[API Monitor] onlyActionIntent return false ');
             return {
                 severity_is:false
+            };
+        }
+    }
+
+    function sendBroadcastImp() {
+        var len_arg = len(b);
+        if (len_arg <= 1) {
+            return {
+                severity_is: true,
+                severity: 'warning',
+                severity_msg: 'No permissions are set for sending broadcasts'
+            };
+        } else {
+            return {
+                severity_is: false
+            };
+        }
+    }
+    function registerReceiverImp() {
+        var len_arg = len(b);
+        if (len_arg <= 3) {
+            return {
+                severity_is: true,
+                severity: 'warning',
+                severity_msg: 'There are no set permissions for dynamically registered broadcasts'
+            };
+        } else {
+            return {
+                severity_is: false
             };
         }
     }

@@ -947,7 +947,7 @@
   message: >-
     weiry No permissions are set for sending broadcasts
   type: Regex
-  pattern: \.sendBroadcast\((?!\w+(,\w+){1,})\);
+  pattern: \.sendBroadcast\([^,]+\);
   severity: warning
   input_case: exact
   metadata:
@@ -959,8 +959,10 @@
 - id: android_broadcast_registerReceiver
   message: >-
     weiry There are no set permissions for dynamically registered broadcasts
-  type: Regex
-  pattern: \.registerReceiver\((?!\w+(,\w+){3,})\);
+  type: RegexOr
+  pattern:
+    - \.registerReceiver\([^(),]+,[^(),]+\);
+    - \.registerReceiver\([^(),]+,[^(),]+,[^(),]+\);
   severity: warning
   input_case: exact
   metadata:
@@ -971,7 +973,7 @@
     ref: https://github.com/MobSF/owasp-mstg/blob/master/Document/0x05h-Testing-Platform-Interaction.md#testing-javascript-execution-in-webviews-mstg-platform-5
 - id: android_zipper_down
   message: >-
-    weiry ZipperDown. You must make a judgment on name (filePath. contents ("../") | | filePath. startsWith ("/") | | filePath. endsWith ("/"))
+    weiry ZipperDown. You must make a judgment on name (name.contains("..") || name.startsWith ("/") || name.endsWith ("/"))
   type: RegexAnd
   pattern:
       - java\.util\.zip\.ZipInputStream;
