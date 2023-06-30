@@ -62,7 +62,7 @@
     vulnerable to MITM attacks. Please set setHostnameVerifier
   type: RegexAnd
   pattern:
-    - javax\.net\.ssl\.HttpsURLConnection
+    - javax\.net\.ssl\.HttpsURLConnection;
     - \.setHostnameVerifier\(
   severity: high
   input_case: exact
