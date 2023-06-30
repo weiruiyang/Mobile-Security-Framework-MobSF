@@ -27,6 +27,19 @@ def api_get_apps(request):
 
 @request_method(['POST'])
 @csrf_exempt
+def api_self_start(request):
+    if 'hash' not in request.POST or 'run_time' not in request.POST:
+        return make_api_response(
+            {'error': 'Missing Parameters'}, 422)
+    resp = dynamic_analyzer.dynamic_self_start(
+        request,
+        request.POST['hash'],
+        True)
+    if 'error' in resp:
+        return make_api_response(resp, 500)
+    return make_api_response(resp, 200)
+@request_method(['POST'])
+@csrf_exempt
 def api_start_analysis(request):
     """POST - Start Dynamic Analysis."""
     if 'hash' not in request.POST:

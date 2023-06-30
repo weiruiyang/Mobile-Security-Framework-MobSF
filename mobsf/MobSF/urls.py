@@ -54,6 +54,7 @@ urlpatterns = [
     re_path(r'^api/v1/delete_suppression$', api_sz.api_delete_suppression),
     # Dynamic Analysis
     re_path(r'^api/v1/dynamic/get_apps$', api_dz.api_get_apps),
+    re_path(r'^api/v1/dynamic/self_start', api_dz.api_self_start),
     re_path(r'^api/v1/dynamic/start_analysis$', api_dz.api_start_analysis),
     re_path(r'^api/v1/dynamic/stop_analysis$', api_dz.api_stop_analysis),
     re_path(r'^api/v1/dynamic/report_json$', api_dz.api_dynamic_report),
