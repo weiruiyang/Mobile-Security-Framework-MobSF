@@ -178,6 +178,7 @@ def codeRulesText(code_findings, code_rules_text):
         for ob_class in rules_json:
             logger.info('weiry:code_findings ob_class: %s', ob_class)
             ob_class_id_ = ob_class["id"]
+            logger.info('weiry:code_findings ob_class_id_: %s', ob_class_id_)
             type_ = ob_class["type"]
             logger.info('weiry:code_findings type_: %s', type_)
             if "all" == type_:
