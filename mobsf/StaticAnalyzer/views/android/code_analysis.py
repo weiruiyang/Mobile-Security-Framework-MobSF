@@ -178,24 +178,35 @@ def codeRulesText(code_findings, code_rules_text):
         for ob_class in rules_json:
             logger.info('weiry:code_findings ob_class: %s', ob_class)
             ob_class_id_ = ob_class["id"]
-            if "all" == ob_class["type"]:
+            type_ = ob_class["type"]
+            logger.info('weiry:code_findings type_: %s', type_)
+            if "all" == type_:
                 is_all = True
                 if code_findings[ob_class_id_]:
+                    logger.info('weiry:code_findings code_findings[ob_class_id_]: %s', code_findings[ob_class_id_])
                     for id_s in ob_class["ids"]:
+                        logger.info('weiry:code_findings id_s: %s', id_s)
                         if code_findings[id_s]:
+                            logger.info('weiry:code_findings code_findings[id_s]: %s', code_findings[id_s])
                             del code_findings[id_s]
                         else:
                             is_all = False
+
+                logger.info('weiry:code_findings is_all: %s', is_all)
                 if not is_all:
                     del code_findings[ob_class_id_]
-            elif ("not" == ob_class["type"]):
+            elif ("not" == type_):
                 if code_findings[ob_class_id_]:
+                    logger.info('weiry:code_findings code_findings[ob_class_id_]: %s', code_findings[ob_class_id_])
                     for id_s in ob_class["ids"]:
+                        logger.info('weiry:code_findings id_s: %s', id_s)
                         if code_findings[id_s]:
+                            logger.info('weiry:code_findings code_findings[id_s]: %s', code_findings[id_s])
                             files_ = code_findings[id_s]["files"]
                             for key, value in files_.items():
                                 if code_findings[ob_class_id_]["files"][key]:
                                     del code_findings[ob_class_id_]["files"][key]
+                            del code_findings[id_s]
                     num_keys = len(code_findings[ob_class_id_]["files"])
                     if num_keys <= 0:
                         del code_findings[ob_class_id_]

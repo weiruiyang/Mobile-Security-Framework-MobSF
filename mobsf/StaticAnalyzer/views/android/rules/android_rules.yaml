@@ -1060,7 +1060,7 @@
       - - \.contains\("\.\.
         - \.startsWith\("\/
         - \.endsWith\("\/
-  severity: warning
+  severity: good
   input_case: exact
   metadata:
     cvss: 8.8
