@@ -57,7 +57,7 @@
     ref: https://github.com/MobSF/owasp-mstg/blob/master/Document/0x05g-Testing-Network-Communication.md#android-network-apis
 - id: not_android_insecure_ssl_sethostnameverifier
   message: >-
-    weiry Insecure Implementation of SSL. Trusting all the certificates or accepting
+    weiry NOT: Insecure Implementation of SSL. Trusting all the certificates or accepting
     self signed certificates is a critical Security Hole. This application is
     vulnerable to MITM attacks. Please set setHostnameVerifier
   type: RegexAnd
@@ -1053,7 +1053,7 @@
     ref: https://github.com/MobSF/owasp-mstg/blob/master/Document/0x05h-Testing-Platform-Interaction.md#testing-javascript-execution-in-webviews-mstg-platform-5
 - id: not_android_zipper_down
   message: >-
-    weiry ZipperDown. You must make a judgment on name (name.contains("..") || name.startsWith ("/") || name.endsWith ("/"))
+    weiry NOT: ZipperDown. You must make a judgment on name (name.contains("..") || name.startsWith ("/") || name.endsWith ("/"))
   type: RegexAndOr
   pattern:
       - java\.util\.zip\.ZipInputStream;
