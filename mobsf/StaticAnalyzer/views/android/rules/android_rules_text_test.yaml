@@ -1,0 +1,32 @@
+- id: android_insecure_ssl_sethostnameverifier
+  message: >-
+    weiry Insecure Implementation of SSL. Trusting all the certificates or accepting
+    self signed certificates is a critical Security Hole. This application is
+    vulnerable to MITM attacks. Please set setHostnameVerifier
+  type: Regex
+  pattern: javax\.net\.ssl\.HttpsURLConnection;
+  severity: high
+  input_case: exact
+  metadata:
+    cvss: 7.4
+    cwe: cwe-295
+    owasp-mobile: m3
+    masvs: network-3
+    ref: https://github.com/MobSF/owasp-mstg/blob/master/Document/0x05g-Testing-Network-Communication.md#android-network-apis
+- id: not_android_insecure_ssl_sethostnameverifier
+  message: >-
+    weiry Insecure Implementation of SSL. Trusting all the certificates or accepting
+    self signed certificates is a critical Security Hole. This application is
+    vulnerable to MITM attacks. Please set setHostnameVerifier
+  type: RegexAnd
+  pattern:
+    - javax\.net\.ssl\.HttpsURLConnection
+    - \.setHostnameVerifier\(
+  severity: high
+  input_case: exact
+  metadata:
+    cvss: 7.4
+    cwe: cwe-295
+    owasp-mobile: m3
+    masvs: network-3
+    ref: https://github.com/MobSF/owasp-mstg/blob/master/Document/0x05g-Testing-Network-Communication.md#android-network-apis

@@ -1,0 +1,16 @@
+[{
+	"id": "android_webview_remove_javascript_interface",
+	"ids": ["all_android_webview_remove_javascript_interface_accessibilitytraversal",
+		"all_android_webview_remove_javascript_interface_accessibility",
+		"all_android_webview_remove_javascript_interface_searchboxjavabridge"
+	],
+	"type": "all"
+}, {
+	"id": "android_zipper_down",
+	"ids": ["not_android_zipper_down"],
+	"type": "not"
+}, {
+	"id": "android_insecure_ssl_sethostnameverifier",
+	"ids": ["not_android_insecure_ssl_sethostnameverifier"],
+	"type": "not"
+}]

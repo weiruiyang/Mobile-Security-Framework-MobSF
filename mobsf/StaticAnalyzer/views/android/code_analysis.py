@@ -1,6 +1,6 @@
 # -*- coding: utf_8 -*-
 """Module holding the functions for code analysis."""
-
+import json
 import logging
 from pathlib import Path
 import os
@@ -24,7 +24,8 @@ def code_analysis(app_dir, typ, manifest_file):
     try:
         root = Path(settings.BASE_DIR) / 'StaticAnalyzer' / 'views'
         code_rules = root / 'android' / 'rules' / 'android_rules.yaml'
-        code_rules_webview_remove_javascript_interface = root / 'android' / 'rules' / 'android_rules_webview_remove_javascript_interface.yaml'
+        # code_rules_text = root / 'android' / 'rules' / 'android_rules_text_test.yaml'
+        code_rules_text = root / 'android' / 'rules' / 'android_rules.txt'
         api_rules = root / 'android' / 'rules' / 'android_apis.yaml'
         niap_rules = root / 'android' / 'rules' / 'android_niap.yaml'
         code_findings = {}
@@ -58,23 +59,7 @@ def code_analysis(app_dir, typ, manifest_file):
             [src],
             skp)
 
-        logger.warning('weiry:code_analysis:code_findings code_findings_webview_remove_javascript_interface =========')
-
-        code_findings_webview_remove_javascript_interface = scan(
-            code_rules_webview_remove_javascript_interface.as_posix(),
-            {'.java', '.kt'},
-            [src],
-            skp)
-
-        logger.warning('weiry:code_analysis:code_findings_webview_remove_javascript_interface: %s', code_findings_webview_remove_javascript_interface)
-        if code_findings_webview_remove_javascript_interface['android_webview_remove_javascript_interface']:
-            if code_findings_webview_remove_javascript_interface['android_webview_accessibilitytraversal'] \
-                    and code_findings_webview_remove_javascript_interface['android_webview_accessibility'] \
-                    and code_findings_webview_remove_javascript_interface['android_webview_searchboxjavabridge']:
-                pass
-            else:
-                code_findings['android_webview_remove_javascript_interface'] = code_findings_webview_remove_javascript_interface['android_webview_remove_javascript_interface']
-
+        codeRulesText(code_findings, code_rules_text)
 
         logger.warning('weiry:code_analysis:code_findings: %s', code_findings)
         logger.warning('weiry:code_analysis:api_findings =========')
@@ -182,3 +167,35 @@ def code_analysis(app_dir, typ, manifest_file):
         return code_an_dic
     except Exception:
         logger.exception('Performing Code Analysis')
+
+
+def codeRulesText(code_findings, code_rules_text):
+    logger.warning('weiry:code_analysis:code_findings android_rules.txt =========')
+    with open(code_rules_text.as_posix(), 'r') as file:
+        content = file.read()
+        logger.warning('weiry:code_analysis:code_findings android_rules.text: %s', content)
+        rules_json = json.loads(content)
+        for ob_class in rules_json:
+            logger.info('weiry:code_findings ob_class: %s', ob_class)
+            ob_class_id_ = ob_class["id"]
+            if "all" == ob_class["type"]:
+                is_all = True
+                if code_findings[ob_class_id_]:
+                    for id_s in ob_class["ids"]:
+                        if code_findings[id_s]:
+                            del code_findings[id_s]
+                        else:
+                            is_all = False
+                if not is_all:
+                    del code_findings[ob_class_id_]
+            elif ("not" == ob_class["type"]):
+                if code_findings[ob_class_id_]:
+                    for id_s in ob_class["ids"]:
+                        if code_findings[id_s]:
+                            files_ = code_findings[id_s]["files"]
+                            for key, value in files_.items():
+                                if code_findings[ob_class_id_]["files"][key]:
+                                    del code_findings[ob_class_id_]["files"][key]
+                    num_keys = len(code_findings[ob_class_id_]["files"])
+                    if num_keys <= 0:
+                        del code_findings[ob_class_id_]

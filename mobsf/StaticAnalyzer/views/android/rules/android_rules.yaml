@@ -45,10 +45,25 @@
     weiry Insecure Implementation of SSL. Trusting all the certificates or accepting
     self signed certificates is a critical Security Hole. This application is
     vulnerable to MITM attacks. Please set setHostnameVerifier
+  type: Regex
+  pattern: javax\.net\.ssl\.HttpsURLConnection;
+  severity: high
+  input_case: exact
+  metadata:
+    cvss: 7.4
+    cwe: cwe-295
+    owasp-mobile: m3
+    masvs: network-3
+    ref: https://github.com/MobSF/owasp-mstg/blob/master/Document/0x05g-Testing-Network-Communication.md#android-network-apis
+- id: not_android_insecure_ssl_sethostnameverifier
+  message: >-
+    weiry Insecure Implementation of SSL. Trusting all the certificates or accepting
+    self signed certificates is a critical Security Hole. This application is
+    vulnerable to MITM attacks. Please set setHostnameVerifier
   type: RegexAnd
   pattern:
     - javax\.net\.ssl\.HttpsURLConnection
-    - (?!\.setHostnameVerifier\()
+    - \.setHostnameVerifier\(
   severity: high
   input_case: exact
   metadata:
@@ -971,13 +986,80 @@
     owasp-mobile: m1
     masvs: platform-7
     ref: https://github.com/MobSF/owasp-mstg/blob/master/Document/0x05h-Testing-Platform-Interaction.md#testing-javascript-execution-in-webviews-mstg-platform-5
+- id: all_android_webview_remove_javascript_interface_searchboxjavabridge
+  message: >-
+    weiry Security WebView Implementation.
+  type: Regex
+  pattern: removeJavascriptInterface\(\s*\"searchBoxJavaBridge_\"\s*\)
+  severity: good
+  input_case: exact
+  metadata:
+    cvss: 8.8
+    cwe: cwe-749
+    owasp-mobile: m1
+    masvs: platform-7
+    ref: https://github.com/MobSF/owasp-mstg/blob/master/Document/0x05h-Testing-Platform-Interaction.md#testing-javascript-execution-in-webviews-mstg-platform-5
+- id: all_android_webview_remove_javascript_interface_accessibility
+  message: >-
+    weiry Security WebView Implementation.
+  type: Regex
+  pattern: removeJavascriptInterface\(\s*\"accessibility\"\s*\)
+  severity: good
+  input_case: exact
+  metadata:
+    cvss: 8.8
+    cwe: cwe-749
+    owasp-mobile: m1
+    masvs: platform-7
+    ref: https://github.com/MobSF/owasp-mstg/blob/master/Document/0x05h-Testing-Platform-Interaction.md#testing-javascript-execution-in-webviews-mstg-platform-5
+- id: all_android_webview_remove_javascript_interface_accessibilitytraversal
+  message: >-
+    weiry Security WebView Implementation.
+  type: Regex
+  pattern: removeJavascriptInterface\(\s*\"accessibilityTraversal\"\s*\)
+  severity: good
+  input_case: exact
+  metadata:
+    cvss: 8.8
+    cwe: cwe-749
+    owasp-mobile: m1
+    masvs: platform-7
+    ref: https://github.com/MobSF/owasp-mstg/blob/master/Document/0x05h-Testing-Platform-Interaction.md#testing-javascript-execution-in-webviews-mstg-platform-5
+- id: android_webview_remove_javascript_interface
+  message: >-
+    weiry Insecure WebView Implementation. searchBoxJavaBridge_ accessibility , accessibilityTraversal interfaces Calling the  not removed.
+  type: Regex
+  pattern: android\.webkit\.WebView
+  severity: warning
+  input_case: exact
+  metadata:
+    cvss: 8.8
+    cwe: cwe-749
+    owasp-mobile: m1
+    masvs: platform-7
+    ref: https://github.com/MobSF/owasp-mstg/blob/master/Document/0x05h-Testing-Platform-Interaction.md#testing-javascript-execution-in-webviews-mstg-platform-5
 - id: android_zipper_down
   message: >-
     weiry ZipperDown. You must make a judgment on name (name.contains("..") || name.startsWith ("/") || name.endsWith ("/"))
-  type: RegexAnd
+  type: Regex
+  pattern: java\.util\.zip\.ZipInputStream;
+  severity: warning
+  input_case: exact
+  metadata:
+    cvss: 8.8
+    cwe: cwe-749
+    owasp-mobile: m1
+    masvs: platform-7
+    ref: https://github.com/MobSF/owasp-mstg/blob/master/Document/0x05h-Testing-Platform-Interaction.md#testing-javascript-execution-in-webviews-mstg-platform-5
+- id: not_android_zipper_down
+  message: >-
+    weiry ZipperDown. You must make a judgment on name (name.contains("..") || name.startsWith ("/") || name.endsWith ("/"))
+  type: RegexAndOr
   pattern:
       - java\.util\.zip\.ZipInputStream;
-      - (?!.*\bcontains\s*\().*
+      - - \.contains\("\.\.
+        - \.startsWith\("\/
+        - \.endsWith\("\/
   severity: warning
   input_case: exact
   metadata:
