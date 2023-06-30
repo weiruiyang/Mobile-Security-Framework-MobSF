@@ -522,7 +522,21 @@ class Environment:
                           '-c',
                           'android.intent.category.LAUNCHER',
                           '1'], True)
-
+    def stop_app(self, package):
+        self.adb_command(['am',
+                          'force-stop',
+                          package], True)
+    def find_run_app(self, package):
+        out = self.adb_command(['ps',
+                          '|',
+                          'grep',
+                          package], True)
+        pkg = f'{package}'.encode('utf-8')
+        pkg_fmts = [pkg + b'\n', pkg + b'\r\n', pkg + b'\r\r\n', pkg + b':']
+        if any(pkg in out for pkg in pkg_fmts):
+            # Windows uses \r\n and \r\r\n
+            return True
+        return False
     def is_mobsfyied(self, android_version):
         """Check is Device is MobSFyed."""
         logger.info('Environment MobSFyed Check')

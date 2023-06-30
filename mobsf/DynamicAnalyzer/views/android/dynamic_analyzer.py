@@ -112,6 +112,119 @@ def dynamic_analysis(request, api=False):
         return print_n_send_error_response(request, exp, api)
 
 
+def dynamic_self_start(request, checksum, api=False):
+    """Android Dynamic Analyzer Environment."""
+    logger.error('weiry:dynamic_self_start:')
+    try:
+        identifier = None
+        if api:
+            reinstall = request.POST.get('re_install', '1')
+            install = request.POST.get('install', '1')
+            run_time = request.POST.get('run_time',100)
+        else:
+            reinstall = request.GET.get('re_install', '1')
+            install = request.GET.get('install', '1')
+            run_time = request.POST.get('run_time', 100)
+        logger.warning('weiry:dynamic_self_start:reinstall: %s', reinstall)
+        logger.warning('weiry:dynamic_self_start:install: %s', install)
+        logger.warning('weiry:dynamic_self_start:checksum: %s', checksum)
+        if not is_md5(checksum):
+            # We need this check since checksum is not validated
+            # in REST API
+            return print_n_send_error_response(
+                request,
+                'Invalid Parameters',
+                api)
+        package = get_package_name(checksum)
+        logger.warning('weiry:dynamic_self_start:package: %s', package)
+        if not package:
+            return print_n_send_error_response(
+                request,
+                'Cannot get package name from checksum',
+                api)
+        logger.info('Creating Dynamic Self start Environment for %s', package)
+        try:
+            identifier = get_device()
+            logger.warning('weiry:dynamic_self_start:identifier: %s', identifier)
+        except Exception:
+            pass
+        if not identifier:
+            msg = ('Is the android instance running? MobSF cannot'
+                   ' find android instance identifier. '
+                   'Please run an android instance and refresh'
+                   ' this page. If this error persists,'
+                   ' set ANALYZER_IDENTIFIER in '
+                   f'{get_config_loc()}')
+            return print_n_send_error_response(request, msg, api)
+
+        env = Environment(identifier)
+        if not env.connect_n_mount():
+            msg = 'Cannot Connect to ' + identifier
+            return print_n_send_error_response(request, msg, api)
+        version = env.get_android_version()
+        logger.info('Android Version identified as %s', version)
+        logger.warning('weiry:dynamic_self_start:version: %s', version)
+        xposed_first_run = False
+        if not env.is_mobsfyied(version):
+            msg = ('This Android instance is not MobSFyed/Outdated.\n'
+                   'MobSFying the android runtime environment')
+            logger.warning(msg)
+            if not env.mobsfy_init():
+                return print_n_send_error_response(
+                    request,
+                    'Failed to MobSFy the instance',
+                    api)
+            if version < 5:
+                xposed_first_run = True
+        if xposed_first_run:
+            msg = ('Have you MobSFyed the instance before'
+                   ' attempting Dynamic Analysis?'
+                   ' Install Framework for Xposed.'
+                   ' Restart the device and enable'
+                   ' all Xposed modules. And finally'
+                   ' restart the device once again.')
+            return print_n_send_error_response(request, msg, api)
+        if install == '1':
+            # Install APK
+            apk_path = Path(settings.UPLD_DIR) / checksum / f'{checksum}.apk'
+            status, output = env.install_apk(
+                apk_path.as_posix(),
+                package,
+                reinstall)
+            logger.warning('weiry:dynamic_self_start:status: %s', status)
+            logger.warning('weiry:dynamic_self_start:output: %s', output)
+            if not status:
+                msg = (f'This APK cannot be installed. Is this APK '
+                       f'compatible the Android VM/Emulator?\n{output}')
+                return print_n_send_error_response(
+                    request,
+                    msg,
+                    api)
+        logger.info('Testing Environment is Ready!')
+        env.run_app(package)
+        time.sleep(5)
+        env.stop_app(package)
+
+        is_run_app = False
+        for i in range(run_time):
+            time.sleep(1)
+            if env.find_run_app(package):
+                break
+            else:
+                pass
+
+        context = {'is_run': is_run_app}
+        logger.warning('weiry:dynamic_self_start:context: %s', context)
+        if api:
+            return context
+        template = 'dynamic_analyzer.html'
+        return render(request, template, context)
+    except Exception:
+        logger.exception('Dynamic Self start ')
+        return print_n_send_error_response(
+            request,
+            'Dynamic Self start Failed.',
+            api)
 def dynamic_analyzer(request, checksum, api=False):
     """Android Dynamic Analyzer Environment."""
     logger.error('weiry:dynamic_analyzer:')
