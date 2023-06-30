@@ -960,7 +960,7 @@
     ref: https://github.com/MobSF/owasp-mstg/blob/master/Document/0x05h-Testing-Platform-Interaction.md#testing-javascript-execution-in-webviews-mstg-platform-5
 - id: android_send_broadcast
   message: >-
-    weiry No permissions are set for sending broadcasts
+    weiry No permissions are set for sending broadcasts.How to misreport, please do not use anonymous object inside () direct new
   type: Regex
   pattern: \.sendBroadcast\([^,]+\);
   severity: warning
@@ -973,7 +973,7 @@
     ref: https://github.com/MobSF/owasp-mstg/blob/master/Document/0x05h-Testing-Platform-Interaction.md#testing-javascript-execution-in-webviews-mstg-platform-5
 - id: android_broadcast_registerReceiver
   message: >-
-    weiry There are no set permissions for dynamically registered broadcasts
+    weiry There are no set permissions for dynamically registered broadcasts.How to misreport, please do not use anonymous object inside () direct new
   type: RegexOr
   pattern:
     - \.registerReceiver\([^,]+,[^,]+\);
