@@ -8,6 +8,7 @@ import subprocess
 import tempfile
 import threading
 import time
+import platform
 from hashlib import md5
 
 from django.conf import settings
@@ -527,10 +528,16 @@ class Environment:
                           'force-stop',
                           package], True)
     def find_run_app(self, package):
-        out = self.adb_command(['ps',
-                          '|',
-                          'grep',
-                          package], True)
+        if platform.system() == 'Windows':
+            out = self.adb_command(['ps',
+                                    '|',
+                                    'grep',
+                                    package], True)
+        else:
+            out = self.adb_command(['ps',
+                                    '|',
+                                    'findstr',
+                                    package], True)
         pkg = f'{package}'.encode('utf-8')
         pkg_fmts = [pkg + b'\n', pkg + b'\r\n', pkg + b'\r\r\n', pkg + b':']
         if any(pkg in out for pkg in pkg_fmts):
