@@ -123,11 +123,12 @@ def url_n_email_extract(dat, relative_path):
             {'emails': emails, 'path': escape(relative_path)})
 
     # phone Extraction Regex
-    regex = re.compile(r'\s*\+?(86)?1[3-9]\d{9}\s*')
+    # regex = re.compile(r'\s*\+?(86)?1[3-9]\d{9}\s*')
+    regex = re.compile(r'\"(?:\+?86)?1[3-9]\d{9}\"')
     pflag = 0
     for phone in regex.findall(dat.lower()):
         if (phone not in phones):
-            logger.warning('weiry:phone: %s', phone)
+            # logger.warning('weiry:phone: %s', phone)
             phones.append(phone)
             pflag = 1
     if pflag == 1:
