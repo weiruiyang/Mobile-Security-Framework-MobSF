@@ -685,7 +685,7 @@ function isArguments(a, b) {
     }
 
     function sendBroadcastImp() {
-        var len_arg = len(b);
+        var len_arg = b.length;
         if (len_arg <= 1) {
             return {
                 severity_is: true,
