@@ -699,7 +699,7 @@ function isArguments(a, b) {
         }
     }
     function registerReceiverImp() {
-        var len_arg = len(b);
+        var len_arg = b.length;
         if (len_arg <= 3) {
             return {
                 severity_is: true,
