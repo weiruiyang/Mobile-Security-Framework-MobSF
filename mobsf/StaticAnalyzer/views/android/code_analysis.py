@@ -205,7 +205,7 @@ def codeRulesText(code_findings, code_rules_text):
                             # logger.info('weiry:code_findings code_findings[id_s]: %s', code_findings[id_s])
                             files_ = code_findings[id_s]["files"]
                             for key, value in files_.items():
-                                if code_findings[ob_class_id_]["files"][key]:
+                                if code_findings[ob_class_id_]["files"].get(key):
                                     del code_findings[ob_class_id_]["files"][key]
                             del code_findings[id_s]
                     num_keys = len(code_findings[ob_class_id_]["files"])
