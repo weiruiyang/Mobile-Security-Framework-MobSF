@@ -714,6 +714,33 @@
 										</table>
       {% endif %}
 
+      {% if phones %}
+      <h2><i class="fas fa-envelope"></i> PHONES</h2>
+          <table class="basic">
+                  <thead>
+                  <tr>
+                     <th>PHONE</th>
+                     <th>FILE</th>
+                  </tr>
+                 </thead>
+                  <tbody>
+									{% for phone_dict in phones %}
+                    <tr>
+                       <td style="word-break:break-all;">
+                       {% for em in phone_dict|key:"phones" %}
+                         {{ em }} </br>
+                       {% endfor %}
+                        </td>
+
+                       <td style="word-break:break-all;">
+                         {{phone_dict|key:"path"}}
+                       </td>
+                    </tr>
+                  {% endfor %}
+										</tbody>
+										</table>
+      {% endif %}
+
       {% if trackers|key:"trackers" %}
       <h2><i class="fas fa-user-secret"></i> TRACKERS</h2>
        <table class="basic">
