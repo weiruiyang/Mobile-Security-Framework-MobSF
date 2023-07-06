@@ -1,5 +1,5 @@
 {
-	"crime": "weiry02 Internal Storage have getExternalFilesDir",
+	"crime": "Internal Storage have getExternalFilesDir",
 	"permission": [],
 	"api": [{
 		"class": "Landroid/content/Context;",

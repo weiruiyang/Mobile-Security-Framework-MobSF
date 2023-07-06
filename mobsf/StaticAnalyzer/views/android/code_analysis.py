@@ -52,7 +52,7 @@ def code_analysis(app_dir, typ, manifest_file):
         logger.info('Code Analysis Started on - %s',
                     filename_from_path(src))
         # Code and API Analysis
-        logger.warning('weiry:code_analysis:code_findings =========')
+        # logger.warning('weiry:code_analysis:code_findings =========')
         code_findings = scan(
             code_rules.as_posix(),
             {'.java', '.kt'},
@@ -61,22 +61,22 @@ def code_analysis(app_dir, typ, manifest_file):
 
         codeRulesText(code_findings, code_rules_text)
 
-        logger.warning('weiry:code_analysis:code_findings: %s', code_findings)
-        logger.warning('weiry:code_analysis:api_findings =========')
+        # logger.warning('weiry:code_analysis:code_findings: %s', code_findings)
+        # logger.warning('weiry:code_analysis:api_findings =========')
         api_findings = scan(
             api_rules.as_posix(),
             {'.java', '.kt'},
             [src],
             skp)
         # NIAP Scan
-        logger.warning('weiry:code_analysis:niap_findings =========')
+        # logger.warning('weiry:code_analysis:niap_findings =========')
         niap_findings = niap_scan(
             niap_rules.as_posix(),
             {'.java', '.xml'},
             [src],
             manifest_file,
             None)
-        logger.warning('weiry:code_analysis:niap_findings : %s', niap_findings)
+        # logger.warning('weiry:code_analysis:niap_findings : %s', niap_findings)
         # Extract URLs and Emails
         for pfile in Path(src).rglob('*'):
             if (
@@ -163,46 +163,46 @@ def code_analysis(app_dir, typ, manifest_file):
             'phones': phone_n_file,
             'is_confusing': is_confusing,
         }
-        logger.warning('weiry:code_analysis:code_an_dic : %s', code_an_dic)
+        # logger.warning('weiry:code_analysis:code_an_dic : %s', code_an_dic)
         return code_an_dic
     except Exception:
         logger.exception('Performing Code Analysis')
 
 
 def codeRulesText(code_findings, code_rules_text):
-    logger.warning('weiry:code_analysis:code_findings android_rules.txt =========')
+    # logger.warning('weiry:code_analysis:code_findings android_rules.txt =========')
     with open(code_rules_text.as_posix(), 'r') as file:
         content = file.read()
-        logger.warning('weiry:code_analysis:code_findings android_rules.text: %s', content)
+        # logger.warning('weiry:code_analysis:code_findings android_rules.text: %s', content)
         rules_json = json.loads(content)
         for ob_class in rules_json:
-            logger.info('weiry:code_findings ob_class: %s', ob_class)
+            # logger.info('weiry:code_findings ob_class: %s', ob_class)
             ob_class_id_ = ob_class["id"]
-            logger.info('weiry:code_findings ob_class_id_: %s', ob_class_id_)
+            # logger.info('weiry:code_findings ob_class_id_: %s', ob_class_id_)
             type_ = ob_class["type"]
-            logger.info('weiry:code_findings type_: %s', type_)
+            # logger.info('weiry:code_findings type_: %s', type_)
             if "all" == type_:
                 is_all = True
                 if code_findings[ob_class_id_]:
-                    logger.info('weiry:code_findings code_findings[ob_class_id_]: %s', code_findings[ob_class_id_])
+                    # logger.info('weiry:code_findings code_findings[ob_class_id_]: %s', code_findings[ob_class_id_])
                     for id_s in ob_class["ids"]:
-                        logger.info('weiry:code_findings id_s: %s', id_s)
+                        # logger.info('weiry:code_findings id_s: %s', id_s)
                         if code_findings[id_s]:
-                            logger.info('weiry:code_findings code_findings[id_s]: %s', code_findings[id_s])
+                            # logger.info('weiry:code_findings code_findings[id_s]: %s', code_findings[id_s])
                             del code_findings[id_s]
                         else:
                             is_all = False
 
-                logger.info('weiry:code_findings is_all: %s', is_all)
+                # logger.info('weiry:code_findings is_all: %s', is_all)
                 if not is_all:
                     del code_findings[ob_class_id_]
             elif ("not" == type_):
                 if code_findings[ob_class_id_]:
-                    logger.info('weiry:code_findings code_findings[ob_class_id_]: %s', code_findings[ob_class_id_])
+                    # logger.info('weiry:code_findings code_findings[ob_class_id_]: %s', code_findings[ob_class_id_])
                     for id_s in ob_class["ids"]:
-                        logger.info('weiry:code_findings id_s: %s', id_s)
+                        # logger.info('weiry:code_findings id_s: %s', id_s)
                         if code_findings[id_s]:
-                            logger.info('weiry:code_findings code_findings[id_s]: %s', code_findings[id_s])
+                            # logger.info('weiry:code_findings code_findings[id_s]: %s', code_findings[id_s])
                             files_ = code_findings[id_s]["files"]
                             for key, value in files_.items():
                                 if code_findings[ob_class_id_]["files"][key]:

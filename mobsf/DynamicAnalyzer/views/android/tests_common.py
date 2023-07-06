@@ -38,7 +38,7 @@ logger = logging.getLogger(__name__)
 @require_http_methods(['POST'])
 def start_activity(request, api=False):
     """Lunch a specific activity."""
-    logger.error('weiry:start_activity:')
+    logger.info('start_activity:')
     try:
         env = Environment()
         activity = request.POST['activity']
@@ -70,7 +70,7 @@ def start_activity(request, api=False):
 @require_http_methods(['POST'])
 def activity_tester(request, api=False):
     """Exported & non exported activity Tester."""
-    logger.error('weiry:activity_tester:')
+    logger.info('activity_tester:')
     data = {}
     try:
         env = Environment()
@@ -132,7 +132,7 @@ def activity_tester(request, api=False):
 @require_http_methods(['POST'])
 def download_data(request, api=False):
     """Download Application Data from Device."""
-    logger.error('weiry:download_data:')
+    logger.info('download_data:')
     logger.info('Downloading app data')
     data = {}
     try:
@@ -169,7 +169,7 @@ def download_data(request, api=False):
 @require_http_methods(['POST'])
 def collect_logs(request, api=False):
     """Collecting Data and Cleanup."""
-    logger.error('weiry:collect_logs:')
+    logger.info('collect_logs:')
     logger.info('Collecting Data and Cleaning Up')
     data = {}
     try:
@@ -214,7 +214,7 @@ def collect_logs(request, api=False):
 @require_http_methods(['POST'])
 def tls_tests(request, api=False):
     """Perform TLS tests."""
-    logger.error('weiry:tls_tests:')
+    logger.info('tls_tests:')
     logger.info('Running TLS/SSL Security tests')
     data = {}
     package = None

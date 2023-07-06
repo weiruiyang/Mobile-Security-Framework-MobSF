@@ -51,7 +51,7 @@ ctype = 'application/json; charset=utf-8'
 
 
 def pdf(request, api=False, jsonres=False):
-    logger.error('weiry:pdf:')
+    logger.info('pdf:')
     try:
         if api:
             checksum = request.POST['hash']

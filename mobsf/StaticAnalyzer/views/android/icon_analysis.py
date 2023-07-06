@@ -194,7 +194,7 @@ def get_icon_apk(app_dic):
         # piggyback on apktool decompiled resources
         try:
             apk_tool_res = app_dir / 'apktool_out' / 'res'
-            logger.warning('weiry:get_icon_apk:apk_tool_res: %s', apk_tool_res)
+            # logger.warning('weiry:get_icon_apk:apk_tool_res: %s', apk_tool_res)
             copytree(apk_tool_res, res_path)
         except Exception:
             pass

@@ -45,7 +45,7 @@ def dex_2_smali(app_dir, tools_dir):
                 else:
                     bs_path = os.path.join(tools_dir, 'baksmali-2.5.2.jar')
                 output = os.path.join(app_dir, 'smali_source/')
-                logger.warning('weiry:dex_2_smali:output: %s', output)
+                # logger.warning('weiry:dex_2_smali:output: %s', output)
                 smali = [
                     find_java_binary(),
                     '-jar',
@@ -88,9 +88,9 @@ def apk_2_java(app_path, app_dir, tools_dir):
         if not os.access(jadx, os.X_OK):
             os.chmod(jadx, stat.S_IEXEC)
 
-        logger.warning('weiry:apk_2_java:jadx: %s', jadx)
-        logger.warning('weiry:apk_2_java:output: %s', output)
-        logger.warning('weiry:apk_2_java:app_path: %s', app_path)
+        # logger.warning('weiry:apk_2_java:jadx: %s', jadx)
+        # logger.warning('weiry:apk_2_java:output: %s', output)
+        # logger.warning('weiry:apk_2_java:app_path: %s', app_path)
         args = [
             jadx,
             '-ds',

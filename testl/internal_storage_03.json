@@ -1,5 +1,5 @@
 {
-	"crime": "weiry03 Internal Storage have openFileOutput",
+	"crime": "Internal Storage have openFileOutput",
 	"permission": [],
 	"api": [{
 		"class": "Landroid/content/Context;",

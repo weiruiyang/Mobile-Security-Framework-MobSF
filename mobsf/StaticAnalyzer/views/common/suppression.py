@@ -60,7 +60,7 @@ def get_package(checksum):
 @require_http_methods(['POST'])
 def suppress_by_rule_id(request, api=False):
     """Suppress finding by rule id."""
-    logger.error('weiry:suppress_by_rule_id:')
+    logger.info('suppress_by_rule_id:')
     data = {
         'status': 'failed',
         'message': 'Failed to suppress finding by rule id'}
@@ -106,7 +106,7 @@ def suppress_by_rule_id(request, api=False):
 @require_http_methods(['POST'])
 def suppress_by_files(request, api=False):
     """Suppress finding by files."""
-    logger.error('weiry:suppress_by_files:')
+    logger.info('suppress_by_files:')
     data = {
         'status': 'failed',
         'message': 'Failed to suppress finding by files'}
@@ -167,7 +167,7 @@ def suppress_by_files(request, api=False):
 @require_http_methods(['POST'])
 def list_suppressions(request, api=False):
     """List Suppression Rules."""
-    logger.error('weiry:list_suppressions:')
+    logger.info('list_suppressions:')
     data = {
         'status': 'failed',
         'message': 'Failed to list suppression rules'}
@@ -203,7 +203,7 @@ def list_suppressions(request, api=False):
 @require_http_methods(['POST'])
 def delete_suppression(request, api=False):
     """Delete suppression rule."""
-    logger.error('weiry:delete_suppression:')
+    logger.info('delete_suppression:')
     data = {
         'status': 'failed',
         'message': 'Failed to delete suppression rule'}

@@ -48,7 +48,7 @@ register.filter('key', key)
 
 def index(request):
     """Index Route."""
-    logger.error('weiry:index:')
+    logger.info('index:')
     mimes = (settings.APK_MIME
              + settings.IPA_MIME
              + settings.ZIP_MIME
@@ -72,7 +72,7 @@ class Upload(object):
 
     @staticmethod
     def as_view(request):
-        logger.error('weiry:as_view:')
+        logger.info('as_view:')
         upload = Upload(request)
         return upload.upload_html()
 
@@ -141,7 +141,7 @@ class Upload(object):
         logger.info('MIME Type: %s FILE: %s', content_type, file_name)
         if self.file_type.is_apk():
             scan_apk = scanning.scan_apk()
-            logger.warning('weiry:scanning:upload scan_apk: %s', scan_apk)
+            # logger.warning('weiry:scanning:upload scan_apk: %s', scan_apk)
             return scan_apk
         elif self.file_type.is_xapk():
             return scanning.scan_xapk()
@@ -161,7 +161,7 @@ class Upload(object):
 
 def api_docs(request):
     """Api Docs Route."""
-    logger.error('weiry:api_docs:')
+    logger.info('api_docs:')
     context = {
         'title': 'REST API Docs',
         'api_key': api_key(),
@@ -173,7 +173,7 @@ def api_docs(request):
 
 def about(request):
     """About Route."""
-    logger.error('weiry:about:')
+    logger.info('about:')
     context = {
         'title': 'About',
         'version': settings.MOBSF_VER,
@@ -184,7 +184,7 @@ def about(request):
 
 def donate(request):
     """Donate Route."""
-    logger.error('weiry:donate:')
+    logger.info('donate:')
     context = {
         'title': 'Donate',
         'version': settings.MOBSF_VER,
@@ -195,7 +195,7 @@ def donate(request):
 
 def error(request):
     """Error Route."""
-    logger.error('weiry:error:')
+    logger.info('error:')
     context = {
         'title': 'Error',
         'version': settings.MOBSF_VER,
@@ -206,7 +206,7 @@ def error(request):
 
 def zip_format(request):
     """Zip Format Message Route."""
-    logger.error('weiry:zip_format:')
+    logger.info('zip_format:')
     context = {
         'title': 'Zipped Source Instruction',
         'version': settings.MOBSF_VER,
@@ -217,7 +217,7 @@ def zip_format(request):
 
 def not_found(request):
     """Not Found Route."""
-    logger.error('weiry:not_found:')
+    logger.info('not_found:')
     context = {
         'title': 'Not Found',
         'version': settings.MOBSF_VER,
@@ -228,7 +228,7 @@ def not_found(request):
 
 def recent_scans(request):
     """Show Recent Scans Route."""
-    logger.error('weiry:recent_scans:')
+    logger.info('recent_scans:')
     entries = []
     db_obj = RecentScansDB.objects.all().order_by('-TIMESTAMP').values()
     android = StaticAnalyzerAndroid.objects.all()
@@ -254,7 +254,7 @@ def recent_scans(request):
 
 def download_apk(request):
     """Download and APK by package name."""
-    logger.error('weiry:download_apk:')
+    logger.info('download_apk:')
     package = request.POST['package']
     # Package validated in apk_download()
     context = {
@@ -274,7 +274,7 @@ def download_apk(request):
 
 def search(request):
     """Search Scan by MD5 Route."""
-    logger.error('weiry:search:')
+    logger.info('search:')
     md5 = request.GET['md5']
     if re.match('[0-9a-f]{32}', md5):
         db_obj = RecentScansDB.objects.filter(MD5=md5)
@@ -290,7 +290,7 @@ def search(request):
 
 def download(request):
     """Download from mobsf.MobSF Route."""
-    logger.error('weiry:download:')
+    logger.info('download:')
     if request.method == 'GET':
         root = settings.DWD_DIR
         allowed_exts = settings.ALLOWED_EXTENSIONS
@@ -316,7 +316,7 @@ def download(request):
 
 def delete_scan(request, api=False):
     """Delete Scan from DB and remove the scan related files."""
-    logger.error('weiry:delete_scan:')
+    logger.info('delete_scan:')
     try:
         if request.method == 'POST':
             if api:
@@ -362,7 +362,7 @@ def delete_scan(request, api=False):
             return print_n_send_error_response(request, msg, False, exp_doc)
 def privacy_scan(request, api=False):
     """Delete Scan from DB and remove the scan related files."""
-    logger.error('weiry:privacy_scan:')
+    logger.info('privacy_scan:')
     try:
         if request.method == 'POST':
             data = {'data': []}
@@ -372,8 +372,8 @@ def privacy_scan(request, api=False):
                 # logger.info('weiry:privacy_scan json_loads: %s', json_loads)
                 url_ = json_loads["url"]
                 search_ = json_loads["search"]
-                logger.info('weiry:privacy_scan url_: %s', url_)
-                logger.info('weiry:privacy_scan search_: %s', search_)
+                # logger.info('weiry:privacy_scan url_: %s', url_)
+                # logger.info('weiry:privacy_scan search_: %s', search_)
 
                 driver = webdriver.Chrome()
                 driver.get(url_)

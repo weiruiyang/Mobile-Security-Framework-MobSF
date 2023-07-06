@@ -43,7 +43,7 @@ def tree_index_maker(root_dir: Path, original_root_dir_len: int):
 
 def run(request):
     """Source Tree - Java/Smali view."""
-    logger.error('weiry:source_tree.run:')
+    logger.info('source_tree.run:')
     try:
         logger.info('Listing Source files')
         match = re.match('^[0-9a-f]{32}$', request.GET['md5'])

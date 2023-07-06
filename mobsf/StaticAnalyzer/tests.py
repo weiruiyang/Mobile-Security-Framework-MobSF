@@ -524,7 +524,7 @@ def api_test():
 
 def start_test(request):
     """Static Analyzer Unit test."""
-    logger.error('weiry:start_test:')
+    logger.info('start_test:')
     item = request.GET.get('module', 'static')
     if item == 'static':
         comp = 'static_analyzer'

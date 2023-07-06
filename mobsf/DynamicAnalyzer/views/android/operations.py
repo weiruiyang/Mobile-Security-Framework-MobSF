@@ -80,7 +80,7 @@ def invalid_params(api=False):
 @require_http_methods(['POST'])
 def mobsfy(request, api=False):
     """Configure Instance for Dynamic Analysis."""
-    logger.error('weiry:mobsfy:')
+    logger.info('mobsfy:')
     logger.info('MobSFying Android instance')
     data = {}
     msg = 'Connection failed'
@@ -114,7 +114,7 @@ def mobsfy(request, api=False):
 @require_http_methods(['POST'])
 def execute_adb(request, api=False):
     """Execute ADB Commands."""
-    logger.error('weiry:execute_adb:')
+    logger.info('execute_adb:')
     data = {'status': 'ok', 'message': ''}
     cmd = request.POST['cmd']
     if cmd:
@@ -143,7 +143,7 @@ def execute_adb(request, api=False):
 @require_http_methods(['POST'])
 def get_component(request):
     """Get Android Component."""
-    logger.error('weiry:get_component:')
+    logger.info('get_component:')
     data = {}
     try:
         env = Environment()
@@ -164,7 +164,7 @@ def get_component(request):
 @require_http_methods(['POST'])
 def run_apk(request):
     """Run Android APK."""
-    logger.error('weiry:run_apk:')
+    logger.info('run_apk:')
     data = {}
     try:
         env = Environment()
@@ -187,7 +187,7 @@ def run_apk(request):
 @require_http_methods(['POST'])
 def take_screenshot(request, api=False):
     """Take Screenshot."""
-    logger.error('weiry:take_screenshot:')
+    logger.info('take_screenshot:')
     logger.info('Taking screenshot')
     data = {}
     try:
@@ -217,7 +217,7 @@ def take_screenshot(request, api=False):
 @require_http_methods(['POST'])
 def screen_cast(request):
     """ScreenCast."""
-    logger.error('weiry:screen_cast:')
+    logger.info('screen_cast:')
     data = {}
     try:
         env = Environment()
@@ -235,7 +235,7 @@ def screen_cast(request):
 @require_http_methods(['POST'])
 def touch(request):
     """Sending Touch Events."""
-    logger.error('weiry:touch:')
+    logger.info('touch:')
     data = {}
     try:
         env = Environment()
@@ -263,7 +263,7 @@ def touch(request):
 @require_http_methods(['POST'])
 def mobsf_ca(request, api=False):
     """Install and Remove MobSF Proxy RootCA."""
-    logger.error('weiry:mobsf_ca:')
+    logger.info('mobsf_ca:')
     data = {}
     try:
         env = Environment()
@@ -287,7 +287,7 @@ def mobsf_ca(request, api=False):
 @require_http_methods(['POST'])
 def global_proxy(request, api=False):
     """Set/unset global proxy."""
-    logger.error('weiry:global_proxy:')
+    logger.info('global_proxy:')
     data = {}
     try:
         env = Environment()

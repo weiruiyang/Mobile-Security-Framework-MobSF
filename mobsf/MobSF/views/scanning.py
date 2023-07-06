@@ -16,7 +16,7 @@ def add_to_recent_scan(data):
     """Add Entry to Database under Recent Scan."""
     try:
         db_obj = RecentScansDB.objects.filter(MD5=data['hash'])
-        logger.warning('weiry:scanning:add_to_recent_scan db_obj: %s', db_obj)
+        # logger.warning('weiry:scanning:add_to_recent_scan db_obj: %s', db_obj)
         if not db_obj.exists():
             new_db_obj = RecentScansDB(
                 ANALYZER=data['analyzer'],
@@ -36,9 +36,9 @@ def handle_uploaded_file(content, extension):
     """Write Uploaded File."""
     md5 = hashlib.md5()
     bfr = isinstance(content, io.BufferedReader)
-    logger.warning('weiry:scanning:handle_uploaded_file content: %s', content)
-    logger.warning('weiry:scanning:handle_uploaded_file extension: %s', extension)
-    logger.warning('weiry:scanning:handle_uploaded_file bfr: %s', bfr)
+    # logger.warning('weiry:scanning:handle_uploaded_file content: %s', content)
+    # logger.warning('weiry:scanning:handle_uploaded_file extension: %s', extension)
+    # logger.warning('weiry:scanning:handle_uploaded_file bfr: %s', bfr)
     if bfr:
         # Not File upload
         while chunk := content.read(8192):
@@ -49,8 +49,8 @@ def handle_uploaded_file(content, extension):
             md5.update(chunk)
     md5sum = md5.hexdigest()
     anal_dir = os.path.join(settings.UPLD_DIR, md5sum + '/')
-    logger.warning('weiry:scanning:handle_uploaded_file anal_dir: %s', anal_dir)
-    logger.warning('weiry:scanning:handle_uploaded_file md5sum: %s', md5sum)
+    # logger.warning('weiry:scanning:handle_uploaded_file anal_dir: %s', anal_dir)
+    # logger.warning('weiry:scanning:handle_uploaded_file md5sum: %s', md5sum)
     if not os.path.exists(anal_dir):
         os.makedirs(anal_dir)
     with open(f'{anal_dir}{md5sum}{extension}', 'wb+') as destination:

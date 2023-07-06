@@ -50,8 +50,8 @@ class Frida:
         if not self.defaults:
             return header
         def_scripts = os.path.join(self.frida_dir, 'default')
-        logger.warning('weiry:get_default_scripts:def_scripts: %s', def_scripts)
-        logger.warning('weiry:get_default_scripts:self.defaults: %s', self.defaults)
+        # logger.warning('weiry:get_default_scripts:def_scripts: %s', def_scripts)
+        # logger.warning('weiry:get_default_scripts:self.defaults: %s', self.defaults)
         files = glob.glob(def_scripts + '**/*.js', recursive=True)
         for item in files:
             script = Path(item)
@@ -91,10 +91,10 @@ class Frida:
         # Load custom code first
         scripts = [self.code]
         default_scripts = self.get_default_scripts()
-        logger.warning('weiry:get_script:default_scripts: %s', default_scripts)
+        # logger.warning('weiry:get_script:default_scripts: %s', default_scripts)
         scripts.extend(default_scripts)
         get_auxiliary = self.get_auxiliary()
-        logger.warning('weiry:get_script:get_auxiliary: %s', get_auxiliary)
+        # logger.warning('weiry:get_script:get_auxiliary: %s', get_auxiliary)
         scripts.extend(get_auxiliary)
         final = 'setTimeout(function() {{ {} }}, 0)'.format(
             '\n'.join(scripts))
@@ -151,11 +151,11 @@ class Frida:
         try:
             if session:
                 get_script = self.get_script()
-                logger.warning('weiry:connect:get_script: %s', get_script)
+                # logger.warning('weiry:connect:get_script: %s', get_script)
                 script = session.create_script(get_script)
-                logger.warning('weiry:connect:script: %s', script)
+                # logger.warning('weiry:connect:script: %s', script)
                 response = self.frida_response
-                logger.warning('weiry:connect:response: %s', response)
+                # logger.warning('weiry:connect:response: %s', response)
                 script.on('message', response)
                 script.load()
                 time.sleep(5)

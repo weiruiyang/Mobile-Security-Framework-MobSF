@@ -24,7 +24,7 @@
     masvs: storage-7
 - id: android_insecure_ssl
   message: >-
-    weiry Insecure Implementation of SSL. Trusting all the certificates or accepting
+    Insecure Implementation of SSL. Trusting all the certificates or accepting
     self signed certificates is a critical Security Hole. This application is
     vulnerable to MITM attacks
   type: RegexAnd
@@ -42,7 +42,7 @@
     ref: https://github.com/MobSF/owasp-mstg/blob/master/Document/0x05g-Testing-Network-Communication.md#android-network-apis
 - id: android_insecure_ssl_sethostnameverifier
   message: >-
-    weiry Insecure Implementation of SSL. Trusting all the certificates or accepting
+    Insecure Implementation of SSL. Trusting all the certificates or accepting
     self signed certificates is a critical Security Hole. This application is
     vulnerable to MITM attacks. Please set setHostnameVerifier
   type: Regex
@@ -57,7 +57,7 @@
     ref: https://github.com/MobSF/owasp-mstg/blob/master/Document/0x05g-Testing-Network-Communication.md#android-network-apis
 - id: not_android_insecure_ssl_sethostnameverifier
   message: >-
-    weiry NOT: Insecure Implementation of SSL. Trusting all the certificates or accepting
+    NOT: Insecure Implementation of SSL. Trusting all the certificates or accepting
     self signed certificates is a critical Security Hole. This application is
     vulnerable to MITM attacks. Please set setHostnameVerifier
   type: RegexAnd
@@ -179,7 +179,7 @@
     masvs: storage-2
 - id: android_webview
   message: >-
-    weiry Insecure WebView Implementation. Execution of user controlled code in
+    Insecure WebView Implementation. Execution of user controlled code in
     WebView is a critical Security Hole.
   type: RegexOr
   pattern:
@@ -754,7 +754,7 @@
     ref: https://github.com/MobSF/owasp-mstg/blob/master/Document/0x05j-Testing-Resiliency-Against-Reverse-Engineering.md#testing-root-detection-mstg-resilience-1
 - id: android_hardcoded
   message: >-
-    weiry Files may contain hardcoded sensitive information like usernames,
+    Files may contain hardcoded sensitive information like usernames,
     passwords, phone number, email etc.
   input_case: lower
   pattern:
@@ -773,7 +773,7 @@
     ref: https://github.com/MobSF/owasp-mstg/blob/master/Document/0x05d-Testing-Data-Storage.md#checking-memory-for-sensitive-data-mstg-storage-10
 - id: weiry_android_read_write_external_warning
   message: >-
-    weiry App can read/write to External Storage. Any App can read data written to
+    App can read/write to External Storage. Any App can read data written to
     External Storage.
   type: RegexOr
   pattern:
@@ -789,7 +789,7 @@
     ref: https://github.com/MobSF/owasp-mstg/blob/master/Document/0x05d-Testing-Data-Storage.md#checking-memory-for-sensitive-data-mstg-storage-10
 - id: weiry_android_read_write_external_high
   message: >-
-    weiry The file is World Readable and Writable. Any App can read/write to the file.
+    The file is World Readable and Writable. Any App can read/write to the file.
   type: RegexOr
   pattern:
     - Context\.MODE_WORLD_WRITEABLE
@@ -807,7 +807,7 @@
     ref: https://github.com/MobSF/owasp-mstg/blob/master/Document/0x05d-Testing-Data-Storage.md#checking-memory-for-sensitive-data-mstg-storage-10
 - id: weiry_rsa
   message: >-
-    weiry This App uses RSA Crypto without OAEP padding. The purpose of the padding
+    This App uses RSA Crypto without OAEP padding. The purpose of the padding
     scheme is to prevent a number of attacks on RSA that only work when the
     encryption is performed without padding.
   type: RegexOr
@@ -826,7 +826,7 @@
     ref: https://github.com/MobSF/owasp-mstg/blob/master/Document/0x05d-Testing-Data-Storage.md#checking-memory-for-sensitive-data-mstg-storage-10
 - id: weiry_rsa_sise
   message: >-
-    weiry This App uses RSA initialize sise < 2048.
+    This App uses RSA initialize sise < 2048.
   type: RegexAnd
   pattern:
     - KeyPairGenerator\.getInstance\(\s*"RSA"
@@ -841,7 +841,7 @@
     ref: https://github.com/MobSF/owasp-mstg/blob/master/Document/0x05d-Testing-Data-Storage.md#checking-memory-for-sensitive-data-mstg-storage-10
 - id: android_webview_from_file_urls
   message: >-
-    weiry Insecure WebView Implementation. There is a risk that the application can use JavaScript to access malicious website links.
+    Insecure WebView Implementation. There is a risk that the application can use JavaScript to access malicious website links.
   type: RegexOr
   pattern:
     - setAllowFileAccessFromFileURLs\(true\)
@@ -857,7 +857,7 @@
     ref: https://github.com/MobSF/owasp-mstg/blob/master/Document/0x05h-Testing-Platform-Interaction.md#testing-javascript-execution-in-webviews-mstg-platform-5
 - id: android_webview_http_auth
   message: >-
-    weiry HTTP authentication is not a secure way of authentication.
+    HTTP authentication is not a secure way of authentication.
   type: RegexAnd
   pattern:
     - WebView
@@ -872,7 +872,7 @@
     ref: https://github.com/MobSF/owasp-mstg/blob/master/Document/0x05h-Testing-Platform-Interaction.md#testing-javascript-execution-in-webviews-mstg-platform-5
 - id: android_android_gif_drawable
   message: >-
-    weiry Android-gif-Drawable < 1.1.17.
+    Android-gif-Drawable < 1.1.17.
   type: RegexAnd
   pattern:
    - VERSION_NAME\s*=\s*\"1\.[0-1]\.([0-9]|1[0-6])\"
@@ -889,7 +889,7 @@
     ref: https://github.com/MobSF/owasp-mstg/blob/master/Document/0x05h-Testing-Platform-Interaction.md#testing-javascript-execution-in-webviews-mstg-platform-5
 - id: android_dynamic_dexloading
   message: >-
-    weiry Dynamic Class and Dexloading
+    Dynamic Class and Dexloading
   type: RegexOr
   pattern:
     - dalvik\.system\.DexClassLoader
@@ -906,7 +906,7 @@
     ref: https://github.com/MobSF/owasp-mstg/blob/master/Document/0x05h-Testing-Platform-Interaction.md#testing-javascript-execution-in-webviews-mstg-platform-5
 - id: android_random
   message: >-
-    weiry Using Random is not safe.
+    Using Random is not safe.
   type: Regex
   pattern: \s+new\s+Random\(\)
   severity: warning
@@ -919,7 +919,7 @@
     ref: https://github.com/MobSF/owasp-mstg/blob/master/Document/0x05h-Testing-Platform-Interaction.md#testing-javascript-execution-in-webviews-mstg-platform-5
 - id: android_secure_random
   message: >-
-    weiry It's not safe random
+    It's not safe random
   type: RegexAnd
   pattern:
     - SecureRandom\s+
@@ -934,7 +934,7 @@
     ref: https://github.com/MobSF/owasp-mstg/blob/master/Document/0x05h-Testing-Platform-Interaction.md#testing-javascript-execution-in-webviews-mstg-platform-5
 - id: android_http
   message: >-
-    weiry Using the HTTP protocol
+    Using the HTTP protocol
   type: Regex
   pattern: http://[\w().=/;,#:@?&~*+!$%\'{}-]+
   severity: warning
@@ -947,7 +947,7 @@
     ref: https://github.com/MobSF/owasp-mstg/blob/master/Document/0x05h-Testing-Platform-Interaction.md#testing-javascript-execution-in-webviews-mstg-platform-5
 - id: android_http_https
   message: >-
-    weiry Possibly hard-coded urls
+    Possibly hard-coded urls
   type: Regex
   pattern: https?://[\w().=/;,#:@?&~*+!$%\'{}-]+
   severity: warning
@@ -960,7 +960,7 @@
     ref: https://github.com/MobSF/owasp-mstg/blob/master/Document/0x05h-Testing-Platform-Interaction.md#testing-javascript-execution-in-webviews-mstg-platform-5
 - id: android_send_broadcast
   message: >-
-    weiry No permissions are set for sending broadcasts.How to misreport, please do not use anonymous object inside () direct new
+    No permissions are set for sending broadcasts.How to misreport, please do not use anonymous object inside () direct new
   type: Regex
   pattern: \.sendBroadcast\([^,]+\);
   severity: warning
@@ -973,7 +973,7 @@
     ref: https://github.com/MobSF/owasp-mstg/blob/master/Document/0x05h-Testing-Platform-Interaction.md#testing-javascript-execution-in-webviews-mstg-platform-5
 - id: android_broadcast_registerReceiver
   message: >-
-    weiry There are no set permissions for dynamically registered broadcasts.How to misreport, please do not use anonymous object inside () direct new
+    There are no set permissions for dynamically registered broadcasts.How to misreport, please do not use anonymous object inside () direct new
   type: RegexOr
   pattern:
     - \.registerReceiver\([^,]+,[^,]+\);
@@ -988,7 +988,7 @@
     ref: https://github.com/MobSF/owasp-mstg/blob/master/Document/0x05h-Testing-Platform-Interaction.md#testing-javascript-execution-in-webviews-mstg-platform-5
 - id: all_android_webview_remove_javascript_interface_searchboxjavabridge
   message: >-
-    weiry Security WebView Implementation.
+    Security WebView Implementation.
   type: Regex
   pattern: removeJavascriptInterface\(\s*\"searchBoxJavaBridge_\"\s*\)
   severity: good
@@ -1001,7 +1001,7 @@
     ref: https://github.com/MobSF/owasp-mstg/blob/master/Document/0x05h-Testing-Platform-Interaction.md#testing-javascript-execution-in-webviews-mstg-platform-5
 - id: all_android_webview_remove_javascript_interface_accessibility
   message: >-
-    weiry Security WebView Implementation.
+    Security WebView Implementation.
   type: Regex
   pattern: removeJavascriptInterface\(\s*\"accessibility\"\s*\)
   severity: good
@@ -1014,7 +1014,7 @@
     ref: https://github.com/MobSF/owasp-mstg/blob/master/Document/0x05h-Testing-Platform-Interaction.md#testing-javascript-execution-in-webviews-mstg-platform-5
 - id: all_android_webview_remove_javascript_interface_accessibilitytraversal
   message: >-
-    weiry Security WebView Implementation.
+    Security WebView Implementation.
   type: Regex
   pattern: removeJavascriptInterface\(\s*\"accessibilityTraversal\"\s*\)
   severity: good
@@ -1027,7 +1027,7 @@
     ref: https://github.com/MobSF/owasp-mstg/blob/master/Document/0x05h-Testing-Platform-Interaction.md#testing-javascript-execution-in-webviews-mstg-platform-5
 - id: android_webview_remove_javascript_interface
   message: >-
-    weiry Insecure WebView Implementation. searchBoxJavaBridge_ accessibility , accessibilityTraversal interfaces Calling the  not removed.
+    Insecure WebView Implementation. searchBoxJavaBridge_ accessibility , accessibilityTraversal interfaces Calling the  not removed.
   type: Regex
   pattern: android\.webkit\.WebView
   severity: warning
@@ -1040,7 +1040,7 @@
     ref: https://github.com/MobSF/owasp-mstg/blob/master/Document/0x05h-Testing-Platform-Interaction.md#testing-javascript-execution-in-webviews-mstg-platform-5
 - id: android_zipper_down
   message: >-
-    weiry ZipperDown. You must make a judgment on name (name.contains("..") || name.startsWith ("/") || name.endsWith ("/"))
+    ZipperDown. You must make a judgment on name (name.contains("..") || name.startsWith ("/") || name.endsWith ("/"))
   type: Regex
   pattern: java\.util\.zip\.ZipInputStream;
   severity: warning
@@ -1053,7 +1053,7 @@
     ref: https://github.com/MobSF/owasp-mstg/blob/master/Document/0x05h-Testing-Platform-Interaction.md#testing-javascript-execution-in-webviews-mstg-platform-5
 - id: not_android_zipper_down
   message: >-
-    weiry NOT: ZipperDown. You must make a judgment on name (name.contains("..") || name.startsWith ("/") || name.endsWith ("/"))
+    NOT: ZipperDown. You must make a judgment on name (name.contains("..") || name.startsWith ("/") || name.endsWith ("/"))
   type: RegexAndOr
   pattern:
       - java\.util\.zip\.ZipInputStream;

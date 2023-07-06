@@ -140,7 +140,7 @@ def url_n_email_extract(dat, relative_path):
 
 # This is just the first sanity check that triggers generic_compare
 def compare_apps(request, hash1: str, hash2: str, api=False):
-    logger.error('weiry:compare_apps:')
+    logger.info('compare_apps:')
     if hash1 == hash2:
         error_msg = 'Results with same hash cannot be compared'
         return print_n_send_error_response(request, error_msg, api)

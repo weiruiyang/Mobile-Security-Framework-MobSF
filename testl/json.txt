@@ -1,5 +1,5 @@
 {
-	"crime": "weiry getExternalFilesDir getExternalStorageState",
+	"crime": "getExternalFilesDir getExternalStorageState",
 	"permission": [],
 	"api": [{
 		"class": "Landroid/content/Context;",
