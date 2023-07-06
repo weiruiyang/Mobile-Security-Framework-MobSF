@@ -549,7 +549,7 @@ def start_test(request):
                         status=resp_code)
 
 def posttest(request):
-    logger.warning('weiry:posttest:posttest')
+    # logger.warning('weiry:posttest:posttest')
     ctx ={}
     if request.POST:
         ctx['rlt'] = request.POST['q']

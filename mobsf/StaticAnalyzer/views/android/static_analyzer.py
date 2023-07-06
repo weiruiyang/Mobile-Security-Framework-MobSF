@@ -625,7 +625,7 @@ def move_to_parent(inside, app_dir):
 def get_app_name(app_path, app_dir, is_apk):
     """Get app name."""
     if is_apk:
-        logger.warning('weiry:get_app_name:apk: %s', apk)
+        # logger.warning('weiry:get_app_name:apk: %s', apk)
         a = apk.APK(app_path)
         real_name = a.get_app_name()
         return real_name
