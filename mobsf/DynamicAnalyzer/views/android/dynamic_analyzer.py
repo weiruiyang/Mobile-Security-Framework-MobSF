@@ -205,10 +205,14 @@ def dynamic_self_start(request, checksum, api=False):
         time.sleep(5)
         env.stop_app(package)
 
+
+        logger.info('run_time %s', run_time)
+
         is_run_app = False
-        for i in range(run_time):
+        for i in range(int(run_time)):
             time.sleep(1)
             is_run_app = env.find_run_app(package)
+            logger.info('is_run_app %s i %s', is_run_app, i)
             if is_run_app:
                 break
             else:
