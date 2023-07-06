@@ -354,6 +354,11 @@ var apis = [{
     name: 'Device Info'
 }, {
     class: 'android.telephony.TelephonyManager',
+    method: 'getCellLocation',
+    tag:'location',
+    name: 'Device Info'
+}, {
+    class: 'android.telephony.TelephonyManager',
     method: 'getNetworkOperator',
     name: 'Device Info'
 }, {
@@ -363,6 +368,11 @@ var apis = [{
 }, {
     class: 'android.telephony.TelephonyManager',
     method: 'getSimOperatorName',
+    tag:'operator',
+    name: 'Device Info'
+}, { class: 'android.telephony.TelephonyManager',
+    method: 'getSimOperator',
+    tag:'operator',
     name: 'Device Info'
 }, {
     class: 'android.telephony.TelephonyManager',
@@ -375,8 +385,14 @@ var apis = [{
 }, {
     class: 'android.telephony.TelephonyManager',
     method: 'getDeviceSoftwareVersion',
+    tag:'imei',
     name: 'Device Info'
 }, {
+    class: 'android.net.wifi.WifiManager',
+    method: 'getConfiguredNetworks',
+    tag:'mac_address',
+    name: 'Device Info'
+},  {
     class: 'android.net.wifi.WifiInfo',
     method: 'getMacAddress',
     tag:'mac_address',
@@ -385,6 +401,11 @@ var apis = [{
     class: 'android.net.wifi.WifiInfo',
     method: 'getBSSID',
     tag:'mac_address',
+    name: 'Device Info'
+}, {
+    class: 'android.net.wifi.WifiInfo',
+    method: 'getSSID',
+    tag:'ssid',
     name: 'Device Info'
 }, {
     class: 'android.net.wifi.WifiInfo',
@@ -400,6 +421,11 @@ var apis = [{
     class: 'java.net.NetworkInterface',
     method: 'getNetworkInterfaces',
     tag:'network_list',
+    name: 'Device Info'
+},  {
+    class: 'java.net.NetworkInterface',
+    method: 'getInetAddresses',
+    tag:'ip_address',
     name: 'Device Info'
 }, {
     class: 'android.os.Debug',
