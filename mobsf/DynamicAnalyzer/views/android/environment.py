@@ -528,21 +528,23 @@ class Environment:
                           'force-stop',
                           package], True)
     def find_run_app(self, package):
-        if platform.system() == 'Windows':
-            out = self.adb_command(['ps',
-                                    '|',
-                                    'grep',
-                                    package], True)
-        else:
-            out = self.adb_command(['ps',
-                                    '|',
-                                    'findstr',
-                                    package], True)
+        # if platform.system() == 'Windows':
+        #     out = self.adb_command(['ps',
+        #                             '|',
+        #                             'grep',
+        #                             package], True)
+        # else:
+        #     out = self.adb_command(['ps',
+        #                             '|',
+        #                             'findstr',
+        #                             package], True)
+        out = self.adb_command(['ps'], True, True)
         pkg = f'{package}'.encode('utf-8')
         pkg_fmts = [pkg + b'\n', pkg + b'\r\n', pkg + b'\r\r\n', pkg + b':']
-        if any(pkg in out for pkg in pkg_fmts):
-            # Windows uses \r\n and \r\r\n
-            return True
+        if out:
+            if any(pkg in out for pkg in pkg_fmts):
+                # Windows uses \r\n and \r\r\n
+                return True
         return False
     def is_mobsfyied(self, android_version):
         """Check is Device is MobSFyed."""

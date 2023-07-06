@@ -208,7 +208,8 @@ def dynamic_self_start(request, checksum, api=False):
         is_run_app = False
         for i in range(run_time):
             time.sleep(1)
-            if env.find_run_app(package):
+            is_run_app = env.find_run_app(package)
+            if is_run_app:
                 break
             else:
                 pass
