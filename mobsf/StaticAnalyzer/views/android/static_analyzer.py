@@ -332,7 +332,7 @@ def static_analyzer(request, api=False):
                         app_dic['app_path'],
                         app_dic['md5'])
                 template = 'static_analysis/android_binary_analysis.html'
-                logger.warning('weiry:static_analyzer:context: %s', context)
+                # logger.warning('weiry:static_analyzer:context: %s', context)
                 if api:
                     return context
                 else:
