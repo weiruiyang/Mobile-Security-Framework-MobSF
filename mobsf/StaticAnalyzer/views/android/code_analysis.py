@@ -183,11 +183,11 @@ def codeRulesText(code_findings, code_rules_text):
             # logger.info('weiry:code_findings type_: %s', type_)
             if "all" == type_:
                 is_all = True
-                if code_findings[ob_class_id_]:
+                if code_findings.get(ob_class_id_):
                     # logger.info('weiry:code_findings code_findings[ob_class_id_]: %s', code_findings[ob_class_id_])
                     for id_s in ob_class["ids"]:
                         # logger.info('weiry:code_findings id_s: %s', id_s)
-                        if code_findings[id_s]:
+                        if code_findings.get(id_s):
                             # logger.info('weiry:code_findings code_findings[id_s]: %s', code_findings[id_s])
                             del code_findings[id_s]
                         else:
@@ -197,11 +197,11 @@ def codeRulesText(code_findings, code_rules_text):
                 if not is_all:
                     del code_findings[ob_class_id_]
             elif ("not" == type_):
-                if code_findings[ob_class_id_]:
+                if code_findings.get(ob_class_id_):
                     # logger.info('weiry:code_findings code_findings[ob_class_id_]: %s', code_findings[ob_class_id_])
                     for id_s in ob_class["ids"]:
                         # logger.info('weiry:code_findings id_s: %s', id_s)
-                        if code_findings[id_s]:
+                        if code_findings.get(id_s):
                             # logger.info('weiry:code_findings code_findings[id_s]: %s', code_findings[id_s])
                             files_ = code_findings[id_s]["files"]
                             for key, value in files_.items():
